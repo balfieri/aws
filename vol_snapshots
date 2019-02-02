@@ -4,4 +4,4 @@ use strict;
 use warnings;
 
 my $vol = shift @ARGV || `inst_vol`;
-system( "aws ec2 describe-snapshots --query 'Snapshots[*].{ID:SnapshotId,Time:StartTime}' --filter Name=volume-id,Values=${vol}" );
+system( "aws ec2 describe-snapshots --query 'Snapshots[*].{ID:SnapshotId,Time:StartTime}' --filter Name=volume-id,Values=${vol} | sort -n -k 2,2" );
