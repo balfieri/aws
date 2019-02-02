@@ -23,6 +23,7 @@ owner_region                            [will return the region you specified ab
 
 <h3>Create a Key Pair for SSH etc.</h3>
 
+<p>
 <pre>
 [embed your LASTNAME in the key name or whatever you want to call it:]
 aws ec2 create-key-pair --key-name awsLASTNAMEkey --query 'KeyMaterial' --output text > ~/.ssh/awsLASTNAMEkey.pem
