@@ -4,4 +4,4 @@ use strict;
 use warnings;
 
 my $vol = shift @ARGV || `inst_vol`;
-system( "aws ec2 describe-images --owners `inst_owner` --query 'Images[*].{ID:ImageId,Time:CreationDate}'" );
+system( "aws ec2 describe-images --owners `inst_owner` --query 'Images[*].{ID:ImageId,Time:CreationDate}' | sort -n -k 2,2" );
