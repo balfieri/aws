@@ -1,4 +1,4 @@
-Amazon AWS scripts.  Written in Perl.  Documentation coming soon.
+Trivial Amazon AWS scripts.  Written in Perl, mostly less than 10 lines of code.
 
 <h1>One-Time Initialization</h1>
 <pre>
@@ -32,7 +32,7 @@ then take a snapshot and use that snapshot to clone new instances.
 
 <p>
 The first one is a little more complicated than doing others:
-</P.
+</p>
 
 <pre>
 [do this to pick an ami-nnn image, look in image.txt and pick one that suits you:]
@@ -41,12 +41,16 @@ aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hv
 [create this instance using t2.medium for starters; you can change the instance type later:]
 aws ec2 run-instances --image-id ami-009d6802948d06e52 --count 1 --instance-type t2.medium --key-name awsLASTNAMEkey --security-group-ids `owner_group` --region  `owner_region`
 owner-insts                             [will return your i-nnn instance id]
+</pre>
 
+<h1>Create Your Default get_instance Script<h1>
+
+<pre>
 [create a get_instance executable script somewhere on your path (like this dir) and have contain this stuff:]
 cat > get_instance
 #!/usr/bin/perl -w
 #
-print "i-nnn";                          [your i-nnn id from above]
+print "i-nnn";                          [your i-nnn id returned by owner-insts]
 ^D
 </pre>
 
