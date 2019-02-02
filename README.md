@@ -84,5 +84,6 @@ stop_inst
 
 <p>
 Most of the scripts here will automatically issue a "start_inst" to make sure the instance is
-started.</p>
+started, but they won't stop the instance automatically unless the script requires that
+it be stopped.</p>
 
