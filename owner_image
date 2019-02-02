@@ -1,0 +1,9 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $image = `owner_images | tail -1`;
+chomp $image;
+$image =~ s/\s+.*//;
+print $image;

@@ -1,0 +1,17 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $inst = shift @ARGV || `get_instance`;
+my $host;
+for( ;; )
+{
+    $host = `inst_host`;
+    $host ne "" and last;
+
+    print "Starting $inst and waiting for it to be running...\n"; 
+    system( "aws ec2 start-instances --instance-ids ${inst}" );
+    system( "aws ec2 wait instance-running --instance-ids ${inst}" );
+}
+print "$inst is running on ${host}\n";

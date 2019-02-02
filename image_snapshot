@@ -1,0 +1,9 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $snapshot = shift @ARGV || die "image_snapshot snapshot-id name\n";
+my $name     = shift @ARGV || die "image_snapshot snapshot-id name\n";
+my $device   = `inst_device`;
+system( "aws ec2 register-image --name ${name} --root-device-name ${device} --block-device-mappings DeviceName=\"${device}\",Ebs={DeleteOnTermination=true,SnapshotId=\"${snapshot}}\"" );

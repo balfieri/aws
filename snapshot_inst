@@ -1,0 +1,9 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $inst = shift @ARGV || `get_instance`;
+system( "stop_inst" );
+my $vol = `inst_vol`;
+system( "aws ec2 create-snapshot --volume-id ${vol}" );

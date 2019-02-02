@@ -1,0 +1,9 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $inst = shift @ARGV || `get_instance`;
+my $zone = `aws ec2 describe-instances --instance-ids ${inst} --query 'Reservations[*].Instances[*].Placement.AvailabilityZone' --output text`; 
+chomp $zone;
+print $zone;

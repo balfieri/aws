@@ -1,0 +1,12 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $src = shift @ARGV;
+my $dst = shift @ARGV;
+
+system( "start_inst" );
+my $host = `inst_host`;
+my $key  = `inst_key`;
+system( "scp -i ~/.ssh/${key}.pem ec2-user\@${host}:${src} ${dst}" );

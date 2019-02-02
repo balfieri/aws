@@ -1,0 +1,9 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $inst = shift @ARGV || `get_instance`;
+my $vol = `aws ec2 describe-instances --instance-ids ${inst} --query 'Reservations[*].Instances[*].[BlockDeviceMappings[*].Ebs.VolumeId]' --output text`;
+chomp $vol;
+print $vol;

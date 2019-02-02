@@ -1,0 +1,11 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $inst = shift @ARGV || `get_instance`;
+my $host = `inst_host`;
+if ( $host ne "" ) {
+    print "Stopping $inst...\n";
+    system( "aws ec2 stop-instances --instance-ids ${inst}" );
+}

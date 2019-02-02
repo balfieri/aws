@@ -1,0 +1,11 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $cmd = join( " ", @ARGV );
+
+system( "start_inst" );
+my $host = `inst_host`;
+my $key  = `inst_key`;
+system( "ssh -i ~/.ssh/${key}.pem ec2-user\@${host} ${cmd}" );

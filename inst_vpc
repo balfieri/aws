@@ -1,0 +1,7 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $inst = shift @ARGV || `get_instance`;
+my $owner = `aws ec2 describe-instances --instance-ids ${inst} --query 'Reservations[*].Instances[*].NetworkInterfaces[*].VpcId' --output text`; print $owner;

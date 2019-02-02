@@ -1,0 +1,11 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $func = shift @ARGV;
+my $args = join( " ", @ARGV );
+my $payload = "{\"body\": \"${args}\"}";
+my $cmd = "aws lambda invoke --function-name ${func} --log-type Tail --payload '${payload}' --output json /dev/stdout";
+print "${cmd}\n";
+system( $cmd ) == 0 or die "ERROR: lambda failed\n";

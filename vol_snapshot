@@ -1,0 +1,9 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $snapshot = `vol_snapshots | tail -1`;
+chomp $snapshot;
+$snapshot =~ s/\s+.*//;
+print $snapshot;
