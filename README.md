@@ -43,7 +43,7 @@ aws ec2 run-instances --image-id ami-009d6802948d06e52 --count 1 --instance-type
 owner-insts                             [will return your i-nnn instance id]
 </pre>
 
-<h1>Create Your Default get_instance Script<h1>
+<h1>Create Your Default get_instance Script</h1>
 
 <pre>
 [create a get_instance executable script somewhere on your path (like this dir) and have contain this stuff:]
