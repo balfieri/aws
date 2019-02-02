@@ -5,12 +5,14 @@ Trivial Amazon AWS scripts.  Written in Perl, mostly less than 10 lines of code.
 <h3>Get Stuff Setup on Your Local PC</h3>
 
 <pre>
-install aws-cli (search web for this)
+[put this directory on your PATH]
+
+[install AWS command-line tool:]
+[install aws-cli (search web for how to do this on your PC)]
 aws configure
 region: us-east-1                       [or whatever suits you]
 [get credentials from your AWS console]
 
-[put this directory on your PATH]
 [now some sanity checks:]
 owner_group                             [will return your sg-nnn security group id]
 owner_vpc                               [will return your vpc-nnn VPC id]
@@ -18,11 +20,14 @@ owner_region                            [will return the region you specified ab
 
 [Those don't print a newline so that you can use them on command lines like `owner_group` etc.]
 
-[create a key pair for your LASTNAME (for me, awsalfierikey) or call it whatever you want:]
+<h3>Create a Key Pair for SSH etc.</h3>
+
+<pre>
+[embed your LASTNAME in the key name or whatever you want to call it:]
 aws ec2 create-key-pair --key-name awsLASTNAMEkey --query 'KeyMaterial' --output text > ~/.ssh/awsLASTNAMEkey.pem
 chmod 400 ~/.ssh/awsLASTNAMEkey.pem
 
-[allow TCP to get to your security group:]
+[allow TCP to get to your security group so you can login etc.:]
 aws ec2 authorize-security-group-ingress --group-id `owner_group` --protocol tcp --port 22 --cidr 0.0.0.0/0 --region `owner_region`
 </pre>
 
