@@ -1,6 +1,9 @@
 Trivial Amazon AWS scripts.  Written in Perl, mostly less than 10 lines of code.
 
 <h1>One-Time Initialization</h1>
+
+<h2>Get Stuff Setup on Your Local PC</h2>
+
 <pre>
 install aws-cli (search web for this)
 aws configure
@@ -23,7 +26,7 @@ chmod 400 ~/.ssh/awsLASTNAMEkey.pem
 aws ec2 authorize-security-group-ingress --group-id `owner_group` --protocol tcp --port 22 --cidr 0.0.0.0/0 --region `owner_region`
 </pre>
 
-<h1>Create Your Master Instance</h1>
+<h2>Create Your Master Instance</h2>
 
 <p>
 Typically, you'll want one instance to act as a template for others.  So you'll get a program running on the master instance,
@@ -43,10 +46,12 @@ aws ec2 run-instances --image-id ami-009d6802948d06e52 --count 1 --instance-type
 owner-insts                             [will return your i-nnn instance id]
 </pre>
 
-<h1>Create Your Default get_instance Script</h1>
+<h2>Create Your Default get_instance Script</h2>
+
+<p>
+Create a get_instance executable script somewhere on your path (like this dir) and have contain this stuff:</p>
 
 <pre>
-[create a get_instance executable script somewhere on your path (like this dir) and have contain this stuff:]
 cat > get_instance
 #!/usr/bin/perl -w
 #
