@@ -64,3 +64,25 @@ Now when you type get_instance it will return your master instance id.
 This is important because many of the script described next will use get_instance to get the
 default instance id for operations.  You can often override it, but usually you don't want to.
 </p>
+
+<h3>Install Software On Your Master Instance</h3>
+
+<pre>
+on_inst                                 [should ssh you to your master instance]
+$ sudo yum update -y                    [updates system software]
+$ sudo yum install gcc-c++              [or whatever apps you want]
+$ exit                                  [logout]
+</pre>
+
+<h3>Stop Your Master Instance!</h3>
+
+<p>Remember to stop your master instance when you aren't using it:</p>
+
+<pre>
+stop_inst
+</pre>
+
+<p>
+Most of the scripts here will automatically issue a "start_inst" to make sure the instance is
+started.</p>
+
