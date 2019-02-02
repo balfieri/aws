@@ -17,8 +17,9 @@ region: us-east-1                       [or whatever suits you]
 owner_group                             [will return your sg-nnn security group id]
 owner_vpc                               [will return your vpc-nnn VPC id]
 owner_region                            [will return the region you specified above]
+</pre>
 
-[Those don't print a newline so that you can use them on command lines like `owner_group` etc.]
+<p>Those don't print a newline so that you can use them on command lines like `owner_group` etc.</p>
 
 <h3>Create a Key Pair for SSH etc.</h3>
 
