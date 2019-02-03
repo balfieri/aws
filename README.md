@@ -68,12 +68,10 @@ owner-insts                             [will return your i-nnn instance id]
 <h3>Create Your Default get_instance Script</h3>
 
 <p>
-Create a "get_instance" executable script in a directory that is on your PATH (this dir is fine!) and have it contain this code:</p>
+Create a "get_instance" executable(!) script in a directory that is on your PATH (this dir is fine!) and have it contain this code:</p>
 
 <pre>
-#!/usr/bin/perl -w
-#
-print "i-nnn";                          # your i-nnn id returned by owner-insts
+echo -n "i-nnn";                          # your i-nnn id returned by owner-insts
 </pre>
 
 <p>
