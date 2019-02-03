@@ -157,10 +157,12 @@ fm_inst src dst                         # scp src file or directory from instanc
 
 <pre>
 
-snapshot_inst                           # take a snapshot of the instance
+snapshot_inst                           # take a snapshot of the instance (for backups)
+image_snapshot_inst                     # take a snapshot, then create an ami-nnn launchable image from it 
 vol_snapshot                            # get snapshot-nnn id of most recent snapshot for instance's root volume
 vol_snapshots                           # get snapshot-nnn ids of all snapshots for instance's root volume
 </pre>
 
 <p>
-Note that snapshots do not consume extra space.  Amazon implements them using copy-on-write.</p>
+Note that snapshots do not consume extra space.  Amazon implements them using copy-on-write, so new space is allocated only when blocks are 
+changed in one of the volumes (snapshot or other).</p>
