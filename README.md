@@ -1,17 +1,20 @@
-Trivial Amazon AWS scripts.  Written in Perl, mostly less than 10 lines of code.
+Some simple Amazon AWS scripts.  Written in Perl, mostly less than 10 lines of code.
 
 <h1>One-Time Initialization</h1>
 
-<h3>Get Stuff Setup on Your Local PC</h3>
+<h3>Set Up Your Local PC for AWS Command Line</h3>
 
 <pre>
-[put this directory on your PATH]
+[download this directory and put it on your PATH]
+cd [somewhere]
+git clone https://github.com/balfieri/aws
+export PATH=...
 
 [install AWS command-line tool:]
 [install aws-cli (search web for how to do this on your PC)]
-aws configure
+aws configure                           [configure your aws environment]
+[get AWS key and secret id credentials from your AWS console and type them in here]
 region: us-east-1                       [or whatever suits you]
-[get credentials from your AWS console]
 
 [now some sanity checks:]
 owner_group                             [will return your sg-nnn security group id]
@@ -19,29 +22,29 @@ owner_vpc                               [will return your vpc-nnn VPC id]
 owner_region                            [will return the region you specified above]
 </pre>
 
-<p>Those don't print a newline so that you can use them on command lines like `owner_group` etc.</p>
+<p>You'll notice that those don't print a newline.  That's so other scripts can use them on command lines like `owner_group` etc.</p>
 
-<h3>Create a Key Pair for SSH etc.</h3>
+<h3>Create a SSH Key Pair</h3>
 
 <p>
 <pre>
-[embed your LASTNAME in the key name or whatever you want to call it:]
+[embed your LASTNAME in the key name or whatever you want to call it to make it unique:]
 aws ec2 create-key-pair --key-name awsLASTNAMEkey --query 'KeyMaterial' --output text > ~/.ssh/awsLASTNAMEkey.pem
 chmod 400 ~/.ssh/awsLASTNAMEkey.pem
 
-[allow TCP to get to your security group so you can login etc.:]
+[allow TCP to communicate with your security group so you can login etc.:]
 aws ec2 authorize-security-group-ingress --group-id `owner_group` --protocol tcp --port 22 --cidr 0.0.0.0/0 --region `owner_region`
 </pre>
 
 <h3>Create Your Master Instance</h3>
 
 <p>
-Typically, you'll want one instance to act as a template for others.  So you'll get a program running on the master instance,
-then take a snapshot and use that snapshot to clone new instances.
+Typically, you'll want one instance to act as a template for others.  We'll call this your master instance.
+So you'll get a program running on the master instance, then take a snapshot and use that snapshot to clone new instances.
 </p>
 
 <p>
-The first one is a little more complicated than doing others:
+The first one is slightly more complicated than doing others, but we need only do this once:
 </p>
 
 <pre>
