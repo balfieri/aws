@@ -277,7 +277,9 @@ owner_insts -command "command_line" -state stopped
 fm_inst i-nnn results_file .            # copy results_file to this PC
 delete_inst i-nnn                       # delete inst and its root EBS 
 
-# you may also want to know if any other instances are still running:
+# you may also want to know if any other instances are still running,
+# though you would normally discern this from the number of
+# results that you have harvested so far
 owner_insts -command "command_line" -state "pending|running"
 
 # when you think all work is done and all results have been copied to your PC,
