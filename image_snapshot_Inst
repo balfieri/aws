@@ -1,0 +1,11 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $name = shift @ARGV || die "ERROR: image_snapshot_inst <new_snapshot_name>"
+my $inst = shift @ARGV || `get_instance`;
+system( "snapshot_inst ${inst}" );
+my $vol = `inst_vol ${inst}`;
+my $snapshot = `vol_snapshot ${vol}`;
+system( "image_snapshot ${snapshot} ${name}" );
