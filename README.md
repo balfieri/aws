@@ -30,17 +30,19 @@ owner_region                            [will return the region you specified ab
 <p>
 <pre>
 [embed your LASTNAME in the key name or whatever you want to call it to make it unique:]
-aws ec2 create-key-pair --key-name awsLASTNAMEkey --query 'KeyMaterial' --output text > ~/.ssh/awsLASTNAMEkey.pem
+aws ec2 create-key-pair --key-name awsLASTNAMEkey --query 'KeyMaterial' \
+                        --output text > ~/.ssh/awsLASTNAMEkey.pem
 chmod 400 ~/.ssh/awsLASTNAMEkey.pem
 
 [allow TCP to communicate with your security group so you can ssh in etc.:]
-aws ec2 authorize-security-group-ingress --group-id `owner_group` --protocol tcp --port 22 --cidr 0.0.0.0/0 --region `owner_region`
+aws ec2 authorize-security-group-ingress --group-id `owner_group` --protocol tcp 
+                                         --port 22 --cidr 0.0.0.0/0 --region `owner_region`
 </pre>
 
-<h3>Create Your Master Instance</h3>
+<h3>Create Your "Master" Instance</h3>
 
 <p>
-Typically, you'll want one instance to act as a template for others.  We'll call this your master instance.
+Typically, you'll want one instance to act as a template for others.  We'll call this your "master instance."
 Typically you'll get a program running on the master instance, then take a snapshot and use that snapshot to clone new instances.
 More on that later.
 </p>
@@ -51,10 +53,13 @@ The first one is slightly more complicated than doing others, but we need only d
 
 <pre>
 [do this to pick an ami-nnn image, look in image.txt and pick one that suits you:]
-aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hvm-2.Values=available' --output json > images.txt
+aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hvm-2.Values=available' \
+                        --output json > images.txt
 
 [create this instance using the t2.medium instance type for starters; you can change the instance type later:]
-aws ec2 run-instances --image-id ami-009d6802948d06e52 --count 1 --instance-type t2.medium --key-name awsLASTNAMEkey --security-group-ids `owner_group` --region  `owner_region`
+aws ec2 run-instances --image-id ami-009d6802948d06e52 --count 1 --instance-type t2.medium \
+                      --key-name awsLASTNAMEkey --security-group-ids `owner_group` \
+                      --region  `owner_region`
 
 [sanity check:]
 owner-insts                             [will return your i-nnn instance id]
@@ -129,7 +134,7 @@ inst_zone                               [us-east-1a, etc.]
 
 <p></p>
 <pre>
-start_inst                              [scripts do this automatically; starts instance on currently assigned instance type]
+start_inst                              [scripts call this automatically, so don't need to manually]
 stop_inst                               [stop instance if it's running]
     
 on_inst                                 [ssh to the instance]
