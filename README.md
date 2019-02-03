@@ -105,7 +105,7 @@ just let it use `get_instance` to get your master instance id.</p>
 <pre>
 inst_state                              [running, stopped, etc.]
 inst_json                               [full instance info in JSON format]
-
+ 
 inst_type                               [t2.medium, etc.]
 inst_host                               ["" if not running, else the hostname it's running on]
 inst_group                              [sg-nnn group id of instance]
@@ -124,7 +124,7 @@ inst_zone                               [us-east-1a, etc.]
 <pre>
 start_inst                              [start instance on the currently assigned instance type]
 stop_inst                               [stop instance if it's running]
-
+ 
 on_inst                                 [ssh to the instance]
 on_inst cmd ...                         [ssh to the instance and run this command]
 to_inst dst_dir src_files               [scp src_files to dst_dir on instance]
