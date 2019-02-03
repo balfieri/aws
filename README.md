@@ -62,6 +62,8 @@ The first one is slightly more complicated than doing others, but we need only d
 
 <pre>
 # get list of most recent Amazon Linux2 images (assuming you want to run that)
+# it will return a list of ami-nnn image ids and creation dates
+# normally, you'll just pick the most recent one
 linux2_images
 
 # create one on-demand instance using the t2.medium instance type for starters
