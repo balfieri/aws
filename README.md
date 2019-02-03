@@ -136,6 +136,8 @@ just let it use `master_inst` to get your master instance id.</p>
 master_inst                             # i-nnn id of current master instance
 inst_state                              # running, stopped, etc.
 inst_json                               # full instance info in JSON format
+owner_insts                             # list i-nnn ids of all of your instances 
+owner_insts_json                        # list all information for all instances in JSON format
  
 inst_type                               # t2.medium, etc.
 inst_host                               # "" if not running, else the hostname it's running on
