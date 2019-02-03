@@ -112,10 +112,13 @@ $ exit                                  # logout
 
 <h4>Stop Your Master Instance!</h4>
 
-<p>Remember to stop your master instance when you aren't using it:</p>
+<p>Remember to stop your master instance when you aren't using it.  This will perform the
+equivalent of a "shutdown" on that instance.  But the EBS root volume persists.  We're not
+deleting the instance.</p>
 
 <pre>
 stop_inst
+inst_state                              # verify that it went into the "stopping" state
 </pre>
 
 <p>
