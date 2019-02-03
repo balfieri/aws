@@ -38,8 +38,7 @@ chmod 400 ~/.ssh/awsLASTNAMEkey.pem
 
 <pre>
 # allow TCP to communicate with your security group so you can ssh in etc.
-aws ec2 authorize-security-group-ingress --group-id `owner_group` --protocol tcp \
-                                         --port 22 --cidr 0.0.0.0/0 --region `owner_region`
+auth_tcp_ingress
 </pre>
 
 <h3>Create Your "Master" Instance</h3>
@@ -55,17 +54,23 @@ The first one is slightly more complicated than doing others, but we need only d
 </p>
 
 <pre>
-# do this to pick an ami-nnn image, look in image.txt and pick one that suits you
+# pull the most recent Amazon Linux image out of images.txt
+# for me, it was ami-009d6802948d06e52
 aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hvm-2.Values=available' \
                         --output json > images.txt
 
-# create this instance using the t2.medium instance type for starters
-aws ec2 run-instances --image-id ami-009d6802948d06e52 --count 1 --instance-type t2.medium \
-                      --key-name awsLASTNAMEkey --security-group-ids `owner_group` \
-                      --region  `owner_region`
+# create one on-demand instance using the t2.medium instance type for starters
+create_inst t2.medium ami-009d6802948d06e52 awsLASTNAMEkey
 
 # sanity check
 owner-insts                             [will return your i-nnn instance id]
+</pre>
+
+<p>
+The next time you want to create an on-demand instance of the same type, you can just say:</p>
+
+<pre>
+create_inst
 </pre>
 
 <h3>Create Your Default get_instance Script</h3>

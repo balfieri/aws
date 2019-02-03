@@ -1,0 +1,8 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $group  = shift @ARGV || `owner_group`;
+my $region = shift @ARGV || `owner_region`;
+system( "aws ec2 authorize-security-group-ingress --group-id ${group} --protocol tcp --port 22 --cidr 0.0.0.0/0 --region ${region}" );
