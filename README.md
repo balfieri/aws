@@ -129,9 +129,9 @@ inst_zone                               [us-east-1a, etc.]
 
 <p></p>
 <pre>
-start_inst                              [start instance on the currently assigned instance type]
+start_inst                              [scripts do this automatically; starts instance on currently assigned instance type]
 stop_inst                               [stop instance if it's running]
- 
+    
 on_inst                                 [ssh to the instance]
 on_inst cmd ...                         [ssh to the instance and run "cmd ..."]
 to_inst dst_dir src_files               [scp src_files to dst_dir on instance]
