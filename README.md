@@ -231,6 +231,15 @@ because my instances typically run for less than one hour and I set my max spot 
 to be the same as the on-demand price.  Still, there are no guarantees.
 My recommendation is to just restart the whole job in this rare occurrence.</p>
 
+<p>
+Here are the commands for deleting instances.  Refer to the next section
+for how these are typically used.</p>
+
+<pre>
+delete_inst i-nnn                       # delete inst and its root EBS 
+delete_inst i-nnn i-mmm ...             # delete multiple instances
+</pre>
+
 <h1>On the Instance</h1>
 
 <p>
