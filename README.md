@@ -80,7 +80,7 @@ create_inst t2.nano                     # with a particular instance type
 Create a "get_instance" executable(!) script in a directory that is on your PATH (this dir is fine!) and have it contain this code:</p>
 
 <pre>
-echo -n "i-nnn";                          # your i-nnn id returned by owner-insts
+echo -n "i-nnn";                        # your i-nnn id returned by owner-insts
 </pre>
 
 <p>
