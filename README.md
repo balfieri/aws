@@ -171,12 +171,14 @@ vol_snapshots                           # get snapshot-nnn ids of all snapshots 
 image_snapshot_inst                     # take a snapshot and create an ami-nnn launchable image from it 
 owner_image                             # get ami-nnn id of most recently created image
 owner_images                            # get ami-nnn ids of all created images
+
+# Note that snapshots do not consume extra space.  Amazon implements them using 
+# copy-on-write, so new space is allocated only when blocks are 
+# changed in one of the volumes (snapshot or other).
+
 </pre>
 
 <p>
-Note that snapshots do not consume extra space.  Amazon implements them using copy-on-write, so new space is allocated only when blocks are 
-changed in one of the volumes (snapshot or other).</p>
-
 <p>
 <pre>
 create_inst                             # create 1 on-demand instance using master instance type, etc.
