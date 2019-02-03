@@ -193,24 +193,24 @@ create_inst t2.nano                     # same, but override instance type
 
 <pre>
 # create 5 on-demand instances that start by running script_name 
-# note: "script_name" is the path name ON the instance, NOT on the PC
-create_insts 5 -command "script_name"   
+# note: "command_line" is the run line ON the instance, NOT on the PC
+create_insts 5 -command "command_line"   
 
 # same, but override instance type
-create_insts 5 -command "script_name" -type m3.medium                
+create_insts 5 -command "command_line" -type m3.medium                
 
 # create 5 on-demand instances cloned from the snapshot-nnn id
-create_insts 5 -command "script_name" -clone snapshot-nnn      
+create_insts 5 -command "command_line" -clone snapshot-nnn      
 
 # create 5 spot instances with max spot price of $0.01/inst-hour
-create_insts 5 -command "script_name" -spot 0.01               
+create_insts 5 -command "command_line" -spot 0.01               
 
 # create 5 spot instances cloned from the snapshot-nnn id
-create_insts 5 -command "script_name" -spot 0.01 -clone snapshot-nnn
+create_insts 5 -command "command_line" -spot 0.01 -clone snapshot-nnn
 
 # create 5 spot instances cloned from the current master_inst
 # this will first execute image_snapshot_inst above to clone the master 
-create_insts 5 -command "script_name" -spot 0.01 -clone_master
+create_insts 5 -command "command_line" -spot 0.01 -clone_master
 </pre>
 
 <h1>On the Instance</h1>
@@ -220,10 +220,39 @@ A command script on each launched instance can use the following ec2-metadata co
 retrieve information it needs in order to figure out what work it should do:</p>
 
 <pre>
-ec2-metadata -d                         # the -command 'script_name' from create_insts above
+ec2-metadata -d                         # the -command 'command_line' from create_insts above
 ec2-metadata -l                         # launch index (0, 1, 2, ...)
 </pre>
 
 <p>
 The launch index is typically used to calculate which part of a larger job that
 this instance is supposed to perform.</p>
+
+<p>
+When the instance is done with its work, it will typically issue a "shutdown" command, though
+you can do anything you want.</p>
+
+<h1>Retrieving Results from Instances</h1>
+
+<p>
+You can issue the following commands from your PC to get results from your instances and 
+then delete (terminate) them:</p>
+
+<pre>
+# return all i-nnn instance ids for all stopped instances
+# that were running the given command_line
+owner_insts -command "command_line" -state stopped
+
+# for each stopped instance your PC-side script will typically
+# want to copy some results_file from the instance to the current directory
+# on your PC, and then delete the instance:
+fm_inst i-nnn results_file .            # copy results_file to this PC
+delete_inst i-nnn                       # delete inst and its root EBS 
+
+# you may also want to know if any other instances are still running:
+owner_insts -command "command_line" -state "pending|running"
+
+# when you think all work is done and all results copied to your PC,
+# then you may or may not want to make sure all instances are terminated
+# this command will return an empty string once that is true
+owner_insts -command "command_line" -state "not_terminated"
