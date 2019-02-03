@@ -127,6 +127,7 @@ These commands take an instance id as an argument, but normally you'll supply no
 just let it use `master_inst` to get your master instance id.</p>
 
 <pre>
+master_inst                             # i-nnn id of current master instance
 inst_state                              # running, stopped, etc.
 inst_json                               # full instance info in JSON format
  
