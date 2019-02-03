@@ -56,7 +56,7 @@ The first one is slightly more complicated than doing others, but we need only d
 aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hvm-2.Values=available' \
                         --output json > images.txt
 
-[create this instance using the t2.medium instance type for starters; you can change the instance type later:]
+[create this instance using the t2.medium instance type for starters]
 aws ec2 run-instances --image-id ami-009d6802948d06e52 --count 1 --instance-type t2.medium \
                       --key-name awsLASTNAMEkey --security-group-ids `owner_group` \
                       --region  `owner_region`
