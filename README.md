@@ -216,19 +216,20 @@ create_insts 5 -command "command_line" -spot 0.01 -clone_master
 
 <p>
 Remember that cloned volumes do not consume extra space until file system blocks
-are modified.  Also, creates_insts sets up the instances so that EBS root
-volumes are deleted as their instances are deleted/terminated.  My typical
-usage scenario for simulations is to copy a large emount of read-only data
+are modified.  Also, create_insts sets up the instances so that EBS root
+volumes are deleted as their instances are deleted/terminated.</p>
+
+<p>
+My typical usage scenario for simulations is to copy a large emount of read-only data
 to the master, then clone the master and have each instance produce a small
 result file, so this cloning works out well.</p>
 
 <p>
 Note that spot instances can be up to 80% less expensive than on-demand instances.
-However, they could get terminated at any time.  I've never had this happen
-because my instances typically run for less than one hour and I set my -spot price
+However, they could get terminated at any time by Amazon. I've never had this happen
+because my instances typically run for less than one hour and I set my max spot price
 to be the same as the on-demand price.  Still, there are no guarantees.
-My recommendation is to just restart the whole job if you don't want to deal with
-restarting just the terminated instance.</p>
+My recommendation is to just restart the whole job in this rare occurrence.</p>
 
 <h1>On the Instance</h1>
 
