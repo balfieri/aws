@@ -141,15 +141,15 @@ inst_zone                               # us-east-1a, etc.
 
 <p></p>
 <pre>
-start_inst                              [scripts call this automatically, so don't need to manually]
-stop_inst                               [stop instance if it's running]
-change_inst_type type                   [stops instance and changes its type (t2.medium, etc.)]
+start_inst                              # scripts call this automatically, so don't need to manually
+stop_inst                               # stop instance if it's running
+change_inst_type type                   # stops instance and changes its type (t2.medium, etc.)
 </pre>
 
 <pre>
 
-on_inst                                 [ssh to the instance]
-on_inst cmd ...                         [ssh to the instance and run "cmd ..."]
-to_inst dst_dir src_files               [scp src_files to dst_dir on instance]
-from_inst src_file dst_dir              [scp src_file from instance to dst_dir on this machine]
+on_inst                                 # ssh to the instance
+on_inst cmd ...                         # ssh to the instance and run "cmd ..."
+to_inst dst_dir src_files               # scp src_files to dst_dir on instance
+from_inst src_file dst_dir              # scp src_file from instance to dst_dir on this machine
 </pre>
