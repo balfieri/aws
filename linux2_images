@@ -1,0 +1,6 @@
+#!/usr/bin/perl
+#
+use strict;
+use warnings;
+
+system( "aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hvm-2.0.????????-x86_64-gp2' 'Name=state,Values=available' --query 'Images[*].{ID:ImageId,Time:CreationDate}' --output text | sort -n -k 2,2" );

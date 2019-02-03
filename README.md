@@ -24,9 +24,10 @@ aws configure
 region: us-east-1                       # or wherever suits you
 
 # some sanity checks
-owner_group                             # will return your sg-nnn security group id
-owner_vpc                               # will return your vpc-nnn VPC id
-owner_region                            # will return the region you specified above
+owner_id                                # returns your owner (account) id (an integer)
+owner_group                             # returns your sg-nnn security group id
+owner_vpc                               # returns your vpc-nnn VPC id
+owner_region                            # returns the region you specified above
 </pre>
 
 <p>You'll notice that those don't print a newline.  That's so other scripts can use them on command lines like `owner_group` etc.</p>
@@ -60,16 +61,14 @@ The first one is slightly more complicated than doing others, but we need only d
 </p>
 
 <pre>
-# pull the most recent Amazon Linux image out of images.txt
-# for me, it was ami-009d6802948d06e52
-aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hvm-2.Values=available' \
-                        --output json > images.txt
+# get list of most recent Amazon Linux2 images (assuming you want to run that)
+linux2_images
 
 # create one on-demand instance using the t2.medium instance type for starters
 create_inst t2.medium ami-009d6802948d06e52 awsLASTNAMEkey
 
 # sanity check
-owner-insts                             # will return your i-nnn instance id
+owner_insts                             # will return your i-nnn instance id
 </pre>
 
 <h4>Create Your Default master_inst Script</h4>

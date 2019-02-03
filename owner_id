@@ -1,0 +1,8 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $id = `aws sts get-caller-identity --output text --query 'Account'`;
+chomp $id;
+print $id;

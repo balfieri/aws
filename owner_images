@@ -3,4 +3,4 @@
 use strict;
 use warnings;
 
-system( "aws ec2 describe-images --owners `inst_owner` --query 'Images[*].{ID:ImageId,Time:CreationDate}' | sort -n -k 2,2" );
+system( "aws ec2 describe-images --owners `owner_id` --query 'Images[*].{ID:ImageId,Time:CreationDate}' | sort -n -k 2,2" );
