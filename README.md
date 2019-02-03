@@ -73,7 +73,7 @@ default instance id for operations.  You can often override it, but usually you 
 <h3>Install Software On Your Master Instance</h3>
 
 <p>
-Log into the master instance and do this:
+Log into the master instance and install apps that aren't there and you might need such as C++:
 </p>
 
 <pre>
