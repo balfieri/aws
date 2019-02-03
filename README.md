@@ -70,7 +70,8 @@ owner-insts                             [will return your i-nnn instance id]
 The next time you want to create an on-demand instance of the same type, you can just say:</p>
 
 <pre>
-create_inst
+create_inst                             [use master instance type, image, and key]
+create_inst t2.nano                     [with a particular instance type]
 </pre>
 
 <h3>Create Your Default get_instance Script</h3>
