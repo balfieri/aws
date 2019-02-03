@@ -66,14 +66,6 @@ create_inst t2.medium ami-009d6802948d06e52 awsLASTNAMEkey
 owner-insts                             # will return your i-nnn instance id
 </pre>
 
-<p>
-The next time you want to create an on-demand instance of the same type, you can just say:</p>
-
-<pre>
-create_inst                             # use master instance type, image, and key
-create_inst t2.nano                     # with a particular instance type
-</pre>
-
 <h4>Create Your Default get_instance Script</h4>
 
 <p>
