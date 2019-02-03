@@ -89,8 +89,8 @@ default instance id for operations.  You can usually override it, but usually yo
 </p>
 
 <p>
-Note: if you have "." at the front of your PATH, you can have a different master_inst scripts in different directories.
-Then when you cd to a directory, the scripts here will pick up the master_inst in that directory.
+Assuming you have "." at the front of your PATH, you can have different master_inst scripts in different directories.
+Then when you cd to a particular directory, these scripts will pick up the master_inst in that directory.
 So the master_inst script gives context for most of the scripts described here.
 </p>
 
