@@ -10,9 +10,10 @@ cd [somewhere]
 git clone https://github.com/balfieri/aws
 export PATH=...
 
-[install AWS command-line tool:]
 [install aws-cli (search web for how to do this on your PC)]
-aws configure                           [configure your aws environment]
+
+[configure your AWS environment:]
+aws configure                           
 [get AWS key and secret id credentials from your AWS console and type them in here]
 region: us-east-1                       [or whatever suits you]
 
@@ -32,7 +33,7 @@ owner_region                            [will return the region you specified ab
 aws ec2 create-key-pair --key-name awsLASTNAMEkey --query 'KeyMaterial' --output text > ~/.ssh/awsLASTNAMEkey.pem
 chmod 400 ~/.ssh/awsLASTNAMEkey.pem
 
-[allow TCP to communicate with your security group so you can login etc.:]
+[allow TCP to communicate with your security group so you can ssh in etc.:]
 aws ec2 authorize-security-group-ingress --group-id `owner_group` --protocol tcp --port 22 --cidr 0.0.0.0/0 --region `owner_region`
 </pre>
 
@@ -40,7 +41,8 @@ aws ec2 authorize-security-group-ingress --group-id `owner_group` --protocol tcp
 
 <p>
 Typically, you'll want one instance to act as a template for others.  We'll call this your master instance.
-So you'll get a program running on the master instance, then take a snapshot and use that snapshot to clone new instances.
+Typically you'll get a program running on the master instance, then take a snapshot and use that snapshot to clone new instances.
+More on that later.
 </p>
 
 <p>
@@ -51,8 +53,10 @@ The first one is slightly more complicated than doing others, but we need only d
 [do this to pick an ami-nnn image, look in image.txt and pick one that suits you:]
 aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hvm-2.Values=available' --output json > images.txt
 
-[create this instance using t2.medium for starters; you can change the instance type later:]
+[create this instance using the t2.medium instance type for starters; you can change the instance type later:]
 aws ec2 run-instances --image-id ami-009d6802948d06e52 --count 1 --instance-type t2.medium --key-name awsLASTNAMEkey --security-group-ids `owner_group` --region  `owner_region`
+
+[sanity check:]
 owner-insts                             [will return your i-nnn instance id]
 </pre>
 
@@ -69,14 +73,14 @@ print "i-nnn";                          # your i-nnn id returned by owner-insts
 
 <p>
 Now when you type "get_instance" it will return your master instance id.
-This is IMPORTANT because many of the script described next will use get_instance to get the
-default instance id for operations.  You can often override it, but usually you don't want to.
+This is IMPORTANT because many of the scripts will use get_instance to get the
+default instance id for operations.  You can usually override it, but usually you don't want to.
 </p>
 
 <h3>Install Software On Your Master Instance</h3>
 
 <p>
-Log into the master instance and install apps that aren't there and you might need such as C++:
+SSH into the master instance and install apps that aren't there that you might need, such as C++:
 </p>
 
 <pre>
@@ -129,7 +133,7 @@ start_inst                              [start instance on the currently assigne
 stop_inst                               [stop instance if it's running]
  
 on_inst                                 [ssh to the instance]
-on_inst cmd ...                         [ssh to the instance and run this command]
+on_inst cmd ...                         [ssh to the instance and run "cmd ..."]
 to_inst dst_dir src_files               [scp src_files to dst_dir on instance]
 from_inst src_file dst_dir              [scp src_file from instance to dst_dir on this machine]
 </pre>
