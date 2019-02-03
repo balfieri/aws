@@ -1,4 +1,10 @@
-Some simple Amazon AWS scripts.  Written in Perl, mostly less than 10 lines of code.
+<p>
+These are some trivial scripts that I use to do things on Amazon's cloud computing
+platform, AWS.  AWS is confusing and it's hard to remember all the commands and operations that one
+has to do.  These scripts attempt to make it simpler and to give a little structure and order
+to the otherwise frustrating.  I use AWS for doing large, parallel simulations, so these scripts are
+geared toward that kind of usage scenario.  
+</p>
 
 <h1>One-Time Initialization</h1>
 
