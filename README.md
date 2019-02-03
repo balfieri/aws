@@ -93,8 +93,8 @@ default instance id for operations.  You can usually override it, but usually yo
 Assuming you have "." at the front of your PATH, you can have different master_inst scripts in different directories.
 Then when you cd to a particular directory, these scripts will pick up the master_inst in that directory.
 So the master_inst script gives context for most of the scripts described here.  Alternatively, you could write
-one master_inst script and have it search up a directory tree until it finds the instance name is some
-file you keep around.  It's up to you.  I use the former technique.
+one master_inst script and have it search up a directory tree until it finds the instance name in some
+file you keep around.  It's up to you.  I use the former technique whenever possible.
 </p>
 
 <h4>Install Software On Your Master Instance</h4>
