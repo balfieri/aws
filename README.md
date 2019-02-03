@@ -190,5 +190,3 @@ create_inst                             # create 1 on-demand instance using mast
 create_inst t2.nano                     # same, but override instance type
 create_insts 5                          # create 5 on-demand instances
 create_insts 5 m3.medium                # same, but override instance type
-owner_insts                             # list i-nnn ids of all instances
-owner_insts_json                        # list all information for all instances in JSON format
