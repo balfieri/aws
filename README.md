@@ -168,3 +168,10 @@ owner_images                            # get ami-nnn ids of all created images
 <p>
 Note that snapshots do not consume extra space.  Amazon implements them using copy-on-write, so new space is allocated only when blocks are 
 changed in one of the volumes (snapshot or other).</p>
+
+<p>
+<pre>
+create_inst                             # create 1 on-demand instance using master instance type, etc.
+create_inst t2.nano                     # same, but override instance type
+create_insts 5                          # create 5 on-demand instances
+create_insts 5 m3.medium                # same, but override instance type
