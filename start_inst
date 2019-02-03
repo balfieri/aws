@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-my $inst = shift @ARGV || `get_instance`;
+my $inst = shift @ARGV || `master_inst`;
 my $host;
 for( ;; )
 {

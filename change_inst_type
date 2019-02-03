@@ -4,6 +4,6 @@ use strict;
 use warnings;
 
 my $type = shift @ARGV || die "ERROR: change_inst_type <type>\n";
-my $inst = shift @ARGV || `get_instance`;
+my $inst = shift @ARGV || `master_inst`;
 system( "stop_inst ${inst}" );
 system( "aws ec2 modify-instance-attribute --instance-type ${type} --instance-id ${inst}" );

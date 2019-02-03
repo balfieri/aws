@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-my $inst = shift @ARGV || `get_instance`;
+my $inst = shift @ARGV || `master_inst`;
 my $state = `aws ec2 describe-instances --instance-ids ${inst} --query 'Reservations[*].Instances[*].State.Name' --output text`;
 chomp $state;
 print $state;

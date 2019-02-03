@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-my $inst = shift @ARGV || `get_instance`;
+my $inst = shift @ARGV || `master_inst`;
 my $group = `aws ec2 describe-instances --instance-ids ${inst} --query 'Reservations[*].Instances[*].SecurityGroups[*].[GroupId]' --output text`;
 chomp $group;
 print $group;

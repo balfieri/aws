@@ -72,10 +72,10 @@ create_inst t2.medium ami-009d6802948d06e52 awsLASTNAMEkey
 owner-insts                             # will return your i-nnn instance id
 </pre>
 
-<h4>Create Your Default get_instance Script</h4>
+<h4>Create Your Default master_inst Script</h4>
 
 <p>
-Create a "get_instance" executable(!) script in a directory that is on your PATH (this dir is fine!) and have it contain this code:</p>
+Create a "master_inst" executable(!) script in a directory that is on your PATH (this dir is fine!) and have it contain this code:</p>
 
 <pre>
 #/bin/bash
@@ -83,9 +83,15 @@ echo -n "i-nnn";                        # your i-nnn id returned by owner-insts
 </pre>
 
 <p>
-Now when you type "get_instance" it will return your master instance id.
-This is IMPORTANT because many of the scripts will use get_instance to get the
+Now when you type "master_inst" it will return your master instance id.
+This is IMPORTANT because many of the scripts will use master_inst to get the
 default instance id for operations.  You can usually override it, but usually you don't want to.
+</p>
+
+<p>
+Note: if you have "." at the front of your PATH, you can have a different master_inst scripts in different directories.
+Then when you cd to a directory, the scripts here will pick up the master_inst in that directory.
+So the master_inst script gives context for most of the scripts described here.
 </p>
 
 <h4>Install Software On Your Master Instance</h4>
@@ -118,7 +124,7 @@ it be stopped.</p>
 
 <p>
 These commands take an instance id as an argument, but normally you'll supply no argument and
-just let it use `get_instance` to get your master instance id.</p>
+just let it use `master_inst` to get your master instance id.</p>
 
 <pre>
 inst_state                              # running, stopped, etc.

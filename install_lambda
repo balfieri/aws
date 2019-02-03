@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 my $name = shift @ARGV || die "ERROR: install <name>\n";
-my $inst = shift @ARGV || `get_instance`;
+my $inst = shift @ARGV || `master_inst`;
 system( "start_inst ${inst}" );
 my $host `inst_host ${inst}`;
 my $key = `inst_key ${inst}`;

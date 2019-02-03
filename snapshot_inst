@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-my $inst = shift @ARGV || `get_instance`;
+my $inst = shift @ARGV || `master_inst`;
 system( "stop_inst ${inst}" );
 my $vol = `inst_vol ${inst}`;
 system( "aws ec2 create-snapshot --volume-id ${vol}" );
