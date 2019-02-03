@@ -117,3 +117,16 @@ inst_subnet                             [subnet id]
 inst_vpc                                [VPC id]
 inst_zone                               [us-east-1a, etc.]
 </pre>
+
+<h1>Instance Actions</h1>
+
+<p></p>
+<pre>
+start_inst                              [start instance on the currently assigned instance type]
+stop_inst                               [stop instance if it's running]
+
+on_inst                                 [ssh to the instance]
+on_inst cmd ...                         [ssh to the instance and run this command]
+to_inst dst_dir src_files               [scp src_files to dst_dir on instance]
+from_inst src_file dst_dir              [scp src_file from instance to dst_dir on this machine]
+</pre>
