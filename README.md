@@ -192,7 +192,7 @@ create_inst t2.nano                     # same, but override instance type
 </pre>
 
 <pre>
-# create 5 on-demand instances that start by running script_name 
+# create 5 on-demand instances that start by running a command_line
 # note: "command_line" is the run line ON the instance, NOT on the PC
 create_insts 5 -command "command_line"   
 
