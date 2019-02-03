@@ -150,6 +150,6 @@ change_inst_type type                   # stops instance and changes its type (t
 
 on_inst                                 # ssh to the instance
 on_inst cmd ...                         # ssh to the instance and run "cmd ..."
-to_inst dst_dir src_files               # scp src_files to dst_dir on instance
-from_inst src_file dst_dir              # scp src_file from instance to dst_dir on this machine
+to_inst src dst                         # scp src file or directory from this PC to dst on the instance
+fm_inst src dst                         # scp src file or directory from instance to dst on this PC
 </pre>

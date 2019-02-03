@@ -3,10 +3,10 @@
 use strict;
 use warnings;
 
-my $dst  = pop @ARGV;
-my $srcs = join( " ", @ARGV );
+my $src = join( " ", @ARGV );
+my $dst = pop @ARGV;
 
 system( "start_inst" );
 my $host = `inst_host`;
 my $key  = `inst_key`;
-system( "scp -i ~/.ssh/${key}.pem ${srcs} ec2-user\@${host}:${dst}" );
+system( "scp -r -i ~/.ssh/${key}.pem ${src} ec2-user\@${host}:${dst}" );
