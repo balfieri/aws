@@ -33,9 +33,12 @@ owner_region                            [will return the region you specified ab
 aws ec2 create-key-pair --key-name awsLASTNAMEkey --query 'KeyMaterial' \
                         --output text > ~/.ssh/awsLASTNAMEkey.pem
 chmod 400 ~/.ssh/awsLASTNAMEkey.pem
+</pre>
+
+<pre>
 
 # allow TCP to communicate with your security group so you can ssh in etc.
-aws ec2 authorize-security-group-ingress --group-id `owner_group` --protocol tcp 
+aws ec2 authorize-security-group-ingress --group-id `owner_group` --protocol tcp \
                                          --port 22 --cidr 0.0.0.0/0 --region `owner_region`
 </pre>
 
