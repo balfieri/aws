@@ -153,3 +153,11 @@ on_inst cmd args...                     # ssh to the instance and run "cmd args.
 to_inst src dst                         # scp src file or directory from this PC to dst on the instance
 fm_inst src dst                         # scp src file or directory from instance to dst on this PC
 </pre>
+
+<pre>
+
+snapshot_inst                           # take a snapshot of the instance
+</pre>
+
+<p>
+Note that snapshots do not consume extra space.  Amazon implements them using copy-on-write.</p>
