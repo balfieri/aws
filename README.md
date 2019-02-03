@@ -99,8 +99,8 @@ it be stopped.</p>
 <h1>Instance Queries</h1>
 
 <p>
-These commands take an instance id as an argument, but normally you'll just let it use "get_instance" to get
-your master instance id.</p>
+These commands take an instance id as an argument, but normally you'll supply no argument and
+just let it use `get_instance` to get your master instance id.</p>
 
 <pre>
 inst_state                              [running, stopped, etc.]
