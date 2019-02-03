@@ -191,5 +191,21 @@ create_inst t2.nano                     # same, but override instance type
 create_insts 5                          # create 5 on-demand instances
 create_insts 5 m3.medium                # same, but override instance type
 create_insts 5 -clone snapshot-nnn      # create 5 on-demand cloned instances using the snapshot-nnn id
-create_insts 5 -spot 0.01               # create 5 spot instances with max spot price of $0.01/inst
+create_insts 5 -spot 0.01               # create 5 spot instances with max spot price of $0.01/hour
 create_insts 5 -spot 0.01 -clone snapshot-nnn # same but make them all clones of snapshot-nnn
+
+<h1>Running on an Instance</h1>
+
+<p>
+A run script on each launched instance can run the following commands to retrieve information it can use to 
+figure out what work it should do:</p>
+
+<pre>
+ec2-metadata -d                         # the -command 'string' from create_insts above
+ec2-metadata -l                         # launch index (0, 1, 2, ...)
+ec2-metadata --all                      # all information
+</pre>
+
+<p>
+The launch index is typically used to calculate which part of a larger job that
+this instance is supposed to perform.</p>
