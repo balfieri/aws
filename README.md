@@ -6,7 +6,7 @@ to the otherwise frustrating.  I use AWS for doing large, parallel simulations, 
 geared toward that kind of usage scenario.  
 </p>
 
-<h1>One-Time Initialization</h1>
+<h1>One-Time Setup</h1>
 
 <h4>Set Up Your Local PC for AWS Command Line</h4>
 
@@ -32,11 +32,12 @@ owner_region                            # returns the region you specified above
 
 <p>You'll notice that those don't print a newline.  That's so other scripts can use them on command lines like `owner_group` etc.</p>
 
-<h4>Create a SSH Key Pair</h4>
+<h4>Create an SSH Key Pair</h4>
 
 <p>
 <pre>
 # embed your LASTNAME in the key name or whatever you want to call it to make it unique
+# this is just the convention that I happen to use
 aws ec2 create-key-pair --key-name awsLASTNAMEkey --query 'KeyMaterial' \
                         --output text > ~/.ssh/awsLASTNAMEkey.pem
 chmod 400 ~/.ssh/awsLASTNAMEkey.pem     # required
@@ -213,10 +214,26 @@ create_insts 5 -command "command_line" -spot 0.01 -clone snapshot-nnn
 create_insts 5 -command "command_line" -spot 0.01 -clone_master
 </pre>
 
+<p>
+Remember that cloned volumes do not consume extra space until file system blocks
+are modified.  Also, creates_insts sets up the instances so that EBS root
+volumes are deleted as their instances are deleted/terminated.  My typical
+usage scenario for simulations is to copy a large emount of read-only data
+to the master, then clone the master and have each instance produce a small
+result file, so this cloning works out well.</p>
+
+<p>
+Note that spot instances can be up to 80% less expensive than on-demand instances.
+However, they could get terminated at any time.  I've never had this happen
+because my instances typically run for less than one hour and I set my -spot price
+to be the same as the on-demand price.  Still, there are no guarantees.
+My recommendation is to just restart the whole job if you don't want to deal with
+restarting just the terminated instance.</p>
+
 <h1>On the Instance</h1>
 
 <p>
-A command script on each launched instance can use the following ec2-metadata commands to 
+The command script on each launched instance can use the following ec2-metadata commands to 
 retrieve information it needs in order to figure out what work it should do:</p>
 
 <pre>
@@ -225,7 +242,7 @@ ec2-metadata -l                         # launch index (0, 1, 2, ...)
 </pre>
 
 <p>
-The launch index is typically used to calculate which part of a larger job that
+The launch index is used to calculate which part of a larger job that
 this instance is supposed to perform.</p>
 
 <p>
@@ -252,7 +269,7 @@ delete_inst i-nnn                       # delete inst and its root EBS
 # you may also want to know if any other instances are still running:
 owner_insts -command "command_line" -state "pending|running"
 
-# when you think all work is done and all results copied to your PC,
-# then you may or may not want to make sure all instances are terminated
+# when you think all work is done and all results have been copied to your PC,
+# then you may or may not want to make sure all instances are terminated;
 # this command will return an empty string once that is true
 owner_insts -command "command_line" -state "not_terminated"
