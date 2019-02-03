@@ -33,9 +33,6 @@ owner_region                            [will return the region you specified ab
 aws ec2 create-key-pair --key-name awsLASTNAMEkey --query 'KeyMaterial' \
                         --output text > ~/.ssh/awsLASTNAMEkey.pem
 chmod 400 ~/.ssh/awsLASTNAMEkey.pem
-</pre>
-
-<pre>
 
 # allow TCP to communicate with your security group so you can ssh in etc.
 aws ec2 authorize-security-group-ingress --group-id `owner_group` --protocol tcp \
@@ -138,7 +135,10 @@ inst_zone                               [us-east-1a, etc.]
 start_inst                              [scripts call this automatically, so don't need to manually]
 stop_inst                               [stop instance if it's running]
 change_inst_type type                   [stops instance and changes its type (t2.medium, etc.)]
-                           
+</pre>
+
+<pre>
+
 on_inst                                 [ssh to the instance]
 on_inst cmd ...                         [ssh to the instance and run "cmd ..."]
 to_inst dst_dir src_files               [scp src_files to dst_dir on instance]
