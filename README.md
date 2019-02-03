@@ -5,19 +5,19 @@ Some simple Amazon AWS scripts.  Written in Perl, mostly less than 10 lines of c
 <h3>Set Up Your Local PC for AWS Command Line</h3>
 
 <pre>
-[download this directory and put it on your PATH]
+# clone/download this repo and put it on your PATH
 cd [somewhere]
 git clone https://github.com/balfieri/aws
 export PATH=...
 
-[install aws-cli (search web for how to do this on your PC)]
+[install aws-cli (search web for how to do this on your type of PC)]
 
-[configure your AWS environment:]
+# configure your AWS environment
 aws configure                           
-[get AWS key and secret id credentials from your AWS console and type them in here]
-region: us-east-1                       [or whatever suits you]
+[get AWS key id and secret id credentials from your AWS console and type them in when prompted]
+region: us-east-1                       [or wherever suits you]
 
-[now some sanity checks:]
+# some sanity checks
 owner_group                             [will return your sg-nnn security group id]
 owner_vpc                               [will return your vpc-nnn VPC id]
 owner_region                            [will return the region you specified above]
@@ -29,12 +29,12 @@ owner_region                            [will return the region you specified ab
 
 <p>
 <pre>
-[embed your LASTNAME in the key name or whatever you want to call it to make it unique:]
+# embed your LASTNAME in the key name or whatever you want to call it to make it unique
 aws ec2 create-key-pair --key-name awsLASTNAMEkey --query 'KeyMaterial' \
                         --output text > ~/.ssh/awsLASTNAMEkey.pem
 chmod 400 ~/.ssh/awsLASTNAMEkey.pem
 
-[allow TCP to communicate with your security group so you can ssh in etc.:]
+# allow TCP to communicate with your security group so you can ssh in etc.
 aws ec2 authorize-security-group-ingress --group-id `owner_group` --protocol tcp 
                                          --port 22 --cidr 0.0.0.0/0 --region `owner_region`
 </pre>
@@ -52,16 +52,16 @@ The first one is slightly more complicated than doing others, but we need only d
 </p>
 
 <pre>
-[do this to pick an ami-nnn image, look in image.txt and pick one that suits you:]
+# do this to pick an ami-nnn image, look in image.txt and pick one that suits you
 aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hvm-2.Values=available' \
                         --output json > images.txt
 
-[create this instance using the t2.medium instance type for starters]
+# create this instance using the t2.medium instance type for starters
 aws ec2 run-instances --image-id ami-009d6802948d06e52 --count 1 --instance-type t2.medium \
                       --key-name awsLASTNAMEkey --security-group-ids `owner_group` \
                       --region  `owner_region`
 
-[sanity check:]
+# sanity check
 owner-insts                             [will return your i-nnn instance id]
 </pre>
 
