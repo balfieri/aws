@@ -1,0 +1,10 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $size = shift @ARGV || die "ERROR: resize_inst_vol <gigabytes>\n";
+my $inst = shift @ARGV || `master_inst`;
+system( "stop_inst $inst" );
+my $vol = `inst_vol $inst`;
+system( "aws ec2 modify-volume --volume-id ${vol} --size ${size}" );

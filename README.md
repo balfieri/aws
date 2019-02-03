@@ -159,6 +159,7 @@ inst_zone                               # us-east-1a, etc.
 start_inst                              # scripts call this automatically, so don't need to manually
 stop_inst                               # stop instance if it's running
 change_inst_type type                   # stops instance and changes its type (t2.medium, etc.)
+resize_inst_vol gigabytes               # stops instance and resizes its root EBS volume
 </pre>
 
 <pre>
