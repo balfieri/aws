@@ -56,23 +56,25 @@ owner-insts                             [will return your i-nnn instance id]
 <h3>Create Your Default get_instance Script</h3>
 
 <p>
-Create a get_instance executable script somewhere on your path (like this dir) and have contain this stuff:</p>
+Create a "get_instance" executable script in a directory that is on your PATH (this dir is fine!) and have it contain this code:</p>
 
 <pre>
-cat > get_instance
 #!/usr/bin/perl -w
 #
-print "i-nnn";                          [your i-nnn id returned by owner-insts]
-^D
+print "i-nnn";                          # your i-nnn id returned by owner-insts
 </pre>
 
 <p>
-Now when you type get_instance it will return your master instance id.
-This is important because many of the script described next will use get_instance to get the
+Now when you type "get_instance" it will return your master instance id.
+This is IMPORTANT because many of the script described next will use get_instance to get the
 default instance id for operations.  You can often override it, but usually you don't want to.
 </p>
 
 <h3>Install Software On Your Master Instance</h3>
+
+<p>
+Log into the master instance and do this:
+</p>
 
 <pre>
 on_inst                                 [should ssh you to your master instance]
