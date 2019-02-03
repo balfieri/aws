@@ -15,12 +15,12 @@ export PATH=...
 # configure your AWS environment
 aws configure                           
 [get AWS key id and secret id credentials from your AWS console and type them in when prompted]
-region: us-east-1                       [or wherever suits you]
+region: us-east-1                       # or wherever suits you
 
 # some sanity checks
-owner_group                             [will return your sg-nnn security group id]
-owner_vpc                               [will return your vpc-nnn VPC id]
-owner_region                            [will return the region you specified above]
+owner_group                             # will return your sg-nnn security group id
+owner_vpc                               # will return your vpc-nnn VPC id
+owner_region                            # will return the region you specified above
 </pre>
 
 <p>You'll notice that those don't print a newline.  That's so other scripts can use them on command lines like `owner_group` etc.</p>
@@ -32,7 +32,7 @@ owner_region                            [will return the region you specified ab
 # embed your LASTNAME in the key name or whatever you want to call it to make it unique
 aws ec2 create-key-pair --key-name awsLASTNAMEkey --query 'KeyMaterial' \
                         --output text > ~/.ssh/awsLASTNAMEkey.pem
-chmod 400 ~/.ssh/awsLASTNAMEkey.pem
+chmod 400 ~/.ssh/awsLASTNAMEkey.pem     # required
 
 </pre>
 
@@ -63,15 +63,15 @@ aws ec2 describe-images --owners amazon --filters 'Name=name,Values=amzn2-ami-hv
 create_inst t2.medium ami-009d6802948d06e52 awsLASTNAMEkey
 
 # sanity check
-owner-insts                             [will return your i-nnn instance id]
+owner-insts                             # will return your i-nnn instance id
 </pre>
 
 <p>
 The next time you want to create an on-demand instance of the same type, you can just say:</p>
 
 <pre>
-create_inst                             [use master instance type, image, and key]
-create_inst t2.nano                     [with a particular instance type]
+create_inst                             # use master instance type, image, and key
+create_inst t2.nano                     # with a particular instance type
 </pre>
 
 <h3>Create Your Default get_instance Script</h3>
@@ -96,10 +96,10 @@ SSH into the master instance and install apps that aren't there that you might n
 </p>
 
 <pre>
-on_inst                                 [should ssh you to your master instance]
-$ sudo yum update -y                    [updates system software]
-$ sudo yum install gcc-c++              [or whatever apps you want]
-$ exit                                  [logout]
+on_inst                                 # should ssh you to your master instance
+$ sudo yum update -y                    # updates system software
+$ sudo yum install gcc-c++              # or whatever apps you want
+$ exit                                  # logout
 </pre>
 
 <h3>Stop Your Master Instance!</h3>
@@ -122,19 +122,19 @@ These commands take an instance id as an argument, but normally you'll supply no
 just let it use `get_instance` to get your master instance id.</p>
 
 <pre>
-inst_state                              [running, stopped, etc.]
-inst_json                               [full instance info in JSON format]
+inst_state                              # running, stopped, etc.
+inst_json                               # full instance info in JSON format
  
-inst_type                               [t2.medium, etc.]
-inst_host                               ["" if not running, else the hostname it's running on]
-inst_group                              [sg-nnn group id of instance]
-inst_vol                                [volume id of root EBS root volume]
-inst_device                             [/dev/xda1 or whatever root mount point]
-inst_key                                [your awsLASTNAMEkey name]
-inst_owner                              [your owner id]
-inst_subnet                             [subnet id]
-inst_vpc                                [VPC id]
-inst_zone                               [us-east-1a, etc.]
+inst_type                               # t2.medium, etc.
+inst_host                               # "" if not running, else the hostname it's running on
+inst_group                              # sg-nnn group id of instance
+inst_vol                                # volume id of root EBS root volume
+inst_device                             # /dev/xda1 or whatever root mount point
+inst_key                                # your awsLASTNAMEkey name
+inst_owner                              # your owner id
+inst_subnet                             # subnet id
+inst_vpc                                # VPC id
+inst_zone                               # us-east-1a, etc.
 </pre>
 
 <h1>Instance Actions</h1>
