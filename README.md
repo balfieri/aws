@@ -2,7 +2,7 @@ Some simple Amazon AWS scripts.  Written in Perl, mostly less than 10 lines of c
 
 <h1>One-Time Initialization</h1>
 
-<h3>Set Up Your Local PC for AWS Command Line</h3>
+<h4>Set Up Your Local PC for AWS Command Line</h4>
 
 <pre>
 # clone/download this repo and put it on your PATH
@@ -25,7 +25,7 @@ owner_region                            # will return the region you specified a
 
 <p>You'll notice that those don't print a newline.  That's so other scripts can use them on command lines like `owner_group` etc.</p>
 
-<h3>Create a SSH Key Pair</h3>
+<h4>Create a SSH Key Pair</h4>
 
 <p>
 <pre>
@@ -41,7 +41,7 @@ chmod 400 ~/.ssh/awsLASTNAMEkey.pem     # required
 auth_tcp_ingress
 </pre>
 
-<h3>Create Your "Master" Instance</h3>
+<h4>Create Your "Master" Instance</h4>
 
 <p>
 Typically, you'll want one instance to act as a template for others.  We'll call this your "master instance."
@@ -74,7 +74,7 @@ create_inst                             # use master instance type, image, and k
 create_inst t2.nano                     # with a particular instance type
 </pre>
 
-<h3>Create Your Default get_instance Script</h3>
+<h4>Create Your Default get_instance Script</h4>
 
 <p>
 Create a "get_instance" executable(!) script in a directory that is on your PATH (this dir is fine!) and have it contain this code:</p>
@@ -89,7 +89,7 @@ This is IMPORTANT because many of the scripts will use get_instance to get the
 default instance id for operations.  You can usually override it, but usually you don't want to.
 </p>
 
-<h3>Install Software On Your Master Instance</h3>
+<h4>Install Software On Your Master Instance</h4>
 
 <p>
 SSH into the master instance and install apps that aren't there that you might need, such as C++:
@@ -102,7 +102,7 @@ $ sudo yum install gcc-c++              # or whatever apps you want
 $ exit                                  # logout
 </pre>
 
-<h3>Stop Your Master Instance!</h3>
+<h4>Stop Your Master Instance!</h4>
 
 <p>Remember to stop your master instance when you aren't using it:</p>
 
