@@ -96,3 +96,24 @@ Most of the scripts here will automatically issue a "start_inst" to make sure th
 started, but they won't stop the instance automatically unless the script requires that
 it be stopped.</p>
 
+<h1>Instance Queries</h1>
+
+<p>
+These commands take an instance id as an argument, but normally you'll just let it use "get_instance" to get
+your master instance id.</p>
+
+<pre>
+inst_state                              [running, stopped, etc.]
+inst_json                               [full instance info in JSON format]
+
+inst_type                               [t2.medium, etc.]
+inst_host                               ["" if not running, else the hostname it's running on]
+inst_group                              [sg-nnn group id of instance]
+inst_vol                                [volume id of root EBS root volume]
+inst_device                             [/dev/xda1 or whatever root mount point]
+inst_key                                [your awsLASTNAMEkey name]
+inst_owner                              [your owner id]
+inst_subnet                             [subnet id]
+inst_vpc                                [VPC id]
+inst_zone                               [us-east-1a, etc.]
+</pre>
