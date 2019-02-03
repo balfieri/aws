@@ -136,6 +136,7 @@ inst_zone                               [us-east-1a, etc.]
 <pre>
 start_inst                              [scripts call this automatically, so don't need to manually]
 stop_inst                               [stop instance if it's running]
+change_inst_type type                   [stops instance and changes it's type (t2.medium, etc.)]
     
 on_inst                                 [ssh to the instance]
 on_inst cmd ...                         [ssh to the instance and run "cmd ..."]
