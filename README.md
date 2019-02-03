@@ -190,3 +190,6 @@ create_inst                             # create 1 on-demand instance using mast
 create_inst t2.nano                     # same, but override instance type
 create_insts 5                          # create 5 on-demand instances
 create_insts 5 m3.medium                # same, but override instance type
+create_insts 5 -clone snapshot-nnn      # create 5 on-demand cloned instances using the snapshot-nnn id
+create_insts 5 -spot 0.01               # create 5 spot instances with max spot price of $0.01/inst
+create_insts 5 -spot 0.01 -clone snapshot-nnn # same but make them all clones of snapshot-nnn
