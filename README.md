@@ -220,7 +220,7 @@ are modified.  Also, create_insts sets up the instances so that EBS root
 volumes are deleted as their instances are deleted/terminated.</p>
 
 <p>
-My typical usage scenario for simulations is to copy a large emount of read-only data
+My typical usage scenario for simulations is to copy a large amount of read-only data
 to the master, then clone the master and have each instance produce a small
 result file, so this cloning works out well.</p>
 
