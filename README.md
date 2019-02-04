@@ -186,7 +186,9 @@ owner_images                            # get ami-nnn ids of all created images
 </pre>
 
 <p>
-Create 1 on-demand instance using master instance type, etc:</p>
+Create 1 on-demand instance using master instance type, etc.  Note that
+this does not clone the master instance's root drive, so this is normally used
+to create a different master instance or miscellaneous instance:</p>
 
 <pre>
 create_inst                             
@@ -210,6 +212,14 @@ create_insts 5 -command "command_line" -clone snapshot-nnn
 </pre>
 
 <p>
+Create 5 on-demand instances cloned from the master.
+This will first execute image_snapshot_inst above to clone the master:</p>
+</p>
+<pre>
+create_insts 5 -command "command_line" -clone_master
+</pre>
+
+<p>
 Create 5 spot instances with max spot price of $0.01/inst-hour:</p>
 
 <pre>
@@ -223,8 +233,7 @@ create_insts 5 -command "command_line" -spot 0.01 -clone snapshot-nnn
 </pre>
 
 <p>
-Create 5 spot instances cloned from the current master_inst.
-This will first execute image_snapshot_inst above to clone the master:</p>
+Create 5 spot instances cloned from the current master_inst:
 
 <pre>
 create_insts 5 -command "command_line" -spot 0.01 -clone_master
