@@ -180,7 +180,7 @@ to_inst src dst                         # scp src file or directory from this PC
 fm_inst src dst                         # scp src file or directory from instance to dst on this PC
 </pre>
 
-<h4>Snapshots:</h4>
+<h4>Snapshots</h4>
 <pre>
 snapshot_inst                           # take a snapshot of the instance's root volume (for backups)
 vol_snapshot                            # get snapshot-nnn id of most recent snapshot for instance's root volume
