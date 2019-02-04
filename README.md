@@ -194,7 +194,7 @@ owner_images                            # get ami-nnn ids of all created images
 copy-on-write, so new space is allocated only when blocks are 
 changed in one of the volumes (snapshot or other).</p>
 
-<h4>Launch New Instances</h4>
+<h1>Launching New Instances</h1>
 
 <p>
 Create 1 on-demand instance using master instance type, etc.  Note that
