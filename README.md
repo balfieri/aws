@@ -164,7 +164,7 @@ inst_zone                               # us-east-1a, etc.
 
 <h1>Instance Actions</h1>
 
-<p>Start/Stop/Modify:</p>
+<h4>Start/Stop/Modify</h4>
 <pre>
 start_inst                              # scripts call this automatically, so don't need to manually
 stop_inst                               # stop instance if it's running
@@ -172,7 +172,7 @@ change_inst_type type                   # stops instance and changes its type (t
 resize_inst_vol gigabytes               # stops instance and resizes its root EBS volume
 </pre>
 
-<p>SSH and SCP:</p>
+<h4>SSH and SCP</h4>
 <pre>
 on_inst                                 # ssh to the instance
 on_inst cmd args...                     # ssh to the instance and run "cmd args..."
@@ -180,7 +180,7 @@ to_inst src dst                         # scp src file or directory from this PC
 fm_inst src dst                         # scp src file or directory from instance to dst on this PC
 </pre>
 
-<p>Snapshots:</p>
+<h4>Snapshots:</h4>
 <pre>
 snapshot_inst                           # take a snapshot of the instance's root volume (for backups)
 vol_snapshot                            # get snapshot-nnn id of most recent snapshot for instance's root volume
@@ -193,6 +193,8 @@ owner_images                            # get ami-nnn ids of all created images
 <p>Note that snapshots do not consume extra space.  Amazon implements them using 
 copy-on-write, so new space is allocated only when blocks are 
 changed in one of the volumes (snapshot or other).</p>
+
+<h4>Launch New Instances</h4>
 
 <p>
 Create 1 on-demand instance using master instance type, etc.  Note that
@@ -264,6 +266,8 @@ However, they could get terminated at any time by Amazon. I've never had this ha
 because my instances typically run for less than one hour and I set my max spot price
 to be the same as the on-demand price.  Still, there are no guarantees.
 My recommendation is to just restart the whole job in this rare occurrence.</p>
+
+<h4>Delete Instances</h4>
 
 <p>
 Here are the commands for deleting instances.  Refer to the next section
