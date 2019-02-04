@@ -281,7 +281,7 @@ delete_inst i-nnn                       # delete inst and its root EBS
 delete_inst i-nnn i-mmm ...             # delete multiple instances
 </pre>
 
-<h1>On the Instance</h1>
+<h1>On Each Launched Instance</h1>
 
 <p>
 The command script on each launched instance can use the following ec2-metadata commands to 
