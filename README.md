@@ -310,7 +310,7 @@ owner_insts -command "command_line" -state "pending|running"
 <p>
 When you think all work is done and all results have been copied to your PC,
 then you may or may not want to make sure all instances are terminated.
-This command will return an empty string once that is true:
+This command will return an empty string once that is true.  
 </p>
 <pre>
 owner_insts -command "command_line" -state "not_terminated"
