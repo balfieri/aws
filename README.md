@@ -67,8 +67,8 @@ More on that later.
 The first one is slightly more complicated than doing others, but we need only do this once:
 </p>
 
-<p>Tet the list of the most recent Amazon Linux2 images (assuming you want to run that).
-It will return a list of ami-nnn image ids and creation dates.
+<p>Get the list of the most recent Amazon Linux2 images (assuming you want to run that).
+This will return a list of ami-nnn image ids and creation dates.
 Normally you'll just pick the most recent one:</p>
 <pre>
 linux2_images
