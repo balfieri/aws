@@ -338,7 +338,7 @@ then you may or may not want to make sure all instances are terminated.
 This command will return an empty string once that is true.  
 </p>
 <pre>
-owner_insts -command "command_line" -state "not_terminated"
+owner_insts -command "command_line" -state "!terminated"
 </pre>
 
 Bob Alfieri<br>
