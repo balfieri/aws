@@ -279,25 +279,39 @@ you can do anything you want.</p>
 
 <p>
 You can issue the following commands from your PC to get results from your instances and 
-then delete (terminate) them:</p>
+then delete (terminate) them.</p>
+
+<p>
+Return all i-nnn instance ids for all stopped instances
+that were running the given command_line:</p>
+<pre>
+owner_insts -command "command_line" -state stopped
+</pre>
+
+<p>
+For each stopped instance your PC-side script will typically
+want to copy some results_file from the instance to the current directory
+on your PC, and then delete the instance:</p>
 
 <pre>
-# return all i-nnn instance ids for all stopped instances
-# that were running the given command_line
-owner_insts -command "command_line" -state stopped
-
-# for each stopped instance your PC-side script will typically
-# want to copy some results_file from the instance to the current directory
-# on your PC, and then delete the instance:
 fm_inst i-nnn results_file .            # copy results_file to this PC
 delete_inst i-nnn                       # delete inst and its root EBS 
+</pre>
 
-# you may also want to know if any other instances are still running,
-# though you would normally discern this from the number of
-# results that you have harvested so far
+<p>
+You may also want to know if any other instances are still running,
+though you would normally discern this from the number of
+results that you have harvested so far:
+</p>
+<pre>
 owner_insts -command "command_line" -state "pending|running"
+</pre>
 
-# when you think all work is done and all results have been copied to your PC,
-# then you may or may not want to make sure all instances are terminated;
-# this command will return an empty string once that is true
+<p>
+When you think all work is done and all results have been copied to your PC,
+then you may or may not want to make sure all instances are terminated.
+This command will return an empty string once that is true:
+</p>
+<pre>
 owner_insts -command "command_line" -state "not_terminated"
+</pre>
