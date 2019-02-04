@@ -6,6 +6,9 @@ to the otherwise frustrating.  I use AWS for doing large, parallel simulations, 
 geared toward that kind of usage scenario.  
 </p>
 
+<p>
+These scripts have no licensing restrictions whatsoever.  They are public domain.</p>
+
 <h1>One-Time Setup</h1>
 
 <h4>Set Up Your Local PC for AWS Command Line</h4>
@@ -337,3 +340,6 @@ This command will return an empty string once that is true.
 <pre>
 owner_insts -command "command_line" -state "not_terminated"
 </pre>
+
+Bob Alfieri<br>
+Chapel Hill, NC
