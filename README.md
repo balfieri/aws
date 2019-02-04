@@ -193,25 +193,40 @@ create_inst t2.nano                     # same, but override instance type
 
 </pre>
 
+<p>
+Create 5 on-demand instances that start by running a command_line.
+Note: "command_line" is the run line ON the instance, NOT on the PC.</p>
+
 <pre>
-# create 5 on-demand instances that start by running a command_line
-# note: "command_line" is the run line ON the instance, NOT on the PC
 create_insts 5 -command "command_line"   
+create_insts 5 -command "command_line" -type m3.medium          # override instance type
+</pre>
 
-# same, but override instance type
-create_insts 5 -command "command_line" -type m3.medium                
-
-# create 5 on-demand instances cloned from the snapshot-nnn id
+<p>
+Create 5 on-demand instances cloned from the snapshot-nnn id.
+</p>
+<pre>
 create_insts 5 -command "command_line" -clone snapshot-nnn      
+</pre>
 
-# create 5 spot instances with max spot price of $0.01/inst-hour
+<p>
+Create 5 spot instances with max spot price of $0.01/inst-hour:</p>
+
+<pre>
 create_insts 5 -command "command_line" -spot 0.01               
+</pre>
 
-# create 5 spot instances cloned from the snapshot-nnn id
+<p>Create 5 spot instances cloned from the snapshot-nnn id:</p>
+
+<pre>
 create_insts 5 -command "command_line" -spot 0.01 -clone snapshot-nnn
+</pre>
 
-# create 5 spot instances cloned from the current master_inst
-# this will first execute image_snapshot_inst above to clone the master 
+<p>
+Create 5 spot instances cloned from the current master_inst.
+This will first execute image_snapshot_inst above to clone the master:</p>
+
+<pre>
 create_insts 5 -command "command_line" -spot 0.01 -clone_master
 </pre>
 
