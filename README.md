@@ -164,7 +164,7 @@ inst_zone                               # us-east-1a, etc.
 
 <h1>Instance Actions</h1>
 
-<p>Start/stop instances</p>
+<p>Start/Stop/Modify:</p>
 <pre>
 start_inst                              # scripts call this automatically, so don't need to manually
 stop_inst                               # stop instance if it's running
