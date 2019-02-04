@@ -186,11 +186,11 @@ owner_images                            # get ami-nnn ids of all created images
 </pre>
 
 <p>
-<p>
-<pre>
-create_inst                             # create 1 on-demand instance using master instance type, etc.
-create_inst t2.nano                     # same, but override instance type
+Create 1 on-demand instance using master instance type, etc:</p>
 
+<pre>
+create_inst                             
+create_inst t2.nano                     # same, but override instance type
 </pre>
 
 <p>
