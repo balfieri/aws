@@ -10,20 +10,26 @@ geared toward that kind of usage scenario.
 
 <h4>Set Up Your Local PC for AWS Command Line</h4>
 
+<p>Clone or download this repo and put it on your PATH:</p>
+
 <pre>
-# clone/download this repo and put it on your PATH
 cd [somewhere]
 git clone https://github.com/balfieri/aws
 export PATH=...
+</pre>
 
-[install aws-cli (search web for how to do this on your type of PC)]
+<p>
+Install aws-cli (search web for how to do this on your type of PC).</p>
 
-# configure your AWS environment
+<p>Configure your AWS environment:</p>
+<pre>
 aws configure                           
 [get AWS key id and secret id credentials from your AWS console and type them in when prompted]
 region: us-east-1                       # or wherever suits you
+</pre>
 
-# some sanity checks
+<p>Do some sanity checks:</p>
+<pre>
 owner_id                                # returns your owner (account) id (an integer)
 owner_group                             # returns your sg-nnn security group id
 owner_vpc                               # returns your vpc-nnn VPC id
@@ -35,17 +41,17 @@ owner_region                            # returns the region you specified above
 <h4>Create an SSH Key Pair</h4>
 
 <p>
+Embed your LASTNAME in the key name or whatever you want to call it to make it unique.
+This is just the convention that I happen to use:</p>
 <pre>
-# embed your LASTNAME in the key name or whatever you want to call it to make it unique
-# this is just the convention that I happen to use
 aws ec2 create-key-pair --key-name awsLASTNAMEkey --query 'KeyMaterial' \
                         --output text > ~/.ssh/awsLASTNAMEkey.pem
 chmod 400 ~/.ssh/awsLASTNAMEkey.pem     # required
-
 </pre>
 
+<p>
+Allow TCP to communicate with your security group so you can ssh in etc.:</p>
 <pre>
-# allow TCP to communicate with your security group so you can ssh in etc.
 auth_tcp_ingress
 </pre>
 
@@ -61,16 +67,20 @@ More on that later.
 The first one is slightly more complicated than doing others, but we need only do this once:
 </p>
 
+<p>Tet the list of the most recent Amazon Linux2 images (assuming you want to run that).
+It will return a list of ami-nnn image ids and creation dates.
+Normally you'll just pick the most recent one:</p>
 <pre>
-# get list of most recent Amazon Linux2 images (assuming you want to run that)
-# it will return a list of ami-nnn image ids and creation dates
-# normally, you'll just pick the most recent one
 linux2_images
+</pre>
 
-# create one on-demand instance using the t2.medium instance type for starters
+<p>Create one on-demand instance using the t2.medium instance type for starters:</p>
+<pre>
 create_inst t2.medium ami-009d6802948d06e52 awsLASTNAMEkey
+</pre>
 
-# sanity check
+<p>Sanity check:</p>
+<pre>
 owner_insts                             # will return your i-nnn instance id
 </pre>
 
@@ -154,7 +164,7 @@ inst_zone                               # us-east-1a, etc.
 
 <h1>Instance Actions</h1>
 
-<p></p>
+<p>Start/stop instances</p>
 <pre>
 start_inst                              # scripts call this automatically, so don't need to manually
 stop_inst                               # stop instance if it's running
@@ -162,28 +172,27 @@ change_inst_type type                   # stops instance and changes its type (t
 resize_inst_vol gigabytes               # stops instance and resizes its root EBS volume
 </pre>
 
+<p>SSH and SCP:</p>
 <pre>
-
 on_inst                                 # ssh to the instance
 on_inst cmd args...                     # ssh to the instance and run "cmd args..."
 to_inst src dst                         # scp src file or directory from this PC to dst on the instance
 fm_inst src dst                         # scp src file or directory from instance to dst on this PC
 </pre>
 
+<p>Snapshots:</p>
 <pre>
-
 snapshot_inst                           # take a snapshot of the instance's root volume (for backups)
 vol_snapshot                            # get snapshot-nnn id of most recent snapshot for instance's root volume
 vol_snapshots                           # get snapshot-nnn ids of all snapshots for instance's root volume
 image_snapshot_inst                     # take a snapshot and create an ami-nnn launchable image from it 
 owner_image                             # get ami-nnn id of most recently created image
 owner_images                            # get ami-nnn ids of all created images
-
-# Note that snapshots do not consume extra space.  Amazon implements them using 
-# copy-on-write, so new space is allocated only when blocks are 
-# changed in one of the volumes (snapshot or other).
-
 </pre>
+
+<p>Note that snapshots do not consume extra space.  Amazon implements them using 
+copy-on-write, so new space is allocated only when blocks are 
+changed in one of the volumes (snapshot or other).</p>
 
 <p>
 Create 1 on-demand instance using master instance type, etc.  Note that
