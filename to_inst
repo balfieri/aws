@@ -9,4 +9,4 @@ my $dst = pop @ARGV;
 system( "start_inst" );
 my $host = `inst_host`;
 my $key  = `inst_key`;
-system( "scp -r -i ~/.ssh/${key}.pem ${src} ec2-user\@${host}:${dst}" );
+system( "scp -r -i ~/.ssh/${key}.pem -o 'StrictHostKeyChecking no' ${src} ec2-user\@${host}:${dst}" );

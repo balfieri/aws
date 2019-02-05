@@ -3,10 +3,54 @@
 use strict;
 use warnings;
 
-my $count  = shift @ARGV || die "ERROR: create_insts <cnt>\n";
-my $type   = shift @ARGV || `inst_type`;
-my $image  = shift @ARGV || `owner_image`;
-my $key    = shift @ARGV || `inst_key`;
-my $group  = shift @ARGV || `owner_group`;
-my $region = shift @ARGV || `owner_region`;
-system( "aws ec2 run-instances --image-id ${image} --count ${count} --instance-type ${type} --key-name ${key} --security-group-ids ${group} --region ${region}" );
+my $count  = shift @ARGV || die "ERROR: create_insts <count>\n";
+$count     = int( $count );
+
+my $type;
+my $image;
+my $key;
+my $group;
+my $region;
+my $command = "";
+my $spot = "";
+my $spot_type = "one-time";
+while( @ARGV != 0 ) 
+{
+    my $arg = shift @ARGV;
+    if ( $arg eq "-type" ) {
+        $type = shift @ARGV;
+    } elsif ( $arg eq "-image" ) {
+        $image = shift @ARGV;
+    } elsif ( $arg eq "-key" ) {
+        $key = shift @ARGV;
+    } elsif ( $arg eq "-group" ) {
+        $group = shift @ARGV;
+    } elsif ( $arg eq "-region" ) {
+        $region = shift @ARGV;
+    } elsif ( $arg eq "-spot" ) {
+        $spot = shift @ARGV;
+    } elsif ( $arg eq "-spot_type" ) {
+        $spot_type = shift @ARGV;
+    } elsif ( $arg eq "-command" ) {
+        $command = shift @ARGV;
+    } elsif ( $arg eq "-clone" || $arg eq "-clone_master" ) {
+        die "ERROR: please run image_snapshot_inst to clone before running this command\n";
+    } else {
+        die "ERROR: unknown create_insts option '$arg'\n";
+    }
+}
+defined $image  or $image = `owner_image`;
+defined $type   or $type = `inst_type`;
+defined $key    or $key = `inst_key`;
+defined $group  or $group = `owner_group`;
+defined $region or $region = `owner_region`;
+$command ne "" and $command = "--userdata '${command}'";
+
+if ( $spot eq "" ) {
+    system( "aws ec2 run-instances --count ${count} --image-id ${image}" . 
+            " --key-name ${key} --security-group-ids ${group} --region ${region} ${command}" );
+} else {
+    system( "aws ec2 request-spot-instances --count ${count} --spot-price ${spot} --type ${spot_type} " .
+            " --launch-specification ImageId=${image},KeyName=${key},SecurityGroupIds=${group}," .
+            "InstanceType=${type},Placement={AvailabilityZone=${region}} ${command}" );
+}

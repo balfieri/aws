@@ -79,7 +79,7 @@ linux2_images
 
 <p>Create one on-demand instance using the t2.medium instance type for starters:</p>
 <pre>
-create_inst t2.medium ami-009d6802948d06e52 awsLASTNAMEkey
+create_inst -type t2.medium -image ami-009d6802948d06e52 -key awsLASTNAMEkey
 </pre>
 
 <p>Sanity check:</p>
@@ -206,7 +206,7 @@ to create a different master instance or miscellaneous instance:</p>
 
 <pre>
 create_inst                             
-create_inst t2.nano                     # same, but override instance type
+create_inst -type t2.nano               # same, but override instance type
 </pre>
 
 <p>
