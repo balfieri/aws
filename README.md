@@ -82,19 +82,19 @@ linux2_images
 create_inst -type t2.medium -image ami-009d6802948d06e52 -key awsLASTNAMEkey
 </pre>
 
-<p>Sanity check:</p>
+<p>Sanity check to get your i-nnn instance id:</p>
 <pre>
-owner_insts                             # will return your i-nnn instance id
+owner_insts
 </pre>
 
 <h4>Create Your Default master_inst Script</h4>
 
 <p>
-Create a "master_inst" executable(!) script in a directory that is on your PATH (this dir is fine!) and have it contain this code:</p>
+Create a "master_inst" script in a directory that is on your PATH and have it contain this code where i-nnn is your instance id:</p>
 
 <pre>
 #/bin/bash
-echo -n "i-nnn";                        # your i-nnn id returned by owner-insts
+echo -n "i-nnn";
 </pre>
 
 <p>
@@ -132,7 +132,10 @@ deleting the instance.</p>
 
 <pre>
 stop_inst
-inst_state                              # verify that it went into the "stopping" state
+</pre>
+
+<p>Sanity check that's it's stopping:</p>
+inst_state
 </pre>
 
 <p>
@@ -201,13 +204,17 @@ changed in one of the volumes (snapshot or other).</p>
 <h1>Launching New Instances</h1>
 
 <p>
-Create 1 on-demand instance using master instance type, etc.  Note that
+Create one on-demand instance using master instance type, etc.  Note that
 this does not clone the master instance's root drive, so this is normally used
 to create a different master instance or miscellaneous instance:</p>
 
 <pre>
 create_inst                             
-create_inst -type t2.nano               # same, but override instance type
+</pre>
+
+<p>Override instance type:</p>
+<pre>
+create_inst -type t2.nano
 </pre>
 
 <p>
@@ -216,7 +223,7 @@ Note: "command_line" is the run line ON the instance, NOT on the PC.</p>
 
 <pre>
 create_insts 5 -command "command_line"   
-create_insts 5 -command "command_line" -type m3.medium          # override instance type
+create_insts 5 -command "command_line" -type m3.medium 
 </pre>
 
 <p>
@@ -278,19 +285,19 @@ Here are the commands for deleting instances.  Refer to the next section
 for how these are typically used.</p>
 
 <pre>
-delete_inst i-nnn                       # delete inst and its root EBS 
-delete_inst i-nnn i-mmm ...             # delete multiple instances
+delete_inst i-nnn
+delete_inst i-nnn i-mmm ...
 </pre>
 
 <h1>On Each Launched Instance</h1>
 
 <p>
 The command script on each launched instance can use the following ec2-metadata commands to 
-retrieve information it needs in order to figure out what work it should do:</p>
+retrieve information it needs in order to figure out what work it should do.</p>
 
 <pre>
-ec2-metadata -d                         # the -command 'command_line' from create_insts above
-ec2-metadata -l                         # launch index (0, 1, 2, ...)
+ec2-metadata -d         # get command line
+ec2-metadata -l         # get launch index
 </pre>
 
 <p>
@@ -320,8 +327,8 @@ want to copy some results_file from the instance to the current directory
 on your PC, and then delete the instance:</p>
 
 <pre>
-fm_inst i-nnn results_file .            # copy results_file to this PC
-delete_inst i-nnn                       # delete inst and its root EBS 
+fm_inst i-nnn results_file .
+delete_inst i-nnn
 </pre>
 
 <p>
