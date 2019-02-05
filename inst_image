@@ -1,0 +1,9 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $inst = shift @ARGV || `master_inst`;
+my $image = `aws ec2 describe-instances --instance-ids ${inst} --query 'Reservations[*].Instances[*].ImageId' --output text`;
+chomp $image;
+print $image;

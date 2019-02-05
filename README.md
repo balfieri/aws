@@ -156,6 +156,7 @@ owner_insts_json                        # list all information for all instances
 inst_type                               # t2.medium, etc.
 inst_host                               # "" if not running, else the hostname it's running on
 inst_group                              # sg-nnn group id of instance
+inst_image                              # ami-nnn image id that the instance is running
 inst_vol                                # volume id of root EBS root volume
 inst_device                             # /dev/xda1 or whatever root mount point
 inst_key                                # your awsLASTNAMEkey name

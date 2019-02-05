@@ -43,17 +43,22 @@ while( @ARGV != 0 )
     }
 }
 defined $image  or $image = `owner_image`;
+$image ne ""    or $image = `inst_image`;
+$image ne ""    or die "ERROR: there is no owner_image or inst_image; please provide one using the -image ami-nnn option\n";
 defined $type   or $type = `inst_type`;
+$type ne ""     or die "ERROR: there is no inst_type; please provide one using the -type ... option\n";
 defined $key    or $key = `inst_key`;
+$key ne ""      or die "ERROR: there is no inst_key; please provide one using the -key ... option\n";
 defined $group  or $group = `owner_group`;
-defined $region or $region = `owner_region`;
-defined $zone   or $zone = `inst_zone`;
+$group ne ""    or die "ERROR: there is no owner_group; please run "aws configure" to establish it\n";
 $command ne "" and $command = "--userdata '${command}'";
 
 if ( $spot eq "" ) {
+    defined $region or $region = `owner_region`;
     system( "aws ec2 run-instances --count ${count} --image-id ${image} --instance-type ${type}" . 
             " --key-name ${key} --security-group-ids ${group} --region ${region} ${command}" );
 } else {
+    defined $zone   or $zone = `inst_zone`;
     system( "aws ec2 request-spot-instances --instance-count ${count} --spot-price ${spot} --type ${spot_type} " .
             " --launch-specification ImageId=${image},KeyName=${key},SecurityGroupIds=${group}," .
             "InstanceType=${type},Placement={AvailabilityZone=${zone}} ${command}" );
