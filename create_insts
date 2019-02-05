@@ -50,7 +50,7 @@ if ( $spot eq "" ) {
     system( "aws ec2 run-instances --count ${count} --image-id ${image}" . 
             " --key-name ${key} --security-group-ids ${group} --region ${region} ${command}" );
 } else {
-    system( "aws ec2 request-spot-instances --count ${count} --spot-price ${spot} --type ${spot_type} " .
+    system( "aws ec2 request-spot-instances --instance-count ${count} --spot-price ${spot} --type ${spot_type} " .
             " --launch-specification ImageId=${image},KeyName=${key},SecurityGroupIds=${group}," .
-            "InstanceType=${type},Placement={AvailabilityZone=${region}} ${command}" );
+            "InstanceType=${type},Placement.AvailabilityZone=${region} ${command}" );
 }
