@@ -7,4 +7,4 @@ my $snapshot = shift @ARGV || die "image_snapshot snapshot-id name\n";
 my $name     = shift @ARGV || die "image_snapshot snapshot-id name\n";
 my $inst     = shift @ARGV || `master_inst`;
 my $device   = `inst_device ${inst}`;
-system( "aws ec2 register-image --name ${name} --root-device-name ${device} --block-device-mappings DeviceName=\"${device}\",Ebs={DeleteOnTermination=true,SnapshotId=\"${snapshot}}\"" );
+system( "aws ec2 register-image --name ${name} --virtualization-type hvm --root-device-name ${device} --block-device-mappings DeviceName=\"${device}\",Ebs={DeleteOnTermination=true,SnapshotId=\"${snapshot}}\"" );

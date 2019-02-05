@@ -11,6 +11,7 @@ my $image;
 my $key;
 my $group;
 my $region;
+my $zone;
 my $command = "";
 my $spot = "";
 my $spot_type = "one-time";
@@ -27,6 +28,8 @@ while( @ARGV != 0 )
         $group = shift @ARGV;
     } elsif ( $arg eq "-region" ) {
         $region = shift @ARGV;
+    } elsif ( $arg eq "-zone" ) {
+        $zone = shift @ARGV;
     } elsif ( $arg eq "-spot" ) {
         $spot = shift @ARGV;
     } elsif ( $arg eq "-spot_type" ) {
@@ -44,13 +47,14 @@ defined $type   or $type = `inst_type`;
 defined $key    or $key = `inst_key`;
 defined $group  or $group = `owner_group`;
 defined $region or $region = `owner_region`;
+defined $zone   or $zone = `inst_zone`;
 $command ne "" and $command = "--userdata '${command}'";
 
 if ( $spot eq "" ) {
-    system( "aws ec2 run-instances --count ${count} --image-id ${image}" . 
+    system( "aws ec2 run-instances --count ${count} --image-id ${image} --instance-type ${type}" . 
             " --key-name ${key} --security-group-ids ${group} --region ${region} ${command}" );
 } else {
     system( "aws ec2 request-spot-instances --instance-count ${count} --spot-price ${spot} --type ${spot_type} " .
             " --launch-specification ImageId=${image},KeyName=${key},SecurityGroupIds=${group}," .
-            "InstanceType=${type},Placement.AvailabilityZone=${region} ${command}" );
+            "InstanceType=${type},Placement={AvailabilityZone=${zone}} ${command}" );
 }
