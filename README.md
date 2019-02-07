@@ -278,6 +278,10 @@ because my instances typically run for less than one hour and I set my max spot 
 to be the same as the on-demand price.  Still, there are no guarantees.
 My recommendation is to just restart the whole job in this rare occurrence.</p>
 
+<p>
+Also note that spot instances may not be stopped, but they can be terminated using
+delete_inst.</p>
+
 <h4>Delete Instances</h4>
 
 <p>
