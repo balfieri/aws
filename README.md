@@ -154,6 +154,7 @@ master_inst                             # i-nnn id of current master instance
 inst_state                              # running, stopped, etc.
 inst_json                               # full instance info in JSON format
 owner_insts                             # list i-nnn ids of all of your instances 
+owner_insts_state                       # list i-nnn ids and state of all of your instances
 owner_insts_json                        # list all information for all instances in JSON format
  
 inst_type                               # t2.medium, etc.
