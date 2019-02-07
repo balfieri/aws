@@ -50,7 +50,7 @@ $type ne ""     or die "ERROR: there is no inst_type; please provide one using t
 defined $key    or $key = `inst_key`;
 $key ne ""      or die "ERROR: there is no inst_key; please provide one using the -key ... option\n";
 defined $group  or $group = `owner_group`;
-$group ne ""    or die "ERROR: there is no owner_group; please run "aws configure" to establish it\n";
+$group ne ""    or die "ERROR: there is no owner_group; please run \"aws configure\" to establish it\n";
 $command ne "" and $command = "--userdata '${command}'";
 
 if ( $spot eq "" ) {

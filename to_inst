@@ -3,10 +3,11 @@
 use strict;
 use warnings;
 
+my $inst = (@ARGV != 0 && ($ARGV[0] =~ /^i-/)) ? (shift @ARGV) : `master_inst`; 
 my $src = join( " ", @ARGV );
 my $dst = pop @ARGV;
 
-system( "start_inst" );
-my $host = `inst_host`;
-my $key  = `inst_key`;
+system( "start_inst ${inst}" );
+my $host = `inst_host ${inst}`;
+my $key  = `inst_key ${inst}`;
 system( "scp -r -i ~/.ssh/${key}.pem -o 'StrictHostKeyChecking no' ${src} ec2-user\@${host}:${dst}" );
