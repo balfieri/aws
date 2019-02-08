@@ -176,6 +176,7 @@ inst_owner                              # your owner id
 inst_subnet                             # subnet id
 inst_vpc                                # VPC id
 inst_zone                               # availability zone within region
+owner_insts_zone                        # list i-nnn ids and the zone of all of your instances
 </pre>
 
 <h1>Instance Actions</h1>
@@ -224,6 +225,11 @@ create_inst
 <p>Override instance type:</p>
 <pre>
 create_inst -type t2.nano
+</pre>
+
+<p>Override availability zone (note: must be in owner_region):</p>
+<pre>
+create_inst -zone us-east-1b
 </pre>
 
 <p>
