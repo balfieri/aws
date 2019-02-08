@@ -41,6 +41,12 @@ owner_region                            # returns the region you specified above
 
 <p>You'll notice that those don't print a newline.  That's so other scripts can use them on command lines like `owner_group` etc.</p>
 
+<p>By the way, if you want to list all regions that you have available to you, use this command, but keep in
+mind that an owner (account) may belong to at most one region at a time:</p>
+<pre>
+owner_regions                           # returns list of available regions
+</pre>
+
 <h4>Create an SSH Key Pair</h4>
 
 <p>
@@ -156,6 +162,8 @@ inst_json                               # full instance info in JSON format
 owner_insts                             # list i-nnn ids of all of your instances 
 owner_insts_state                       # list i-nnn ids and state of all of your instances
 owner_insts_json                        # list all information for all instances in JSON format
+owner_regions                           # list of regions that the owner could use (only one allowed)
+owner_zones                             # list of availability zones within the owner's region
  
 inst_type                               # t2.medium, etc.
 inst_host                               # "" if not running, else the hostname it's running on
@@ -167,7 +175,7 @@ inst_key                                # your awsLASTNAMEkey name
 inst_owner                              # your owner id
 inst_subnet                             # subnet id
 inst_vpc                                # VPC id
-inst_zone                               # us-east-1a, etc.
+inst_zone                               # us-east-1a zone within the region
 </pre>
 
 <h1>Instance Actions</h1>

@@ -1,0 +1,8 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $regions = `aws ec2 describe-regions --query 'Regions[*].RegionName' --output text`;
+chomp $regions;
+print $regions;

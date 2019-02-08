@@ -1,0 +1,8 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $zones = `aws ec2 describe-availability-zones --query 'AvailabilityZones[*].ZoneName' --output text`;
+chomp $zones;
+print $zones;
