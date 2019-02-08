@@ -11,7 +11,7 @@ my $image;
 my $key;
 my $group;
 my $zone;
-my $command = "";
+my $script = "";
 my $spot = "";
 my $spot_type = "one-time";
 while( @ARGV != 0 ) 
@@ -31,11 +31,10 @@ while( @ARGV != 0 )
         $spot = shift @ARGV;
     } elsif ( $arg eq "-spot_type" ) {
         $spot_type = shift @ARGV;
-    } elsif ( $arg eq "-command" ) {
-        $command = join( " ", @ARGV );
-        @ARGV = ();
+    } elsif ( $arg eq "-script" ) {
+        $script = shift @ARGV;
     } elsif ( $arg eq "-clone" || $arg eq "-clone_master" ) {
-        die "ERROR: please run image_snapshot_inst to clone before running this command\n";
+        die "ERROR: please run image_snapshot_inst to clone before running this script\n";
     } else {
         die "ERROR: unknown create_insts option '$arg'\n";
     }
@@ -51,22 +50,22 @@ defined $group  or $group = `owner_group`;
 $group ne ""    or die "ERROR: there is no owner_group; please run \"aws configure\" to establish it\n";
 
 if ( $spot eq "" ) {
-    $zone = defined( $zone ) ? "" : " --placement AvailabilityZone=${zone}";
-    $command ne "" and $command = "--userdata '${command}'";
+    $zone = defined( $zone ) ? " --placement AvailabilityZone=${zone}" : "";
+    if ( $script ne "" ) {
+        $script = `base64 ${script}`;
+        chomp $script;
+        $script = "--user-data ${script}";
+    }
     system( "aws ec2 run-instances --count ${count} --image-id ${image} --instance-type ${type}" . 
-            " --key-name ${key} --security-group-ids ${group}${zone} ${command}" );
+            " --key-name ${key} --security-group-ids ${group}${zone} ${script}" );
 } else {
     defined $zone or $zone = `inst_zone`;
-    if ( $command ne "" ) {
-        if ( $command =~ /^file:(.*)/ ) {
-            $command = `base64 ${1}`; 
-        } else {
-            $command = `echo '${command}' | base64`; 
-        }
-        chomp $command;
-        $command = ",UserData=${command}";
+    if ( $script ne "" ) {
+        $script = `base64 ${script}`;
+        chomp $script;
+        $script = ",UserData=${script}";
     }
     system( "aws ec2 request-spot-instances --instance-count ${count} --spot-price ${spot} --type ${spot_type} " .
-            " --launch-specification ImageId=${image},KeyName=${key},SecurityGroupIds=${group}${command}," .
+            " --launch-specification ImageId=${image},KeyName=${key},SecurityGroupIds=${group}${script}," .
             "InstanceType=${type},Placement={AvailabilityZone=${zone}}" );
 }

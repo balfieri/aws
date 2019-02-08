@@ -243,19 +243,35 @@ create_inst -zone us-east-1b
 </pre>
 
 <p>
-Create 5 on-demand instances that start by running a command_line.
-Note: "command_line" is the run line ON the instance, NOT on the PC.</p>
+Create 5 on-demand instances that start by running a local_script.
+The "local_script" is a script on your PC, not on the instance.  
+The local_script will be copied to each instance and is executed
+as "root", not as "ec2-user".  The stdout of the script and other
+stdout are written on the instance to /var/log/cloud-init-output.log, 
+which is readable by ec2-user.
 
 <pre>
-create_insts 5 -command "command_line"   
-create_insts 5 -command "command_line" -type m3.medium 
+create_insts 5 -script "local_script"   
+create_insts 5 -script "local_script" -type m3.medium 
+</pre>
+
+<p>
+Here's an example script (example.sh) that simply does an "ls".  "root" starts
+off in the root directory, so you'll get a top-level ls:</p>
+
+<pre>
+#!/bin/bash
+#
+# On each instance, stdout is written to /var/log/cloud-init-output.log
+#
+ls 
 </pre>
 
 <p>
 Create 5 on-demand instances cloned from the snapshot-nnn id.
 </p>
 <pre>
-create_insts 5 -command "command_line" -clone snapshot-nnn      
+create_insts 5 -script "local_script" -clone snapshot-nnn      
 </pre>
 
 <p>
@@ -263,27 +279,27 @@ Create 5 on-demand instances cloned from the master.
 This will first execute image_snapshot_inst above to clone the master:</p>
 </p>
 <pre>
-create_insts 5 -command "command_line" -clone_master
+create_insts 5 -script "local_script" -clone_master
 </pre>
 
 <p>
 Create 5 spot instances with max spot price of $0.01/inst-hour:</p>
 
 <pre>
-create_insts 5 -command "command_line" -spot 0.01               
+create_insts 5 -script "local_script" -spot 0.01               
 </pre>
 
 <p>Create 5 spot instances cloned from the snapshot-nnn id:</p>
 
 <pre>
-create_insts 5 -command "command_line" -spot 0.01 -clone snapshot-nnn
+create_insts 5 -script "local_script" -spot 0.01 -clone snapshot-nnn
 </pre>
 
 <p>
 Create 5 spot instances cloned from the current master_inst:
 
 <pre>
-create_insts 5 -command "command_line" -spot 0.01 -clone_master
+create_insts 5 -script "local_script" -spot 0.01 -clone_master
 </pre>
 
 <p>
@@ -325,7 +341,7 @@ The command script on each launched instance can use the following ec2-metadata 
 retrieve information it needs in order to figure out what work it should do.</p>
 
 <pre>
-ec2-metadata -d         # get command line
+ec2-metadata -d         # get command line, typically: "userdata: file:local_script"
 ec2-metadata -l         # get launch index
 </pre>
 
@@ -345,18 +361,20 @@ then delete (terminate) them.</p>
 
 <p>
 Return all i-nnn instance ids for all stopped instances
-that were running the given command_line:</p>
+that were running the given local_script:</p>
 <pre>
-owner_insts -command "command_line" -state stopped
+owner_insts -script "local_script" -state stopped
 </pre>
 
 <p>
 For each stopped instance your PC-side script will typically
-want to copy some results_file from the instance to the current directory
+want to copy some results_file or stdout in /var/log/cloud-init-output.log 
+from the instance to the current directory
 on your PC, and then delete the instance:</p>
 
 <pre>
 fm_inst i-nnn results_file .
+fm_inst i-nnn /var/log/cloud-init-output.log .
 delete_inst i-nnn
 </pre>
 
@@ -366,7 +384,7 @@ though you would normally discern this from the number of
 results that you have harvested so far:
 </p>
 <pre>
-owner_insts -command "command_line" -state "pending|running"
+owner_insts -script "local_script" -state "pending|running"
 </pre>
 
 <p>
@@ -375,7 +393,7 @@ then you may or may not want to make sure all instances are terminated.
 This command will return an empty string once that is true.  
 </p>
 <pre>
-owner_insts -command "command_line" -state "!terminated"
+owner_insts -script "local_script" -state "!terminated"
 </pre>
 
 Bob Alfieri<br>
