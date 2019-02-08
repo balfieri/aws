@@ -1,0 +1,9 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $inst = shift @ARGV || `master_inst`;
+my $token = `aws ec2 describe-instances --instance-ids ${inst} --query 'Reservations[*].Instances[*].[ClientToken]' --output text`;
+chomp $token;
+print $token;
