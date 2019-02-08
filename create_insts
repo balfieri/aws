@@ -10,7 +10,6 @@ my $type;
 my $image;
 my $key;
 my $group;
-my $region;
 my $zone;
 my $command = "";
 my $spot = "";
@@ -26,8 +25,6 @@ while( @ARGV != 0 )
         $key = shift @ARGV;
     } elsif ( $arg eq "-group" ) {
         $group = shift @ARGV;
-    } elsif ( $arg eq "-region" ) {
-        $region = shift @ARGV;
     } elsif ( $arg eq "-zone" ) {
         $zone = shift @ARGV;
     } elsif ( $arg eq "-spot" ) {
@@ -54,10 +51,10 @@ defined $group  or $group = `owner_group`;
 $group ne ""    or die "ERROR: there is no owner_group; please run \"aws configure\" to establish it\n";
 
 if ( $spot eq "" ) {
-    defined $region or $region = `owner_region`;
+    $zone = defined( $zone ) ? "" : " --placement AvailabilityZone=${zone}";
     $command ne "" and $command = "--userdata '${command}'";
     system( "aws ec2 run-instances --count ${count} --image-id ${image} --instance-type ${type}" . 
-            " --key-name ${key} --security-group-ids ${group} --region ${region} ${command}" );
+            " --key-name ${key} --security-group-ids ${group}${zone} ${command}" );
 } else {
     defined $zone or $zone = `inst_zone`;
     if ( $command ne "" ) {
