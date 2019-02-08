@@ -7,7 +7,7 @@ my $inst = shift @ARGV || `master_inst`;
 my $host;
 for( ;; )
 {
-    $host = `inst_host`;
+    $host = `inst_host ${inst}`;
     $host ne "" and last;
 
     print "Starting $inst and waiting for it to be running...\n"; 
