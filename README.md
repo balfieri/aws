@@ -177,10 +177,16 @@ inst_zone                               # availability zone within region
 owner_insts_zone                        # list i-nnn ids and the zone of all of your instances
 </pre>
 
-<p>Other owner-related queries:</p>
+<h1>Other Owner Queries</h1>
+
+<p>These commands are not specific to any instance(s):</p>
 <pre>
-owner_regions                           # list of regions that the owner could use (only one allowed)
-owner_zones                             # list of availability zones within the owner's region
+owner_id                                # returns your owner (account) id (an integer)
+owner_group                             # returns your sg-nnn security group id
+owner_vpc                               # returns your vpc-nnn VPC id
+owner_region                            # returns the region you specified above
+owner_regions                           # list of regions that your owner could use (only one allowed)
+owner_zones                             # list of availability zones within your owner region
 </pre>
 
 <h1>Instance Actions</h1>
