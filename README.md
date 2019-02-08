@@ -175,7 +175,7 @@ inst_key                                # your awsLASTNAMEkey name
 inst_owner                              # your owner id
 inst_subnet                             # subnet id
 inst_vpc                                # VPC id
-inst_zone                               # us-east-1a zone within the region
+inst_zone                               # availability zone within region
 </pre>
 
 <h1>Instance Actions</h1>
