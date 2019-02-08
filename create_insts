@@ -61,7 +61,11 @@ if ( $spot eq "" ) {
 } else {
     defined $zone or $zone = `inst_zone`;
     if ( $command ne "" ) {
-        $command = `echo '${command}' | base64`; 
+        if ( $command =~ /^file:(.*)/ ) {
+            $command = `base64 ${1}`; 
+        } else {
+            $command = `echo '${command}' | base64`; 
+        }
         chomp $command;
         $command = ",UserData=${command}";
     }
