@@ -157,7 +157,7 @@ just let it use `master_inst` to get your master instance id.</p>
 
 <pre>
 master_inst                             # i-nnn id of current master instance
-inst_state                              # running, stopped, etc.
+inst_state                              # pending, running, shutting-down, terminated, stopping, stopped
 inst_json                               # full instance info in JSON format
 owner_insts                             # list i-nnn ids of all of your instances 
 owner_insts_state                       # list i-nnn ids and state of all of your instances
@@ -360,10 +360,10 @@ You can issue the following commands from your PC to get results from your insta
 then delete (terminate) them.</p>
 
 <p>
-Return all i-nnn instance ids for all stopped instances
+Return all i-nnn instance ids for all running instances
 that were running the given local_script:</p>
 <pre>
-owner_insts -script "local_script" -state stopped
+owner_insts -token token -state running
 </pre>
 
 <p>
@@ -393,7 +393,7 @@ then you may or may not want to make sure all instances are terminated.
 This command will return an empty string once that is true.  
 </p>
 <pre>
-owner_insts -script "local_script" -state "!terminated"
+owner_insts -token "local_script" -state "!terminated"
 </pre>
 
 Bob Alfieri<br>
