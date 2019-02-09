@@ -3,5 +3,5 @@
 use strict;
 use warnings;
 
-my $insts = join( ",", @ARGV );
+my $insts = join( " ", @ARGV );
 system( "aws ec2 terminate-instances --instance-ids ${insts}" );

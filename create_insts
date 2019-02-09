@@ -71,7 +71,7 @@ if ( $spot eq "" ) {
         $script = ",UserData=${script}";
     }
     system( "aws ec2 request-spot-instances --instance-count ${count} --spot-price ${spot} --type ${spot_type} " .
-            " --client-token ${token}" . 
             " --launch-specification ImageId=${image},KeyName=${key},SecurityGroupIds=${group}${script}," .
-            "InstanceType=${type},Placement={AvailabilityZone=${zone}}" );
+            "InstanceType=${type},Placement={AvailabilityZone=${zone}}" .
+            " --client-token ${token}" );
 }

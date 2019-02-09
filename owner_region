@@ -3,6 +3,6 @@
 use strict;
 use warnings;
 
-my $region = `aws configure get region`;
+my $region = `aws configure get region --output text`;
 chomp $region;
 print $region;
