@@ -363,7 +363,8 @@ then delete (terminate) them.</p>
 The following command will show all useful information about all instances:</p>
 <pre>
 owner_insts -show_all
-
+</pre>
+<pre>
 i-0fcb24869e6f081a1	2019-02-07T23:19:44.000Z	stopped	t2.medium	ami-009d6802948d06e52	us-east-1a	None	
 i-0000de611bb6799db	2019-02-11T03:20:27.000Z	terminated	t2.medium	ami-013c046b8914ec5a7	us-east-1a	None	751871c6340f86b91aaf19478278b67c0af76a114cb88fe101b188c1fbda
 i-0d0b236507c47ff02	2019-02-11T03:24:03.000Z	running	t2.medium	ami-013c046b8914ec5a7	us-east-1a	None	e12c1301f0cd35347ffa0c39f854e1354ad627aa5f4927a034a898d31b22
@@ -377,7 +378,8 @@ From that output, you can see that the last 3 were created at the same time.  Th
 use this command from inside some script to get the i-nnn instance ids of those 3 and their states:</p>
 <pre>
 owner_insts -time 2019-02-11T03:24:03.000Z -show_state
-
+</pre>
+<pre>
 i-0d0b236507c47ff02	running
 i-0aa0531f3b57fc14a	running
 i-01f1e5135fa9a2c0a	running
