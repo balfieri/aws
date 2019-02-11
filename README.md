@@ -406,9 +406,11 @@ fm_inst i-nnn /var/log/cloud-init-output.log .
 delete_inst i-nnn
 </pre>
 
-<p>For the example.sh script earlier, we may do something as simple as:</p>
+<p>For the example.sh script earlier, we may do something as simple as the following to 
+see the final result printed to stdout, which goes in /var/log/cloud-init-output.log on the
+instance:</p>
 <pre>
-on_inst i-nnn cat /var/log/cloud-init-output.log .
+on_inst i-nnn cat /var/log/cloud-init-output.log
 </pre>
 
 <p>
@@ -423,7 +425,7 @@ user-data: #!/bin/bash          # ec2-metadata -d
 echo "script: `ec2-metadata -d`"
 echo "launch id: `ec2-metadata -l`"
 echo "PASS"
-ami-launch-index: 0             # ec2-metadata -l
+ami-launch-index: 2             # ec2-metadata -l
 PASS
 Cloud-init v. 18.2-72.amzn2.0.6 finished at Mon, 11 Feb 2019 23:12:33 +0000. Datasource DataSourceEc2.  Up 52.25 seconds
 </pre>
