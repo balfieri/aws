@@ -276,6 +276,12 @@ create_insts 3 -script "local_script" -clone_master
 </pre>
 
 <p>
+If you've already cloned the master, you can use the ami-nnn image id directly:</p>
+<pre>
+create_insts 3 -script "local_script" -image ami-nnn
+</pre>
+
+<p>
 Create 3 spot instances with max spot price of $0.01/inst-hour:</p>
 
 <pre>
