@@ -3,4 +3,50 @@
 use strict;
 use warnings;
 
-system( "aws ec2 describe-instances --query 'Reservations[*].Instances[*].{ID:InstanceId}' --output text" );
+my $filters = "";
+my $queries = "InstanceId";
+my $show_all = 0;
+my $show_reservation = 0;
+
+while( @ARGV != 0 ) 
+{
+    my $arg = shift @ARGV;
+    if ( $arg eq "-state" ) {
+        $filters .= "\"Name=instance-state-name,Values=" . (shift @ARGV) . "\"";
+    } elsif ( $arg eq "-type" ) {
+        $filters .= "\"Name=instance-type,Values=" . (shift @ARGV) . "\"";
+    } elsif ( $arg eq "-image" ) {
+        $filters .= "\"Name=image-id,Values=" . (shift @ARGV) . "\"";
+    } elsif ( $arg eq "-zone" ) {
+        $filters .= "\"Name=availability-zone,Values=" . (shift @ARGV) . "\"";
+    } elsif ( $arg eq "-token" ) {
+        $filters .= "\"Name=client-token,Values=" . (shift @ARGV) . "\"";
+    } elsif ( $arg eq "-show_time" ) {
+        $queries .= ",LaunchTime";
+    } elsif ( $arg eq "-show_state" ) {
+        $queries .= ",State.Name";
+    } elsif ( $arg eq "-show_type" ) {
+        $queries .= ",InstanceType";
+    } elsif ( $arg eq "-show_image" ) {
+        $queries .= ",ImageId";
+    } elsif ( $arg eq "-show_zone" ) {
+        $queries .= ",Placement.AvailabilityZone";
+    } elsif ( $arg eq "-show_script" ) {
+        $queries .= ",UserData";
+    } elsif ( $arg eq "-show_token" ) {
+        $queries .= ",ClientToken";
+    } elsif ( $arg eq "-show_reservation" ) {
+        $show_reservation = 1;
+    } elsif ( $arg eq "-show_all" ) {
+        $show_all = 1;
+    } else {
+        die "ERROR: unknown create_insts option '$arg'\n";
+    }
+}
+
+$show_all and $queries .= ",LaunchTime,State.Name,InstanceType,ImageId,Placement.AvailabilityZone,UserData,ClientToken";
+$queries = "--query Reservations[*].[Instances[*].[${queries}]]";
+$show_reservation || $show_all and $queries =~ s/Instances/ReservationId,Instances/;
+$filters ne "" and $filters = "--filters ${filters}";
+
+system( "aws ec2 describe-instances ${filters} ${queries} --output text" );
