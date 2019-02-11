@@ -389,8 +389,8 @@ i-01f1e5135fa9a2c0a	running
 For each running instance, your PC-side script will typically
 want to copy some results_file or /var/log/cloud-init-output.log 
 from the instance to the current directory
-on your PC, and then delete the instance if the instance is done
-(according to the results_file):</p>
+on your PC, and then delete the instance, assuming the instance is done
+according to the results_file:</p>
 
 <pre>
 fm_inst i-nnn results_file .
