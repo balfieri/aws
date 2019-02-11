@@ -391,7 +391,7 @@ on your PC, and then delete the instance, assuming the instance is done
 according to the results_file:</p>
 
 <pre>
-fm_inst i-nnn results_file .
+fm_inst i-nnn /tmp/results_file .
 fm_inst i-nnn /var/log/cloud-init-output.log .
 delete_inst i-nnn
 </pre>
