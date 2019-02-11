@@ -243,7 +243,7 @@ create_inst -zone us-east-1b
 </pre>
 
 <p>
-Create 5 on-demand instances that start by running a local_script.
+Create 3 on-demand instances that start by running a local_script.
 The "local_script" is a script on your PC, not on the instance.  
 The local_script will be copied to each instance and is executed
 as "root", not as "ec2-user".  The stdout of the script and other
@@ -251,8 +251,8 @@ stdout are written on the instance to /var/log/cloud-init-output.log,
 which is readable by ec2-user.
 
 <pre>
-create_insts 5 -script "local_script"   
-create_insts 5 -script "local_script" -type m3.medium 
+create_insts 3 -script "local_script"   
+create_insts 3 -script "local_script" -type m3.medium 
 </pre>
 
 <p>
@@ -268,38 +268,38 @@ ls
 </pre>
 
 <p>
-Create 5 on-demand instances cloned from the snapshot-nnn id.
+Create 3 on-demand instances cloned from the snapshot-nnn id.
 </p>
 <pre>
-create_insts 5 -script "local_script" -clone snapshot-nnn      
+create_insts 3 -script "local_script" -clone snapshot-nnn      
 </pre>
 
 <p>
-Create 5 on-demand instances cloned from the master.
+Create 3 on-demand instances cloned from the master.
 This will first execute image_snapshot_inst above to clone the master:</p>
 </p>
 <pre>
-create_insts 5 -script "local_script" -clone_master
+create_insts 3 -script "local_script" -clone_master
 </pre>
 
 <p>
-Create 5 spot instances with max spot price of $0.01/inst-hour:</p>
+Create 3 spot instances with max spot price of $0.01/inst-hour:</p>
 
 <pre>
-create_insts 5 -script "local_script" -spot 0.01               
+create_insts 3 -script "local_script" -spot 0.01               
 </pre>
 
-<p>Create 5 spot instances cloned from the snapshot-nnn id:</p>
+<p>Create 3 spot instances cloned from the snapshot-nnn id:</p>
 
 <pre>
-create_insts 5 -script "local_script" -spot 0.01 -clone snapshot-nnn
+create_insts 3 -script "local_script" -spot 0.01 -clone snapshot-nnn
 </pre>
 
 <p>
-Create 5 spot instances cloned from the current master_inst:
+Create 3 spot instances cloned from the current master_inst:
 
 <pre>
-create_insts 5 -script "local_script" -spot 0.01 -clone_master
+create_insts 3 -script "local_script" -spot 0.01 -clone_master
 </pre>
 
 <p>
