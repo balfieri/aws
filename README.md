@@ -245,10 +245,10 @@ create_inst -zone us-east-1b
 <p>
 Create 3 on-demand instances that start by running a local_script.
 The "local_script" is a script on your PC, not on the instance.  
-The local_script will be copied to each instance and is executed
+<b>The local_script will be copied to each instance and is executed
 as "root", not as "ec2-user".  The stdout of the script and other
 stdout are written on the instance to /var/log/cloud-init-output.log, 
-which is readable by ec2-user.
+which is readable by ec2-user.</b>
 
 <pre>
 create_insts 3 -script "local_script"   
@@ -268,15 +268,8 @@ ls
 </pre>
 
 <p>
-Create 3 on-demand instances cloned from the snapshot-nnn id.
-</p>
-<pre>
-create_insts 3 -script "local_script" -clone snapshot-nnn      
-</pre>
-
-<p>
-Create 3 on-demand instances cloned from the master.
-This will first execute image_snapshot_inst above to clone the master:</p>
+Create 3 on-demand instances cloned from the current master_inst.
+This will first execute <b>image_snapshot_inst</b> above to clone the master:</p>
 </p>
 <pre>
 create_insts 3 -script "local_script" -clone_master
@@ -287,12 +280,6 @@ Create 3 spot instances with max spot price of $0.01/inst-hour:</p>
 
 <pre>
 create_insts 3 -script "local_script" -spot 0.01               
-</pre>
-
-<p>Create 3 spot instances cloned from the snapshot-nnn id:</p>
-
-<pre>
-create_insts 3 -script "local_script" -spot 0.01 -clone snapshot-nnn
 </pre>
 
 <p>

@@ -8,5 +8,4 @@ my $inst = shift @ARGV || `master_inst`;
 system( "snapshot_inst ${inst}" );
 my $vol = `inst_vol ${inst}`;
 my $snapshot = `vol_snapshot ${vol}`;
-# TODO: await snapshot completed
 system( "image_snapshot ${snapshot} ${name}" );
