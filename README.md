@@ -101,7 +101,7 @@ Create a "master_inst" script in a directory that is on your PATH and have it co
 <pre>
 #/bin/bash
 echo -n "i-nnn";
-</pre">
+</pre>
 
 <p>
 Now when you type "master_inst" it will return your master instance id.
