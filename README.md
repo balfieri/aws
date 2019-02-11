@@ -405,7 +405,7 @@ delete_inst i-nnn
 
 <p>
 Once all instances have been harvested, they should all be in the shutting-down or terminated state.  After about
-15 minutes, terminated instances will drop off the list.</p>
+15 minutes, terminated instances will drop off the <b>my_insts</b> list.</p>
 
 Bob Alfieri<br>
 Chapel Hill, NC
