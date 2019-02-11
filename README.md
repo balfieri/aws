@@ -1,5 +1,6 @@
-* auto-gen TOC:
-{:toc}
+Table of Contents
+# One-Time Setup
+# 
 
 <p>
 These are some trivial scripts that I use to do things on Amazon's cloud computing
