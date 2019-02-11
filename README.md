@@ -379,8 +379,7 @@ owner_insts -time 2019-02-11T03:24:03.000Z -show_state
 </pre>
 
 <p>
-Alternatively, and perhaps easier to automate, you could find all instances that were created
-using the last <b>owner_image</b>:</p>
+Even easier, you could find all instances that were created using the last <b>owner_image</b>:</p>
 <pre>
 owner_insts -image `owner_image` -show_state
 </pre>
