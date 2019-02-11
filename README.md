@@ -160,7 +160,7 @@ master_inst                             # i-nnn id of current master instance
 inst_state                              # pending, running, shutting-down, terminated, stopping, stopped
 inst_json                               # full instance info in JSON format
 owner_insts                             # list i-nnn ids of all of your instances 
-owner_insts_state                       # list i-nnn ids and state of all of your instances
+owner_insts -show_all                   # list all useful information for all instances
 owner_insts_json                        # list all information for all instances in JSON format
  
 inst_type                               # t2.medium, etc.
@@ -360,17 +360,35 @@ You can issue the following commands from your PC to get results from your insta
 then delete (terminate) them.</p>
 
 <p>
-Return all i-nnn instance ids for all running instances
-that were running the given local_script:</p>
+The following command will show all useful information about all instances:</p>
 <pre>
-owner_insts -token token -state running
+owner_insts -show_all
+
+i-0fcb24869e6f081a1	2019-02-07T23:19:44.000Z	stopped	t2.medium	ami-009d6802948d06e52	us-east-1a	None	
+i-0000de611bb6799db	2019-02-11T03:20:27.000Z	terminated	t2.medium	ami-013c046b8914ec5a7	us-east-1a	None	751871c6340f86b91aaf19478278b67c0af76a114cb88fe101b188c1fbda
+i-0d0b236507c47ff02	2019-02-11T03:24:03.000Z	running	t2.medium	ami-013c046b8914ec5a7	us-east-1a	None	e12c1301f0cd35347ffa0c39f854e1354ad627aa5f4927a034a898d31b22
+i-0aa0531f3b57fc14a	2019-02-11T03:24:03.000Z	running	t2.medium	ami-013c046b8914ec5a7	us-east-1a	None	e12c1301f0cd35347ffa0c39f854e1354ad627aa5f4927a034a898d31b22
+i-01f1e5135fa9a2c0a	2019-02-11T03:24:03.000Z	running	t2.medium	ami-013c046b8914ec5a7	us-east-1a	None	e12c1301f0cd35347ffa0c39f854e1354ad627aa5f4927a034a898d31b22
 </pre>
 
 <p>
-For each stopped instance your PC-side script will typically
-want to copy some results_file or stdout in /var/log/cloud-init-output.log 
+From that output, you can see that the last 3 were created at the same time.  That last long e12c130... number is supposed to be the 
+-script string, but it's some other form of it, at least for spot instances.  It's better to go by the date.  We can
+use this command from inside some script to get the i-nnn instance ids of those 3 and their states:</p>
+<pre>
+owner_insts -time 2019-02-11T03:24:03.000Z -show_state
+
+i-0d0b236507c47ff02	running
+i-0aa0531f3b57fc14a	running
+i-01f1e5135fa9a2c0a	running
+</pre>
+
+<p>
+For each running instance, your PC-side script will typically
+want to copy some results_file or /var/log/cloud-init-output.log 
 from the instance to the current directory
-on your PC, and then delete the instance:</p>
+on your PC, and then delete the instance if the instance is done
+(according to the results_file):</p>
 
 <pre>
 fm_inst i-nnn results_file .
@@ -379,22 +397,8 @@ delete_inst i-nnn
 </pre>
 
 <p>
-You may also want to know if any other instances are still running,
-though you would normally discern this from the number of
-results that you have harvested so far:
-</p>
-<pre>
-owner_insts -script "local_script" -state "pending|running"
-</pre>
-
-<p>
-When you think all work is done and all results have been copied to your PC,
-then you may or may not want to make sure all instances are terminated.
-This command will return an empty string once that is true.  
-</p>
-<pre>
-owner_insts -token "local_script" -state "!terminated"
-</pre>
+Once all instances have been harvested, they should all be in the shutting-down or terminated state.  After about
+15 minutes, terminated instances will drop off the list.</p>
 
 Bob Alfieri<br>
 Chapel Hill, NC
