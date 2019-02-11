@@ -101,7 +101,7 @@ Create a "master_inst" script in a directory that is on your PATH and have it co
 <pre>
 #/bin/bash
 echo -n "i-nnn";
-</pre>
+</pre">
 
 <p>
 Now when you type "master_inst" it will return your master instance id.
@@ -256,15 +256,18 @@ create_insts 3 -script "local_script" -type m3.medium
 </pre>
 
 <p>
-Here's an example script (example.sh) that simply does an "ls".  "root" starts
-off in the root directory, so you'll get a top-level ls:</p>
+Here's an example script (example.sh) that simply executes two commands
+that show the script (userdata) and the launch id of the instance, both
+of which are described below, and then prints out "PASS":
 
 <pre>
 #!/bin/bash
 #
 # On each instance, stdout is written to /var/log/cloud-init-output.log
 #
-ls 
+ec2-metadata -d
+ec2-metadata -l
+echo "PASS"
 </pre>
 
 <p>
@@ -348,8 +351,8 @@ ec2-metadata -l
 </pre>
 
 <p>
-When the instance is done with its work, it will typically write some kind of "DONE" indication
-in some results_file in a known location such as in /tmp.</p>
+When the instance is done with its work, it will typically write some kind of "PASS" indication
+to stdout or some results_file in /tmp.</p>
 
 <h1>Retrieving Results from Instances</h1>
 
@@ -401,6 +404,28 @@ according to the results_file:</p>
 fm_inst i-nnn /tmp/results_file .
 fm_inst i-nnn /var/log/cloud-init-output.log .
 delete_inst i-nnn
+</pre>
+
+<p>For the example.sh script earlier, we may do something as simple as:</p>
+<pre>
+on_inst i-nnn cat /var/log/cloud-init-output.log .
+</pre>
+
+<p>
+That would print out something like this:</p>
+<pre>
+...
+Cloud-init v. 18.2-72.amzn2.0.6 running 'modules:final' at Mon, 11 Feb 2019 23:12:33 +0000. Up 51.93 seconds.
+user-data: #!/bin/bash          # ec2-metadata -d
+#
+# On each instance, stdout is written to /var/log/cloud-init-output.log
+#
+echo "script: `ec2-metadata -d`"
+echo "launch id: `ec2-metadata -l`"
+echo "PASS"
+ami-launch-index: 0             # ec2-metadata -l
+PASS
+Cloud-init v. 18.2-72.amzn2.0.6 finished at Mon, 11 Feb 2019 23:12:33 +0000. Datasource DataSourceEc2.  Up 52.25 seconds
 </pre>
 
 <p>
