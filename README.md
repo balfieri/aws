@@ -276,7 +276,8 @@ create_insts 3 -script "local_script" -clone_master
 </pre>
 
 <p>
-If you've already cloned the master, you can use the ami-nnn image id directly:</p>
+If you've already cloned the master, you can use the ami-nnn image id directly, which is available 
+by first executing <b>owner_image</b> to get the latest ami-nnn image created:</p>
 <pre>
 create_insts 3 -script "local_script" -image ami-nnn
 </pre>
