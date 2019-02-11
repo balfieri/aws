@@ -1,3 +1,6 @@
+* auto-gen TOC:
+{:toc}
+
 <p>
 These are some trivial scripts that I use to do things on Amazon's cloud computing
 platform, AWS.  AWS is confusing and it's hard to remember all the commands and operations that one
