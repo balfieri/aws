@@ -326,8 +326,7 @@ delete_inst.</p>
 <h4>Delete Instances</h4>
 
 <p>
-Here are the commands for deleting instances.  Refer to the next section
-for how these are typically used.</p>
+Here are the commands for deleting instances:</p>
 
 <pre>
 delete_inst i-nnn
