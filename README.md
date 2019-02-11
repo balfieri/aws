@@ -377,6 +377,14 @@ use this command from inside some script to get the i-nnn instance ids of those 
 <pre>
 owner_insts -time 2019-02-11T03:24:03.000Z -show_state
 </pre>
+
+<p>
+Alternatively, and perhaps easier to automate, you could find all instances that were created
+using the last <b>owner_image</b>:</p>
+<pre>
+owner_insts -image `owner_image` -show_state
+</pre>
+
 <pre>
 i-0d0b236507c47ff02	running
 i-0aa0531f3b57fc14a	running
