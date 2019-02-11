@@ -333,18 +333,23 @@ delete_inst i-nnn i-mmm ...
 The command script on each launched instance can use the following ec2-metadata commands to 
 retrieve information it needs in order to figure out what work it should do.</p>
 
+<p>
+This command will retrieve the contents of the file:local_script:</p>
 <pre>
-ec2-metadata -d         # get command line, typically: "userdata: file:local_script"
-ec2-metadata -l         # get launch index
+ec2-metadata -d         
 </pre>
 
 <p>
+This command will retrieve the launch index.
 The launch index is used to calculate which part of a larger job that
 this instance is supposed to perform.</p>
+<pre>
+ec2-metadata -l     
+</pre>
 
 <p>
-When the instance is done with its work, it will typically issue a "shutdown" command, though
-you can do anything you want.</p>
+When the instance is done with its work, it will typically write some kind of "DONE" indication
+in some results_file in a known location such as in /tmp.</p>
 
 <h1>Retrieving Results from Instances</h1>
 
