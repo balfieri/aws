@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-my $lambda = `owner_lambdas | tail -1`;
+my $lambda = `my_lambdas | tail -1`;
 chomp $lambda;
 $lambda =~ s/\s+.*//;
 print $lambda;

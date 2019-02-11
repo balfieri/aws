@@ -33,18 +33,18 @@ region: us-east-1                       # or wherever suits you
 
 <p>Do some sanity checks:</p>
 <pre>
-owner_id                                # returns your owner (account) id (an integer)
-owner_group                             # returns your sg-nnn security group id
-owner_vpc                               # returns your vpc-nnn VPC id
-owner_region                            # returns the region you specified above
+my_id                                   # returns your owner (account) id (an integer)
+my_group                                # returns your sg-nnn security group id
+my_vpc                                  # returns your vpc-nnn VPC id
+my_region                               # returns the region you specified above
 </pre>
 
-<p>You'll notice that those don't print a newline.  That's so other scripts can use them on command lines like `owner_group` etc.</p>
+<p>You'll notice that those don't print a newline.  That's so other scripts can use them on command lines like `my_group` etc.</p>
 
 <p>By the way, if you want to list all regions that you have available to you, use this command, but keep in
 mind that an owner (account) may belong to at most one region at a time:</p>
 <pre>
-owner_regions                           # returns list of available regions
+my_regions                              # returns list of available regions
 </pre>
 
 <h4>Create an SSH Key Pair</h4>
@@ -90,7 +90,7 @@ create_inst -type t2.medium -image ami-009d6802948d06e52 -key awsLASTNAMEkey
 
 <p>Sanity check to get your i-nnn instance id:</p>
 <pre>
-owner_insts
+my_insts
 </pre>
 
 <h4>Create Your Default master_inst Script</h4>
@@ -159,9 +159,9 @@ just let it use `master_inst` to get your master instance id.</p>
 master_inst                             # i-nnn id of current master instance
 inst_state                              # pending, running, shutting-down, terminated, stopping, stopped
 inst_json                               # full instance info in JSON format
-owner_insts                             # list i-nnn ids of all of your instances 
-owner_insts -show_all                   # list all useful information for all instances
-owner_insts_json                        # list all information for all instances in JSON format
+my_insts                                # list i-nnn ids of all of your instances 
+my_insts -show_all                      # list all useful information for all instances
+my_insts_json                           # list all information for all instances in JSON format
  
 inst_type                               # t2.medium, etc.
 inst_host                               # "" if not running, else the hostname it's running on
@@ -174,19 +174,19 @@ inst_owner                              # your owner id
 inst_subnet                             # subnet id
 inst_vpc                                # VPC id
 inst_zone                               # availability zone within region
-owner_insts_zone                        # list i-nnn ids and the zone of all of your instances
+my_insts_zone                           # list i-nnn ids and the zone of all of your instances
 </pre>
 
 <h1>Other Owner Queries</h1>
 
 <p>These commands are not specific to any instance(s):</p>
 <pre>
-owner_id                                # returns your owner (account) id (an integer)
-owner_group                             # returns your sg-nnn security group id
-owner_vpc                               # returns your vpc-nnn VPC id
-owner_region                            # returns the region you specified above
-owner_regions                           # list of regions that your owner could use (only one allowed)
-owner_zones                             # list of availability zones within your owner region
+my_id                                   # returns your owner (account) id (an integer)
+my_group                                # returns your sg-nnn security group id
+my_vpc                                  # returns your vpc-nnn VPC id
+my_region                               # returns the region you specified above
+my_regions                              # list of regions that your owner could use (only one allowed)
+my_zones                                # list of availability zones within your owner region
 </pre>
 
 <h1>Instance Actions</h1>
@@ -213,8 +213,8 @@ snapshot_inst                           # take a snapshot of the instance's root
 vol_snapshot                            # get snapshot-nnn id of most recent snapshot for instance's root volume
 vol_snapshots                           # get snapshot-nnn ids of all snapshots for instance's root volume
 image_snapshot_inst                     # take a snapshot and create an ami-nnn launchable image from it 
-owner_image                             # get ami-nnn id of most recently created image
-owner_images                            # get ami-nnn ids of all created images
+my_image                                # get ami-nnn id of most recently created image
+my_images                               # get ami-nnn ids of all created images
 </pre>
 
 <p>Note that snapshots do not consume extra space.  Amazon implements them using 
@@ -237,7 +237,7 @@ create_inst
 create_inst -type t2.nano
 </pre>
 
-<p>Override availability zone (note: must be in owner_region):</p>
+<p>Override availability zone (note: must be in my_region):</p>
 <pre>
 create_inst -zone us-east-1b
 </pre>
@@ -277,7 +277,7 @@ create_insts 3 -script "local_script" -clone_master
 
 <p>
 If you've already cloned the master, you can use the ami-nnn image id directly, which is available 
-by first executing <b>owner_image</b> to get the latest ami-nnn image created:</p>
+by first executing <b>my_image</b> to get the latest ami-nnn image created:</p>
 <pre>
 create_insts 3 -script "local_script" -image ami-nnn
 </pre>
@@ -360,7 +360,7 @@ then delete (terminate) them.</p>
 <p>
 The following command will show all useful information about all instances:</p>
 <pre>
-owner_insts -show_all
+my_insts -show_all
 </pre>
 <pre>
 i-0fcb24869e6f081a1	2019-02-07T23:19:44.000Z	stopped	t2.medium	ami-009d6802948d06e52	us-east-1a	None	
@@ -375,13 +375,13 @@ From that output, you can see that the last 3 were created at the same time.  Th
 -script string, but it's some other form of it, at least for spot instances.  It's better to go by the date.  We can
 use this command from inside some script to get the i-nnn instance ids of those 3 and their states:</p>
 <pre>
-owner_insts -time 2019-02-11T03:24:03.000Z -show_state
+my_insts -time 2019-02-11T03:24:03.000Z -show_state
 </pre>
 
 <p>
-Even easier, you could find all instances that were created using the last <b>owner_image</b>:</p>
+Even easier, you could find all instances that were created using the last <b>my_image</b>:</p>
 <pre>
-owner_insts -image `owner_image` -show_state
+my_insts -image `my_image` -show_state
 </pre>
 
 <pre>

@@ -9,7 +9,7 @@ my $inst     = shift @ARGV || `master_inst`;
 my $device   = `inst_device ${inst}`;
 system( "aws ec2 register-image --name ${name} --virtualization-type hvm --root-device-name ${device} --block-device-mappings DeviceName=\"${device}\",Ebs={DeleteOnTermination=true,SnapshotId=\"${snapshot}}\"" );
 
-my $image = `owner_image`;
+my $image = `my_image`;
 print "Waiting for ${image} to be in the 'available' state...\n";
 for( ;; )
 {

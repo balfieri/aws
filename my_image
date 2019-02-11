@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-my $image = `owner_images | tail -1`;
+my $image = `my_images | tail -1`;
 chomp $image;
 $image =~ s/\s+.*//;
 print $image;

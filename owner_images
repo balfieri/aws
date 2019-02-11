@@ -1,6 +1,0 @@
-#!/usr/bin/perl -w
-#
-use strict;
-use warnings;
-
-system( "aws ec2 describe-images --owners `owner_id` --query 'Images[*].{ID:ImageId,Time:CreationDate}' --output text | sort -n -k 2,2" );
