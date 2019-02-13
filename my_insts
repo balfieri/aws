@@ -5,7 +5,7 @@ use warnings;
 
 my $filters = "";
 my $queries = "InstanceId";
-my $show_all = 0;
+my $show_useful = 0;
 my $show_reservation = 0;
 
 while( @ARGV != 0 ) 
@@ -41,14 +41,14 @@ while( @ARGV != 0 )
         $queries .= ",ClientToken";
     } elsif ( $arg eq "-show_reservation" ) {
         $show_reservation = 1;
-    } elsif ( $arg eq "-show_all" ) {
-        $show_all = 1;
+    } elsif ( $arg eq "-show_useful" ) {
+        $show_useful = 1;
     } else {
         die "ERROR: unknown create_insts option '$arg'\n";
     }
 }
 
-$show_all and $queries .= ",LaunchTime,State.Name,InstanceType,ImageId,Placement.AvailabilityZone,UserData,ClientToken";
+$show_useful and $queries .= ",LaunchTime,State.Name,InstanceType,ImageId,Placement.AvailabilityZone,UserData,ClientToken";
 $queries = "--query Reservations[*].[Instances[*].[${queries}]]";
 $show_reservation and $queries =~ s/Instances/ReservationId,Instances/;
 $filters ne "" and $filters = "--filters ${filters}";

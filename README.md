@@ -160,7 +160,7 @@ master_inst                             # i-nnn id of current master instance
 inst_state                              # pending, running, shutting-down, terminated, stopping, stopped
 inst_json                               # full instance info in JSON format
 my_insts                                # list i-nnn ids of all of your instances 
-my_insts -show_all                      # list all useful information for all instances
+my_insts -show_useful                   # list useful information for all instances
 my_insts_json                           # list all information for all instances in JSON format
  
 inst_type                               # t2.medium, etc.
@@ -363,7 +363,7 @@ then delete (terminate) them.</p>
 <p>
 The following command will show all useful information about all instances:</p>
 <pre>
-my_insts -show_all
+my_insts -show_useful
 </pre>
 <pre>
 i-0fcb24869e6f081a1	2019-02-07T23:19:44.000Z	stopped	t2.medium	ami-009d6802948d06e52	us-east-1a	None	
