@@ -403,7 +403,10 @@ according to the results_file:</p>
 <pre>
 fm_inst i-nnn /tmp/results_file .
 fm_inst i-nnn /var/log/cloud-init-output.log .
-# make sure the work is done, then...
+</pre>
+
+<p>Make sure the work is done, then:</p>
+<pre>
 delete_inst i-nnn
 </pre>
 
@@ -431,6 +434,11 @@ echo "PASS"
 ami-launch-index: 2             # ec2-metadata -l
 PASS
 Cloud-init v. 18.2-72.amzn2.0.6 finished at Mon, 11 Feb 2019 23:12:33 +0000. Datasource DataSourceEc2.  Up 52.25 seconds
+</pre>
+
+<p>The work is done in this case, so:</p>
+<pre>
+delete_inst i-nnn
 </pre>
 
 <p>
