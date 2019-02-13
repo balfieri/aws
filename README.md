@@ -403,6 +403,7 @@ according to the results_file:</p>
 <pre>
 fm_inst i-nnn /tmp/results_file .
 fm_inst i-nnn /var/log/cloud-init-output.log .
+# make sure the work is done, then...
 delete_inst i-nnn
 </pre>
 
@@ -414,7 +415,8 @@ on_inst i-nnn cat /var/log/cloud-init-output.log
 </pre>
 
 <p>
-That would print out something like this:</p>
+That would print out something like this.  Our script will notice that the work has been finished due to
+the "PASS" on the 2nd-to-last line, so it's ok to delete the instance:</p>
 <pre>
 ...
 Cloud-init v. 18.2-72.amzn2.0.6 running 'modules:final' at Mon, 11 Feb 2019 23:12:33 +0000. Up 51.93 seconds.

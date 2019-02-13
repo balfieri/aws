@@ -4,8 +4,8 @@ use strict;
 use warnings;
 
 my $inst = (@ARGV != 0 && ($ARGV[0] =~ /^i-/)) ? (shift @ARGV) : `master_inst`; 
-my $src = join( " ", @ARGV );
-my $dst = pop @ARGV;
+my $src = shift @ARGV;
+my $dst = shift @ARGV;
 
 system( "start_inst ${inst}" );
 my $host = `inst_host ${inst}`;
