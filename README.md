@@ -416,7 +416,7 @@ on_inst i-nnn cat /var/log/cloud-init-output.log
 
 <p>
 That would print out something like this.  Our "harvesting" script on the PC will notice 
-that the work has been finished due to the "PASS" on the 2nd-to-last line, 
+that the work has been finished based on the "PASS" on the 2nd-to-last line, 
 so it's ok to delete the instance:</p>
 <pre>
 ...
