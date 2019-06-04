@@ -225,7 +225,8 @@ fm_inst src dst                         # scp src file or directory from instanc
 snapshot_inst                           # take a snapshot of the instance's root volume (for backups)
 vol_snapshot                            # get snapshot-nnn id of most recent snapshot for instance's root volume
 vol_snapshots                           # get snapshot-nnn ids of all snapshots for instance's root volume
-image_snapshot_inst                     # take a snapshot and create an ami-nnn launchable image from it 
+image_snapshot_inst name                # take a snapshot and use it to create a new launchable image with name 
+image_snapshot snapshot name            # from an existing snapshot, create a new launchable image with name 
 my_image                                # get ami-nnn id of most recently created image
 my_images                               # get ami-nnn ids of all created images
 </pre>
