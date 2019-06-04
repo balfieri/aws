@@ -152,6 +152,8 @@ stop_inst
 </pre>
 
 <p>Sanity check that's it's stopping:</p>
+
+<pre>
 inst_state
 </pre>
 
