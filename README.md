@@ -66,6 +66,8 @@ private key is inaccessible), then you can upload your existing public key to AW
 aws ec2 import-key-pair --key-name awsLASTNAMEkey --public-key-material file://~/.ssh/awsLASTNAMEkey.pub
 </pre>
 
+<h4>Allow TCP to Communicate with Your Security Group</h4>
+
 <p>
 Allow TCP to communicate with your security group so you can ssh in etc.:</p>
 <pre>
