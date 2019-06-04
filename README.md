@@ -63,7 +63,8 @@ If you prefer to use your own key pair (or have a device like a Yubikey where th
 private key is inaccessible), then you can upload your existing public key to AWS using something like the following:</p>
 
 <pre>
-aws ec2 import-key-pair --key-name awsLASTNAMEkey --public-key-material file://~/.ssh/awsLASTNAMEkey.pub
+aws ec2 import-key-pair --key-name awsLASTNAMEkey \
+                        --public-key-material file://~/.ssh/awsLASTNAMEkey.pub
 </pre>
 
 <h4>Allow TCP to Communicate with Your Security Group</h4>
