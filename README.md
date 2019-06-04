@@ -27,7 +27,7 @@ Install aws-cli (search web for how to do this on your type of PC).</p>
 <p>Configure your AWS environment:</p>
 <pre>
 aws configure                           
-[get AWS access keys from your AWS console]
+[note: get your AWS access keys from your AWS console]
 region: us-east-1                       # or wherever suits you
 </pre>
 
