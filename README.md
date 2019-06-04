@@ -47,7 +47,7 @@ mind that an owner (account) may belong to at most one region at a time:</p>
 my_regions                              # returns list of available regions
 </pre>
 
-<h4>Create an SSH Key Pair</h4>
+<h4>Create an SSH Key Pair or Upload a Pre-Generated Public Key</h4>
 
 <p>
 Embed your LASTNAME in the key name or whatever you want to call it to make it unique.
