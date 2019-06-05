@@ -27,8 +27,8 @@ Install aws-cli (search web for how to do this on your type of PC).</p>
 <p>Configure your AWS environment.  First you must obtain the "access key id" and "secret access key id" from whomever manages
 your AWS resources.  These are obtained from the AWS Console.</p>
 <pre>
-aws configure                           # then respond to the four questions:
- 
+aws configure                           
+                                        # then respond to the four questions: 
 AWS Access Key ID:
 AWS Secret Access Key:
 Default region name:                    # e.g., us-east-1
