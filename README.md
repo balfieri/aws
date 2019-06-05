@@ -24,7 +24,7 @@ export PATH=...
 <p>
 Install aws-cli (search web for how to do this on your type of PC).</p>
 
-<p>Configure your AWS environment.  First you must obtain the "access key id" and "secret access key id" from whomever manages
+<p>Configure your AWS environment.  First you must obtain the "access key id" and "secret access key" from whomever manages
 your AWS resources.  These are obtained from the AWS Console.</p>
 <pre>
 aws configure                           
