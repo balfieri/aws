@@ -24,11 +24,14 @@ export PATH=...
 <p>
 Install aws-cli (search web for how to do this on your type of PC).</p>
 
-<p>Configure your AWS environment:</p>
+<p>Configure your AWS environment.  First you must obtain the "access key id" and "secret access key id" from whomever manages
+your AWS resources.  These are obtained from the AWS Console.</p>
 <pre>
-aws configure                           
-[note: get your AWS access keys from your AWS console]
-region: us-east-1                       # or wherever suits you
+aws configure                           # then respond to the four questions:
+AWS Access Key ID:
+AWS Secret Access Key:
+Default region name:                    # e.g., us-east-1
+Default output format:                  # I normally use text
 </pre>
 
 <p>Do some sanity checks:</p>
