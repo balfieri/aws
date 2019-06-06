@@ -178,7 +178,7 @@ it be stopped.</p>
 <h1>Instance Queries</h1>
 
 <p>
-These commands show infirmation for all instances:</p>
+These commands show information for all instances:</p>
 
 <pre>
 master_inst                             # i-nnn id of current master instance
