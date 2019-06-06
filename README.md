@@ -445,8 +445,8 @@ on_inst i-nnn cat /var/log/cloud-init-output.log
 </pre>
 
 <p>
-That would print out something like this in /var/log/cloud-init-output.log.  
-Our "harvesting" script on the PC will notice 
+That would print out something like the following.
+Our "harvesting" script on the PC will grep that and see
 that the work has been finished based on the "PASS" on the 2nd-to-last line, 
 so it's ok to delete the instance:</p>
 <pre>
@@ -464,7 +464,8 @@ PASS
 Cloud-init v. 18.2-72.amzn2.0.6 finished at Mon, 11 Feb 2019 23:12:33 +0000. Datasource DataSourceEc2.  Up 52.25 seconds
 </pre>
 
-<p>The work is done in this case, so:</p>
+<p>The work is done in this case, so our script might copy some files off the instance using fm_inst, then will
+delete the instance:</p>
 <pre>
 delete_inst i-nnn
 </pre>
