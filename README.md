@@ -79,6 +79,13 @@ Allow TCP to communicate with your security group so you can ssh in etc.:</p>
 auth_tcp_ingress
 </pre>
 
+<h4>Enable EBS Volume Encryption by Default</h4>
+
+<p>
+This ensures that all volumes (virtual disks) are encrypted by default.  Go to the EC2 Dashboard, select your region, then click on
+Settings under Account Attributes on the right.  Check the box labeled "Always encrypt new EBS volumes."  If you use multiple
+regions, you must do this for each region.</p>
+
 <h4>Create Your "Master" Instance</h4>
 
 <p>
@@ -102,6 +109,8 @@ linux2_images
 <pre>
 create_inst -type t2.medium -image ami-009d6802948d06e52 -key awsLASTNAMEkey
 </pre>
+
+<p>Note: the new EBS root volume will be encrypted assuming you had set up default EBS volume encryption earlier.</p>.
 
 <p>Sanity check to get your i-nnn instance id:</p>
 <pre>
