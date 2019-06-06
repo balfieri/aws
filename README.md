@@ -437,7 +437,7 @@ fm_inst i-nnn /var/log/cloud-init-output.log .
 delete_inst i-nnn
 </pre>
 
-<p>For the example.sh script earlier, we may do something as simple as the following to 
+<p>For the example.sh script earlier, we could have done something as simple as the following to 
 see the final result printed to stdout, which goes in /var/log/cloud-init-output.log on the
 instance:</p>
 <pre>
@@ -445,7 +445,8 @@ on_inst i-nnn cat /var/log/cloud-init-output.log
 </pre>
 
 <p>
-That would print out something like this.  Our "harvesting" script on the PC will notice 
+That would print out something like this in /var/log/cloud-init-output.log.  
+Our "harvesting" script on the PC will notice 
 that the work has been finished based on the "PASS" on the 2nd-to-last line, 
 so it's ok to delete the instance:</p>
 <pre>
