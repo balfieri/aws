@@ -178,17 +178,22 @@ it be stopped.</p>
 <h1>Instance Queries</h1>
 
 <p>
+These commands show infirmation for all instances:</p>
+
+<pre>
+master_inst                             # i-nnn id of current master instance
+my_insts                                # list i-nnn ids of all of your instances 
+my_insts -show_useful                   # list useful information for all instances
+my_insts_json                           # list all information for all instances in JSON format
+my_insts_zone                           # list i-nnn ids and the zone of all of your instances
+</pre>
+
+<p>
 These commands take an instance id as an argument, but normally you'll supply no argument and
 just let it use `master_inst` to get your master instance id.</p>
 
 <pre>
-master_inst                             # i-nnn id of current master instance
 inst_state                              # pending, running, shutting-down, terminated, stopping, stopped
-inst_json                               # full instance info in JSON format
-my_insts                                # list i-nnn ids of all of your instances 
-my_insts -show_useful                   # list useful information for all instances
-my_insts_json                           # list all information for all instances in JSON format
- 
 inst_type                               # t2.medium, etc.
 inst_host                               # "" if not running, else the hostname it's running on
 inst_group                              # sg-nnn group id of instance
@@ -200,7 +205,7 @@ inst_owner                              # your owner id
 inst_subnet                             # subnet id
 inst_vpc                                # VPC id
 inst_zone                               # availability zone within region
-my_insts_zone                           # list i-nnn ids and the zone of all of your instances
+inst_json                               # list all information in JSON format
 </pre>
 
 <h1>Other Owner Queries</h1>
