@@ -242,6 +242,7 @@ image_snapshot_inst name                # take a snapshot and use it to create a
 image_snapshot snapshot name            # from an existing snapshot, create a new launchable image with name 
 my_image                                # get ami-nnn id of most recently created image
 my_images                               # get ami-nnn ids of all created images
+my_vols                                 # get vol-nnn ids of all created volumes (third column is true if encrypted)
 </pre>
 
 <p>Note that snapshots do not consume extra space.  Amazon implements them using 
