@@ -1,23 +1,22 @@
 # Table of Contents
 
 - [Overview](#overview)
-- [One-Time Setup](#one-time-setup)
-      - [Set Up Your Local PC for AWS Command Line](#set-up-your-local-pc-for-aws-command-line)
-      - [Create an SSH Key Pair or Upload a Pre-Generated Public Key](#create-an-ssh-key-pair-or-upload-a-pre-generated-public-key)
-      - [Allow TCP to Communicate with Your Security Group](#allow-tcp-to-communicate-with-your-security-group)
-      - [Enable EBS Volume Encryption by Default](#enable-ebs-volume-encryption-by-default)
-      - [Create Your "Master" Instance](#create-your-master-instance)
-      - [Create Your Default master_inst Script](#create-your-default-masterinst-script)
-- [/bin/bash](#binbash)
-      - [Install Software On Your Master Instance](#install-software-on-your-master-instance)
-      - [Stop Your Master Instance!](#stop-your-master-instance)
+- [One-Time Setup](#one-time-setup)<br>
+      - [Set Up Your Local PC for AWS Command Line](#set-up-your-local-pc-for-aws-command-line)<br>
+      - [Create an SSH Key Pair or Upload a Pre-Generated Public Key](#create-an-ssh-key-pair-or-upload-a-pre-generated-public-key)<br>
+      - [Allow TCP to Communicate with Your Security Group](#allow-tcp-to-communicate-with-your-security-group)<br>
+      - [Enable EBS Volume Encryption by Default](#enable-ebs-volume-encryption-by-default)<br>
+      - [Create Your "Master" Instance](#create-your-master-instance)<br>
+      - [Create Your Default master_inst Script](#create-your-default-masterinst-script)<br>
+      - [Install Software On Your Master Instance](#install-software-on-your-master-instance)<br>
+      - [Stop Your Master Instance!](#stop-your-master-instance)<br>
 - [Instance Queries](#instance-queries)
 - [Other Owner Queries](#other-owner-queries)
-- [Instance Actions](#instance-actions)
-      - [Start/Stop/Modify](#startstopmodify)
-      - [SSH and SCP](#ssh-and-scp)
-      - [Snapshots](#snapshots)
-- [Launching New Instances](#launching-new-instances)
+- [Instance Actions](#instance-actions)<br>
+      - [Start/Stop/Modify](#startstopmodify)<br>
+      - [SSH and SCP](#ssh-and-scp)<br>
+      - [Snapshots](#snapshots)<br>
+- [Launching New Instances](#launching-new-instances)<br>
       - [Delete Instances](#delete-instances)
 - [On Each Launched Instance](#on-each-launched-instance)
 - [Retrieving Results from Instances](#retrieving-results-from-instances)
