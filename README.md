@@ -1,3 +1,29 @@
+# Table of Contents
+
+- [Overview](#overview)
+- [One-Time Setup](#one-time-setup)
+      - [Set Up Your Local PC for AWS Command Line](#set-up-your-local-pc-for-aws-command-line)
+      - [Create an SSH Key Pair or Upload a Pre-Generated Public Key](#create-an-ssh-key-pair-or-upload-a-pre-generated-public-key)
+      - [Allow TCP to Communicate with Your Security Group](#allow-tcp-to-communicate-with-your-security-group)
+      - [Enable EBS Volume Encryption by Default](#enable-ebs-volume-encryption-by-default)
+      - [Create Your "Master" Instance](#create-your-master-instance)
+      - [Create Your Default master_inst Script](#create-your-default-masterinst-script)
+- [/bin/bash](#binbash)
+      - [Install Software On Your Master Instance](#install-software-on-your-master-instance)
+      - [Stop Your Master Instance!](#stop-your-master-instance)
+- [Instance Queries](#instance-queries)
+- [Other Owner Queries](#other-owner-queries)
+- [Instance Actions](#instance-actions)
+      - [Start/Stop/Modify](#startstopmodify)
+      - [SSH and SCP](#ssh-and-scp)
+      - [Snapshots](#snapshots)
+- [Launching New Instances](#launching-new-instances)
+      - [Delete Instances](#delete-instances)
+- [On Each Launched Instance](#on-each-launched-instance)
+- [Retrieving Results from Instances](#retrieving-results-from-instances)
+
+# Overview
+
 <p>
 These are some trivial scripts that I use to do things on Amazon's cloud computing
 platform, AWS.  AWS is confusing and it's hard to remember all the commands and operations that one
@@ -9,9 +35,9 @@ geared toward that kind of usage scenario.
 <p>
 These scripts have no licensing restrictions whatsoever.  They are public domain.</p>
 
-<h1>One-Time Setup</h1>
+# One-Time Setup
 
-<h4>Set Up Your Local PC for AWS Command Line</h4>
+#### Set Up Your Local PC for AWS Command Line
 
 <p>Clone or download this repo and put it on your PATH:</p>
 
@@ -51,7 +77,7 @@ mind that an owner (account) may belong to at most one region at a time:</p>
 my_regions                              # returns list of available regions
 </pre>
 
-<h4>Create an SSH Key Pair or Upload a Pre-Generated Public Key</h4>
+#### Create an SSH Key Pair or Upload a Pre-Generated Public Key
 
 <p>
 Embed your LASTNAME in the key name or whatever you want to call it to make it unique.
@@ -71,7 +97,7 @@ aws ec2 import-key-pair --key-name awsLASTNAMEkey \
                         --public-key-material file://~/.ssh/awsLASTNAMEkey.pub
 </pre>
 
-<h4>Allow TCP to Communicate with Your Security Group</h4>
+#### Allow TCP to Communicate with Your Security Group
 
 <p>
 Allow TCP to communicate with your security group so you can ssh in etc.:</p>
@@ -79,14 +105,14 @@ Allow TCP to communicate with your security group so you can ssh in etc.:</p>
 auth_tcp_ingress
 </pre>
 
-<h4>Enable EBS Volume Encryption by Default</h4>
+#### Enable EBS Volume Encryption by Default
 
 <p>
 This ensures that all volumes (virtual disks) are encrypted by default.  Go to the EC2 Dashboard, select your region, then click on
 Settings under Account Attributes on the right.  Check the box labeled "Always encrypt new EBS volumes."  If you use multiple
 regions, you must do this for each region.</p>
 
-<h4>Create Your "Master" Instance</h4>
+#### Create Your "Master" Instance
 
 <p>
 Typically, you'll want one instance to act as a template for others.  We'll call this your "master instance."
@@ -117,7 +143,7 @@ create_inst -type t2.medium -image ami-009d6802948d06e52 -key awsLASTNAMEkey
 my_insts
 </pre>
 
-<h4>Create Your Default master_inst Script</h4>
+#### Create Your Default master_inst Script
 
 <p>
 Create a "master_inst" script in a directory that is on your PATH and have it contain this code where i-nnn is your instance id:</p>
@@ -141,7 +167,7 @@ one master_inst script and have it search up a directory tree until it finds the
 file you keep around.  It's up to you.  I use the former technique whenever possible.
 </p>
 
-<h4>Install Software On Your Master Instance</h4>
+#### Install Software On Your Master Instance
 
 <p>
 SSH into the master instance and install apps that aren't there that you might need, such as C++:
@@ -154,7 +180,7 @@ $ sudo yum install gcc-c++              # or whatever apps you want
 $ exit                                  # logout
 </pre>
 
-<h4>Stop Your Master Instance!</h4>
+#### Stop Your Master Instance!
 
 <p>Remember to stop your master instance when you aren't using it.  This will perform the
 equivalent of a "shutdown" on that instance.  But the EBS root volume persists.  We're not
@@ -175,7 +201,7 @@ Most of the scripts here will automatically issue a "start_inst" to make sure th
 started, but they won't stop the instance automatically unless the script requires that
 it be stopped.</p>
 
-<h1>Instance Queries</h1>
+# Instance Queries
 
 <p>
 These commands show information for all instances:</p>
@@ -208,7 +234,7 @@ inst_zone                               # availability zone within region
 inst_json                               # list all information in JSON format
 </pre>
 
-<h1>Other Owner Queries</h1>
+# Other Owner Queries
 
 <p>These commands are not specific to any instance(s):</p>
 <pre>
@@ -220,9 +246,9 @@ my_regions                              # list of regions that your owner could 
 my_zones                                # list of availability zones within your owner region
 </pre>
 
-<h1>Instance Actions</h1>
+# Instance Actions
 
-<h4>Start/Stop/Modify</h4>
+#### Start/Stop/Modify
 <pre>
 start_inst                              # scripts call this automatically, so don't need to manually
 stop_inst                               # stop instance if it's running
@@ -230,7 +256,7 @@ change_inst_type type                   # stops instance and changes its type (t
 resize_inst_vol gigabytes               # stops instance and resizes its root EBS volume
 </pre>
 
-<h4>SSH and SCP</h4>
+#### SSH and SCP
 <pre>
 on_inst                                 # ssh to the instance
 on_inst cmd args...                     # ssh to the instance and run "cmd args..."
@@ -238,7 +264,7 @@ to_inst src dst                         # scp src file or directory from this PC
 fm_inst src dst                         # scp src file or directory from instance to dst on this PC
 </pre>
 
-<h4>Snapshots</h4>
+#### Snapshots
 <pre>
 snapshot_inst                           # take a snapshot of the instance's root volume (for backups)
 vol_snapshot                            # get snapshot-nnn id of most recent snapshot for instance's root volume
@@ -254,7 +280,7 @@ my_vols                                 # get vol-nnn ids of all created volumes
 copy-on-write, so new space is allocated only when blocks are 
 changed in one of the volumes (snapshot or other).</p>
 
-<h1>Launching New Instances</h1>
+# Launching New Instances
 
 <p>
 Create one on-demand instance using master instance type, etc.  Note that
@@ -353,7 +379,7 @@ My recommendation is to just restart the whole job in this rare occurrence.</p>
 Also note that spot instances may not be stopped, but they can be terminated using
 delete_inst.</p>
 
-<h4>Delete Instances</h4>
+#### Delete Instances
 
 <p>
 Here are the commands for deleting instances:</p>
@@ -363,7 +389,7 @@ delete_inst i-nnn
 delete_inst i-nnn i-mmm ...
 </pre>
 
-<h1>On Each Launched Instance</h1>
+# On Each Launched Instance
 
 <p>
 The command script on each launched instance can use the following ec2-metadata commands to 
@@ -387,7 +413,7 @@ this instance is supposed to perform.</p>
 When the instance is done with its work, it will typically write some kind of "PASS" indication
 to stdout or some results_file in /tmp.</p>
 
-<h1>Retrieving Results from Instances</h1>
+# Retrieving Results from Instances
 
 <p>
 You can issue the following commands from your PC to get results from your instances and 
