@@ -281,8 +281,10 @@ changed in one of the volumes (snapshot or other).</p>
 
 # Launching New Instances
 
+## Creating One Instance
+
 <p>
-Create one on-demand instance using master instance type, etc.  Note that
+Here's how to create one on-demand instance using master instance type, etc.  Note that
 this does not clone the master instance's root drive, so this is normally used
 to create a different master instance or miscellaneous instance:</p>
 
@@ -300,8 +302,10 @@ create_inst -type t2.nano
 create_inst -zone us-east-1b
 </pre>
 
+## Creating Multiple Instances
+
 <p>
-Create 3 on-demand instances that start by running a local_script.
+Here's how to create 3 on-demand instances that start by running a local_script.
 The "local_script" is a script on your PC, not on the instance.  
 <b>The local_script will be copied to each instance and is executed
 as "root", not as "ec2-user".  The stdout of the script and other
