@@ -17,6 +17,8 @@
   - [SSH and SCP](#ssh-and-scp)<br>
   - [Snapshots](#snapshots)<br>
 - [Launching New Instances](#launching-new-instances)<br>
+  - [Create One Instance](#create-one-instance)
+  - [Create Multiple Instances](#create-multiple-instances)
   - [Delete Instances](#delete-instances)
 - [On Each Launched Instance](#on-each-launched-instance)
 - [Retrieving Results from Instances](#retrieving-results-from-instances)
@@ -281,7 +283,7 @@ changed in one of the volumes (snapshot or other).</p>
 
 # Launching New Instances
 
-## Creating One Instance
+## Create One Instance
 
 <p>
 Here's how to create one on-demand instance using master instance type, etc.  Note that
@@ -302,7 +304,7 @@ create_inst -type t2.nano
 create_inst -zone us-east-1b
 </pre>
 
-## Creating Multiple Instances
+## Create Multiple Instances
 
 <p>
 Here's how to create 3 on-demand instances that start by running a local_script.
