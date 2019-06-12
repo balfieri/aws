@@ -145,6 +145,7 @@ You may later revoke ingress/egress access using one or both of following comman
 
 <pre>
 revoke_group_ingress protocol port
+
 revoke_group_egress  protocol port
 </pre>
 
