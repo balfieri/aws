@@ -1,5 +1,5 @@
 # Table of Contents
-- [Table of Contents](#table-of-contents)
+
 - [Overview](#overview)
 - [One-Time Setup](#one-time-setup)
   - [Set Up Your Local PC for AWS Command Line](#set-up-your-local-pc-for-aws-command-line)
