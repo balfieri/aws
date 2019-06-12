@@ -43,13 +43,13 @@ These scripts have no licensing restrictions whatsoever.  They are public domain
 
 I recommend the following:
 
-1. Create a separate AWS account for users that need to work on the same stuff.  This is the most important security domain.  I prefer multiple accounts rather than one account with lots of complicated boundaries inside the account.  It's just less error-prone.  Use one VPC within each account.  
+1. Create a separate AWS (root) account for each GROUP of users who need to work on the same stuff.  I prefer multiple accounts rather than one account with lots of complicated boundaries inside the account.  It's just less error-prone.  Use one VPC within each account.  Keep it simple.
 
-2. Use SSH as the main mechanism for connecting to instances.  Even VNC can be run through SSH tunnels.  I trust SSH.  Later, you will find instructions for setting up restrictive SSH with multi-factor authentication.
+2. Use SSH as the main mechanism for connecting to instances.  Even VNC can be run through SSH tunnels.  I trust SSH.  In a later section, you will find instructions for setting up restrictive SSH on instances with multi-factor authentication.
 
-3. Create a special group within each account for admins of that account only.  Call it "admins".  Only thesae users may perform administrative actions for the account.  Only they have SSH keys that allow them to SSH to instances as "admin" - the only sudo-capable username.  Do not allow root or ec2-user logins to instances.
+3. Create a special group within each AWS root account for admins of that account.  Call it "admins".  Only these users may perform administrative actions for the account.  Only they have SSH keys that allow them to SSH to instances as "admin" - the only sudo-capable Linux username.  Do not allow root or ec2-user logins to instances.
 
-4. Create a different group within each account for non-admin users.  These users may not perform any administrative chores.  They may only SSH to existing instances using non-admin usernames and associated SSH keys.  For people who need to be members of both groups, make sure they use different user identities within AWS and also different Linux usernames.
+4. Create a different group within each account for non-admin users.  These users may not perform any administrative chores, not even creating their own instances.  They may only SSH to existing instances using non-admin Linux usernames and associated SSH keys.  For people who need to be members of both admin and non-admin groups, make sure they use different user identities.  The same holds for people who need to be associated with multiple AWS root accounts.
 
 ## Set Up Your Local PC for AWS Command Line
 
