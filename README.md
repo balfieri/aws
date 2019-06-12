@@ -122,7 +122,7 @@ You can check your ingress and egress rules using this:</p>
 group_rules
 </pre>
 
-<p>That should show include ingress rule for ssh, among others:</p>
+<p>That should include this ingress rule for ssh, among others:</p>
 
 <pre>
                 {
