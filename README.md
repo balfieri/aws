@@ -20,6 +20,7 @@
 - [Launching New Instances](#launching-new-instances)
   - [Create One Instance](#create-one-instance)
   - [Create Multiple Instances](#create-multiple-instances)
+  - [Create Multiple Instances as Clones of the Master](#create-multiple-instances-as-clones-of-the-master)
   - [Delete Instances](#delete-instances)
 - [On Each Launched Instance](#on-each-launched-instance)
 - [Retrieving Results from Instances](#retrieving-results-from-instances)
@@ -403,6 +404,8 @@ ec2-metadata -d
 ec2-metadata -l
 echo "PASS"
 </pre>
+
+## Create Multiple Instances as Clones of the Master
 
 <p>
 Create 3 on-demand instances cloned from the current master_inst.
