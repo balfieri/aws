@@ -107,8 +107,13 @@ auth_group_ingress tcp 22
 </pre>
 
 <p>
-You may similarly set up egress rules using <pre>auth_group_egress</pre>, but I'd avoid that until
-you really need it.</p>
+You may similarly set up egress rules using:
+
+<pre>
+auth_group_egress proto port
+</pre> 
+
+<p>But I'd avoid that until you really need it.</p>
 
 <p>
 You can check your ingress and egress rules using this:</p>
