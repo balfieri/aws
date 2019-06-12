@@ -106,6 +106,35 @@ Allow external users to SSH to instances in your security group.  SSH uses TCP p
 auth_group_ingress tcp 22             
 </pre>
 
+<p>
+You may similarly set up egress rules using <pre>auth_group_egress</pre>, but I'd avoid that until
+you really need it.</p>
+
+<p>
+You can check your ingress and egress rules using this:</p>
+
+<pre>
+group_rules
+</pre>
+
+<p>That should show this ingress rule for ssh:</p>
+
+<pre>
+                {
+                    "PrefixListIds": [],
+                    "FromPort": 22,
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "ToPort": 22,
+                    "IpProtocol": "tcp",
+                    "UserIdGroupPairs": [],
+                    "Ipv6Ranges": []
+                }
+</pre>
+
 #### Enable EBS Volume Encryption by Default
 
 <p>
