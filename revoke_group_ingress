@@ -1,0 +1,13 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+@ARGV >= 2 || die "usage: revoke_group_ingress <tcp|udp|icmp> <port>\n";
+my $proto = shift @ARGV;
+my $port  = shift @ARGV;
+$proto eq "tcp" || $proto eq "udp" || $proto eq "icmp" or die "ERROR: revoke_group_ingress first argument must be tcp, udp, or icmp\n";
+$port =~ /^\s*\d+\s*$/ or die "ERROR: revoke_group_ingress second argument must be a port number\n";
+my $group  = shift @ARGV || `my_group`;
+my $region = shift @ARGV || `my_region`;
+system( "aws ec2 revoke-security-group-ingress --group-id ${group} --protocol ${proto} --port ${port} --cidr 0.0.0.0/0 --region ${region}" );

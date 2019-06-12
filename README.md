@@ -140,6 +140,14 @@ group_rules
                 }
 </pre>
 
+<p>
+You may later revoke ingress/egress access using one or both of following commands:</p>
+
+<pre>
+revoke_group_ingress proto port
+revoke_group_egress  proto port
+</pre>
+
 #### Enable EBS Volume Encryption by Default
 
 <p>
