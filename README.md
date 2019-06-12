@@ -101,7 +101,7 @@ aws ec2 import-key-pair --key-name awsLASTNAMEkey \
 #### Allow SSH Access to Instances
 
 <p>
-Allow external users to SSH to instances in your security group.  SSH uses TCP port 22.</p>
+Allow external users to SSH to instances in your security group.  SSH uses protocol TCP, port 22.</p>
 <pre>
 auth_group_ingress tcp 22             
 </pre>
@@ -110,7 +110,7 @@ auth_group_ingress tcp 22
 You may similarly set up egress rules using:
 
 <pre>
-auth_group_egress proto port
+auth_group_egress protocol port
 </pre> 
 
 <p>But I'd avoid that until you really need it.</p>
@@ -144,8 +144,8 @@ group_rules
 You may later revoke ingress/egress access using one or both of following commands:</p>
 
 <pre>
-revoke_group_ingress proto port
-revoke_group_egress  proto port
+revoke_group_ingress protocol port
+revoke_group_egress  protocol port
 </pre>
 
 #### Enable EBS Volume Encryption by Default
