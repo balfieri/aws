@@ -13,5 +13,6 @@ for( ;; )
     print "Starting $inst and waiting for it to be running...\n"; 
     system( "aws ec2 start-instances --instance-ids ${inst}" );
     system( "aws ec2 wait instance-running --instance-ids ${inst}" );
+    sleep( 10 );
 }
 print "$inst is running on ${host}\n";
