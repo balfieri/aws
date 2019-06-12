@@ -1,0 +1,6 @@
+#!/usr/bin/perl
+#
+use strict;
+use warnings;
+
+system( "linux2_images | head -1" );

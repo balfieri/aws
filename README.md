@@ -186,6 +186,11 @@ Normally you'll just pick the most recent one:</p>
 linux2_images
 </pre>
 
+<p>If you just want to see the most recent one from Amazon, use this:</p>
+<pre>
+linux2_image
+</pre>
+
 <p>Create one on-demand instance using the t2.medium instance type for starters and the SSH key pair that you created above so that
 you (and only you) can SSH to the instance:</p>
 <pre>
