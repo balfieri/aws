@@ -38,7 +38,7 @@ These scripts have no licensing restrictions whatsoever.  They are public domain
 
 # One-Time Setup
 
-#### Set Up Your Local PC for AWS Command Line
+## Set Up Your Local PC for AWS Command Line
 
 <p>Clone or download this repo and put it on your PATH:</p>
 
@@ -78,7 +78,7 @@ mind that an owner (account) may belong to at most one region at a time:</p>
 my_regions                              # returns list of available regions
 </pre>
 
-#### Create an SSH Key Pair or Upload a Pre-Generated Public Key
+## Create an SSH Key Pair or Upload a Pre-Generated Public Key
 
 <p>
 We are going to create an initial key pair that we'll use to SSH to our master instance.  
@@ -108,7 +108,7 @@ aws ec2 import-key-pair --key-name awsLASTNAMEkey \
 </pre>
 
 
-#### Allow SSH Access to Instances
+## Allow SSH Access to Instances
 
 <p>
 Allow external users to SSH to instances in your security group, in general.  SSH uses protocol TCP, port 22.  Without this authorization,
@@ -160,14 +160,14 @@ revoke_group_ingress protocol port
 revoke_group_egress  protocol port
 </pre>
 
-#### Enable EBS Volume Encryption by Default
+## Enable EBS Volume Encryption by Default
 
 <p>
 This ensures that all volumes (virtual disks) are encrypted by default.  Go to the EC2 Dashboard, select your region, then click on
 Settings under Account Attributes on the right.  Check the box labeled "Always encrypt new EBS volumes."  If you use multiple
 regions, you must do this for each region.</p>
 
-#### Create Your "Master" Instance
+## Create Your "Master" Instance
 
 <p>
 Typically, you'll want one instance to act as a template for others.  We'll call this your "master instance."
@@ -204,7 +204,7 @@ create_inst -type t2.medium -image ami-009d6802948d06e52 -key awsLASTNAMEkey
 my_insts
 </pre>
 
-#### Create Your Default master_inst Script
+## Create Your Default master_inst Script
 
 <p>
 Create a "master_inst" script in a directory that is on your PATH and have it contain this code where i-nnn is your instance id:</p>
@@ -228,7 +228,7 @@ one master_inst script and have it search up a directory tree until it finds the
 file you keep around.  It's up to you.  I use the former technique whenever possible.
 </p>
 
-#### Install Software On Your Master Instance
+## Install Software On Your Master Instance
 
 <p>
 SSH into the master instance and install apps that aren't there that you might need, such as C++:
@@ -241,7 +241,7 @@ $ sudo yum install gcc-c++              # or whatever apps you want
 $ exit                                  # logout
 </pre>
 
-#### Stop Your Master Instance!
+## Stop Your Master Instance!
 
 <p>Remember to stop your master instance when you aren't using it.  This will perform the
 equivalent of a "shutdown" on that instance.  But the EBS root volume persists.  We're not
@@ -309,7 +309,7 @@ my_zones                                # list of availability zones within your
 
 # Instance Actions
 
-#### Start/Stop/Modify
+## Start/Stop/Modify
 <pre>
 start_inst                              # scripts call this automatically, so don't need to manually
 stop_inst                               # stop instance if it's running
@@ -317,7 +317,7 @@ change_inst_type type                   # stops instance and changes its type (t
 resize_inst_vol gigabytes               # stops instance and resizes its root EBS volume
 </pre>
 
-#### SSH and SCP
+## SSH and SCP
 <pre>
 on_inst                                 # ssh to the instance
 on_inst cmd args...                     # ssh to the instance and run "cmd args..."
@@ -325,7 +325,7 @@ to_inst src dst                         # scp src file or directory from this PC
 fm_inst src dst                         # scp src file or directory from instance to dst on this PC
 </pre>
 
-#### Snapshots
+## Snapshots
 <pre>
 snapshot_inst                           # take a snapshot of the instance's root volume (for backups)
 vol_snapshot                            # get snapshot-nnn id of most recent snapshot for instance's root volume
@@ -441,7 +441,7 @@ My recommendation is to just restart the whole job in this rare occurrence.</p>
 Also note that spot instances may not be stopped, but they can be terminated using
 delete_inst.</p>
 
-#### Delete Instances
+## Delete Instances
 
 <p>
 Here are the commands for deleting instances:</p>
