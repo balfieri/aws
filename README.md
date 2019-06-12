@@ -1,25 +1,25 @@
 # Table of Contents
-
+- [Table of Contents](#table-of-contents)
 - [Overview](#overview)
-- [One-Time Setup](#one-time-setup)<br>
-  - [Set Up Your Local PC for AWS Command Line](#set-up-your-local-pc-for-aws-command-line)<br>
-  - [Create an SSH Key Pair or Upload a Pre-Generated Public Key](#create-an-ssh-key-pair-or-upload-a-pre-generated-public-key)<br>
-  - [Allow TCP to Communicate with Your Security Group](#allow-tcp-to-communicate-with-your-security-group)<br>
-  - [Enable EBS Volume Encryption by Default](#enable-ebs-volume-encryption-by-default)<br>
-  - [Create Your "Master" Instance](#create-your-master-instance)<br>
-  - [Create Your Default master_inst Script](#create-your-default-masterinst-script)<br>
-  - [Install Software On Your Master Instance](#install-software-on-your-master-instance)<br>
-  - [Stop Your Master Instance!](#stop-your-master-instance)<br>
+- [One-Time Setup](#one-time-setup)
+      - [Set Up Your Local PC for AWS Command Line](#set-up-your-local-pc-for-aws-command-line)
+      - [Create an SSH Key Pair or Upload a Pre-Generated Public Key](#create-an-ssh-key-pair-or-upload-a-pre-generated-public-key)
+      - [Allow SSH Access to Instances](#allow-ssh-access-to-instances)
+      - [Enable EBS Volume Encryption by Default](#enable-ebs-volume-encryption-by-default)
+      - [Create Your "Master" Instance](#create-your-master-instance)
+      - [Create Your Default master_inst Script](#create-your-default-masterinst-script)
+      - [Install Software On Your Master Instance](#install-software-on-your-master-instance)
+      - [Stop Your Master Instance!](#stop-your-master-instance)
 - [Instance Queries](#instance-queries)
 - [Other Owner Queries](#other-owner-queries)
-- [Instance Actions](#instance-actions)<br>
-  - [Start/Stop/Modify](#startstopmodify)<br>
-  - [SSH and SCP](#ssh-and-scp)<br>
-  - [Snapshots](#snapshots)<br>
-- [Launching New Instances](#launching-new-instances)<br>
+- [Instance Actions](#instance-actions)
+      - [Start/Stop/Modify](#startstopmodify)
+      - [SSH and SCP](#ssh-and-scp)
+      - [Snapshots](#snapshots)
+- [Launching New Instances](#launching-new-instances)
   - [Create One Instance](#create-one-instance)
   - [Create Multiple Instances](#create-multiple-instances)
-  - [Delete Instances](#delete-instances)
+      - [Delete Instances](#delete-instances)
 - [On Each Launched Instance](#on-each-launched-instance)
 - [Retrieving Results from Instances](#retrieving-results-from-instances)
 
@@ -98,12 +98,12 @@ aws ec2 import-key-pair --key-name awsLASTNAMEkey \
                         --public-key-material file://~/.ssh/awsLASTNAMEkey.pub
 </pre>
 
-#### Allow TCP to Communicate with Your Security Group
+#### Allow SSH Access to Instances
 
 <p>
-Allow TCP to communicate with your security group so you can ssh in etc.:</p>
+Allow external users to SSH to instances in your security group.  SSH uses TCP port 22.</p>
 <pre>
-auth_tcp_ingress
+auth_group_ingress tcp 22             
 </pre>
 
 #### Enable EBS Volume Encryption by Default
@@ -326,9 +326,6 @@ of which are described below, and then prints out "PASS":
 
 <pre>
 #!/bin/bash
-#
-# On each instance, stdout is written to /var/log/cloud-init-output.log
-#
 ec2-metadata -d
 ec2-metadata -l
 echo "PASS"
@@ -490,9 +487,6 @@ so it's ok to delete the instance:</p>
 ...
 Cloud-init v. 18.2-72.amzn2.0.6 running 'modules:final' at Mon, 11 Feb 2019 23:12:33 +0000. Up 51.93 seconds.
 user-data: #!/bin/bash          # ec2-metadata -d
-#
-# On each instance, stdout is written to /var/log/cloud-init-output.log
-#
 echo "script: `ec2-metadata -d`"
 echo "launch id: `ec2-metadata -l`"
 echo "PASS"
