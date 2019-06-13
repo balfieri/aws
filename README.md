@@ -47,7 +47,7 @@ I recommend the following:
 
 1. Create a separate AWS (root) account for each GROUP of users who need to work on the same stuff.  I prefer multiple accounts rather than one account with lots of complicated boundaries inside the account.  It's just less error-prone.  Use one Virtual Private Cloud (VPC) within each account.  Keep it simple.  
 
-2. Use SSH as the main mechanism for connecting to instances.  Even VNC can be run through SSH tunnels.  I trust SSH.  In a later section, I will show you how to harden SSH on your instances so that hackers have no chance of getting in.
+2. Use SSH as the main mechanism for connecting to instances.  Even VNC can be run through SSH tunnels.  I trust SSH when it's set up properly.  In a later section, I will show you how to harden SSH on your instances so that hackers have no chance of getting in.  I don't use things like VPN or gateway instances. 
 
 3. Create a special group within each AWS root account for admins of that account.  Call it "admins".  Only these users may perform administrative actions for the account.  Only they have SSH keys that allow them to SSH to instances as "admin" which will be the only sudo-capable Linux username.  
 
