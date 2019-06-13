@@ -360,7 +360,7 @@ changed in one of the volumes (snapshot or other).</p>
 ## Create One Instance
 
 <p>
-Here's how to create one on-demand instance using master instance type, etc.  Note that
+Here's how to create one on-demand instance using master instance's image, type, etc.  Note that
 this does not clone the master instance's root drive, so this is normally used
 to create a different master instance or miscellaneous instance:</p>
 
@@ -423,6 +423,25 @@ create_insts 3 -script "local_script" -image ami-nnn
 </pre>
 
 <p>
+Remember that cloned volumes do not consume extra space until file system blocks
+are modified.  Also, create_insts sets up the instances so that EBS root
+volumes are deleted as their instances are deleted/terminated.</p>
+
+<p>
+My typical usage scenario for simulations is to copy a large amount of read-only data
+to the master, then clone the master and have each instance produce a small
+result file, so this cloning works out well.</p>
+
+## Create Multiple Spot Instances 
+
+<p>
+Spot instances can be up to 80% less expensive than on-demand instances.
+However, they could get terminated at any time by Amazon. I've never had this happen
+because my instances typically run for less than one hour and I set my max spot price
+to be the same as the on-demand price.  Still, there are no guarantees.
+My recommendation is to just restart the whole job in this rare occurrence.</p>
+
+<p>
 Create 3 spot instances with max spot price of $0.01/inst-hour:</p>
 
 <pre>
@@ -437,24 +456,7 @@ create_insts 3 -script "local_script" -spot 0.01 -clone_master
 </pre>
 
 <p>
-Remember that cloned volumes do not consume extra space until file system blocks
-are modified.  Also, create_insts sets up the instances so that EBS root
-volumes are deleted as their instances are deleted/terminated.</p>
-
-<p>
-My typical usage scenario for simulations is to copy a large amount of read-only data
-to the master, then clone the master and have each instance produce a small
-result file, so this cloning works out well.</p>
-
-<p>
-Note that spot instances can be up to 80% less expensive than on-demand instances.
-However, they could get terminated at any time by Amazon. I've never had this happen
-because my instances typically run for less than one hour and I set my max spot price
-to be the same as the on-demand price.  Still, there are no guarantees.
-My recommendation is to just restart the whole job in this rare occurrence.</p>
-
-<p>
-Also note that spot instances may not be stopped, but they can be terminated using
+Note that spot instances may not be stopped, but they can be terminated using
 delete_inst.</p>
 
 ## Delete Instances
