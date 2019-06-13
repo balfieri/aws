@@ -21,6 +21,7 @@
   - [Create One Instance](#create-one-instance)
   - [Create Multiple Instances](#create-multiple-instances)
   - [Create Multiple Instances as Clones of the Master](#create-multiple-instances-as-clones-of-the-master)
+  - [Create Multiple Spot Instances](#create-multiple-spot-instances)
   - [Delete Instances](#delete-instances)
 - [On Each Launched Instance](#on-each-launched-instance)
 - [Retrieving Results from Instances](#retrieving-results-from-instances)
