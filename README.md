@@ -484,8 +484,8 @@ $ ec2-metadata -d
 
 <p>
 This command will retrieve the launch index.
-The launch index is used to calculate which part of a larger job that
-this instance is supposed to perform.</p>
+You can use the launch index to determine which part of your larger job that
+this instance is supposed to perform. Its interpretation is completely up to you.</p>
 <pre>
 $ ec2-metadata -l         
 </pre>
@@ -493,6 +493,11 @@ $ ec2-metadata -l
 <p>
 When the instance is done with its work, it will typically write some kind of "PASS" indication
 to stdout or some results_file in /tmp.</p>
+
+<p>
+Of course, there are other ways each instance can get information.  It could look in an S3 bucket (more on that later) or use a 
+database.  The above technique has an advantage that it doesn't require anything else besides the master instance and its
+VBS root volume.</p>
 
 # Retrieving Results from Instances
 
