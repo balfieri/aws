@@ -473,13 +473,13 @@ delete_inst i-nnn i-mmm ...
 # On Each Launched Instance
 
 <p>
-The command script on each launched instance can use the following ec2-metadata commands to 
+The command script <b>running _on_ each launched instance</b> can use the following ec2-metadata commands to 
 retrieve information it needs in order to figure out what work it should do.</p>
 
 <p>
 This command will retrieve the contents of the file:local_script:</p>
 <pre>
-[ec2-user@ip-...]$ ec2-metadata -d         
+$ ec2-metadata -d         
 </pre>
 
 <p>
@@ -487,7 +487,7 @@ This command will retrieve the launch index.
 The launch index is used to calculate which part of a larger job that
 this instance is supposed to perform.</p>
 <pre>
-[ec2-user@ip...]$ ec2-metadata -l         
+$ ec2-metadata -l         
 </pre>
 
 <p>
