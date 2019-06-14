@@ -246,15 +246,19 @@ file you keep around.  It's up to you.  I use the former technique whenever poss
 ## Install Software On Your Master Instance
 
 <p>
-SSH into the master instance and install apps that aren't there that you might need, such as C++:
+SSH into the master instance and install apps that aren't there that you might need, such as C++ and Python3:
 </p>
 
 <pre>
 on_inst                                 # should ssh you to your master instance
 $ sudo yum update -y                    # updates system software
-$ sudo yum install gcc-c++              # or whatever apps you want
-$ exit                                  # logout
+$ sudo yum install gcc-c++              # for example
+$ sudo yum install python3              # for example
 </pre>
+
+## Harden SSH On Master Instance
+
+TBD
 
 ## Stop Your Master Instance!
 

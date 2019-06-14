@@ -3,4 +3,4 @@
 use strict;
 use warnings;
 
-system( "linux2_images | head -1" );
+system( "linux2_images | head -1 | cut -c1-21" );
