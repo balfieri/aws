@@ -47,11 +47,11 @@ I recommend the following:
 
 1. Create a separate AWS (root) account for each GROUP of users who need to work on the same stuff.  I prefer multiple accounts rather than one account with lots of complicated boundaries inside the account.  It's just less error-prone.  Use one Virtual Private Cloud (VPC) within each account. 
 
-2. Use SSH as the main mechanism for connecting to instances.  Even VNC can be run through SSH tunnels.  I trust SSH when it's set up properly.  In a later section, I will show you how to harden SSH on your instances so that hackers have no chance of getting in.  I don't use things like VPN or gateway instances. 
+2. Use SSH as the main mechanism for connecting to instances.  Even VNC can be run through SSH tunnels.  I trust SSH when it's set up properly.  In a later section, I will show you how to harden SSH on your instances so that hackers have no chance of getting in.  For each SSH login, I use a Yubikey encryption device plugged into my PC with a required passcode, plus a time-based authenticator code on my phone.  I don't use VPN or special gateway instances.  Stick to one mechanism: SSH.
 
 3. Create a special group within each AWS root account for admins of that account.  Call it "admins".  Only these users may perform administrative actions for the account.  Only they have SSH keys that allow them to SSH to instances as "admin" which will be the only sudo-capable Linux username.  
 
-4. Create a different group within each account for non-admin users.  These users may not perform any administrative chores, not even creating their own instances.  They may only SSH to existing instances using non-admin Linux usernames and associated SSH keys.  For persons who need to be members of both admin and non-admin groups, make sure they use different user identities.  The same holds for persons who need to be associated with multiple AWS root accounts.  To avoid accidental mixing of these accounts, I recommend using a separate PC username+password for each AWS SSH username.
+4. By default, do not allow non-admin users to do anything with AWS, including read-only things.  There is no reason to create some kind of "users" group by default.  Instead, allow those users only SSH access to one or more instances using non-admin Linux usernames.  For the most part, non-admin users can operate without even worrying about whether their servers live in AWS, Google Cloud, or on-premises.  
 
 ## Set Up Your Local PC for AWS Command Line
 
