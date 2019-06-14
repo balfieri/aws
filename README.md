@@ -250,10 +250,10 @@ SSH into the master instance and install apps that aren't there that you might n
 </p>
 
 <pre>
-on_inst                                 # should ssh you to your master instance
-$ sudo yum update -y                    # updates system software
-$ sudo yum install gcc-c++              # for example
-$ sudo yum install python3              # for example
+on_inst                         # should ssh you to your master instance
+$ sudo yum update -y            # updates system software
+$ sudo yum install gcc-c++      # for example
+$ sudo yum install python3      # for example
 </pre>
 
 ## Harden SSH On Your Master Instance
@@ -287,11 +287,11 @@ it be stopped.</p>
 These commands show information for all instances:</p>
 
 <pre>
-master_inst                             # i-nnn id of current master instance
-my_insts                                # list i-nnn ids of all of your instances 
-my_insts -show_useful                   # list useful information for all instances
-my_insts_json                           # list all information for all instances in JSON format
-my_insts_zone                           # list i-nnn ids and the zone of all of your instances
+master_inst             # i-nnn id of current master instance
+my_insts                # list i-nnn ids of all of your instances 
+my_insts -show_useful   # list useful information for all instances
+my_insts_json           # list all information for all instances in JSON format
+my_insts_zone           # list i-nnn ids and the zone of all of your instances
 </pre>
 
 <p>
@@ -299,61 +299,61 @@ These commands take an instance id as an argument, but normally you'll supply no
 just let it use `master_inst` to get your master instance id.</p>
 
 <pre>
-inst_state                              # pending, running, shutting-down, terminated, stopping, stopped
-inst_type                               # t2.medium, etc.
-inst_host                               # "" if not running, else the hostname it's running on
-inst_group                              # sg-nnn group id of instance
-inst_image                              # ami-nnn image id that the instance is running
-inst_vol                                # volume id of root EBS root volume
-inst_device                             # /dev/xda1 or whatever root mount point
-inst_key                                # your awsLASTNAMEkey name
-inst_owner                              # your owner id
-inst_subnet                             # subnet id
-inst_vpc                                # VPC id
-inst_zone                               # availability zone within region
-inst_json                               # list all information in JSON format
+inst_state              # pending, running, shutting-down, terminated, stopping, stopped
+inst_type               # t2.medium, etc.
+inst_host               # "" if not running, else the hostname it's running on
+inst_group              # sg-nnn group id of instance
+inst_image              # ami-nnn image id that the instance is running
+inst_vol                # volume id of root EBS root volume
+inst_device             # /dev/xda1 or whatever root mount point
+inst_key                # your awsLASTNAMEkey name
+inst_owner              # your owner id
+inst_subnet             # subnet id
+inst_vpc                # VPC id
+inst_zone               # availability zone within region
+inst_json               # list all information in JSON format
 </pre>
 
 # Other Owner Queries
 
 <p>These commands are not specific to any instance(s):</p>
 <pre>
-my_id                                   # returns your owner (account) id (an integer)
-my_group                                # returns your sg-nnn security group id
-my_vpc                                  # returns your vpc-nnn VPC id
-my_region                               # returns the region you specified above
-my_regions                              # list of regions that your owner could use (only one allowed)
-my_zones                                # list of availability zones within your owner region
+my_id                   # returns your owner (account) id (an integer)
+my_group                # returns your sg-nnn security group id
+my_vpc                  # returns your vpc-nnn VPC id
+my_region               # returns the region you specified above
+my_regions              # list of regions that your owner could use (only one allowed)
+my_zones                # list of availability zones within your owner region
 </pre>
 
 # Instance Actions
 
 ## Start/Stop/Modify
 <pre>
-start_inst                              # scripts call this automatically, so don't need to manually
-stop_inst                               # stop instance if it's running
-change_inst_type type                   # stops instance and changes its type (t2.medium, etc.)
-resize_inst_vol gigabytes               # stops instance and resizes its root EBS volume
+start_inst              # scripts call this automatically, so don't need to manually
+stop_inst               # stop instance if it's running
+change_inst_type type   # stops instance and changes its type (t2.medium, etc.)
+resize_inst_vol gigabytes # stops instance and resizes its root EBS volume
 </pre>
 
 ## SSH and SCP
 <pre>
-on_inst                                 # ssh to the instance
-on_inst cmd args...                     # ssh to the instance and run "cmd args..."
-to_inst src dst                         # scp src file or directory from this PC to dst on the instance
-fm_inst src dst                         # scp src file or directory from instance to dst on this PC
+on_inst                 # ssh to the instance
+on_inst cmd args...     # ssh to the instance and run "cmd args..."
+to_inst src dst         # scp src file or directory from this PC to dst on the instance
+fm_inst src dst         # scp src file or directory from instance to dst on this PC
 </pre>
 
 ## Snapshots
 <pre>
-snapshot_inst                           # take a snapshot of the instance's root volume (for backups)
-vol_snapshot                            # get snapshot-nnn id of most recent snapshot for instance's root volume
-vol_snapshots                           # get snapshot-nnn ids of all snapshots for instance's root volume
-image_snapshot_inst name                # take a snapshot and use it to create a new launchable image with name 
-image_snapshot snapshot name            # from an existing snapshot, create a new launchable image with name 
-my_image                                # get ami-nnn id of most recently created image
-my_images                               # get ami-nnn ids of all created images
-my_vols                                 # get vol-nnn ids of all created volumes (third column is true if encrypted)
+snapshot_inst           # take a snapshot of the instance's root volume (for backups)
+vol_snapshot            # get snapshot-nnn id of most recent snapshot for instance's root volume
+vol_snapshots           # get snapshot-nnn ids of all snapshots for instance's root volume
+image_snapshot_inst name # take a snapshot and use it to create a new launchable image with name 
+image_snapshot snapshot name # from an existing snapshot, create a new launchable image with name 
+my_image                # get ami-nnn id of most recently created image
+my_images               # get ami-nnn ids of all created images
+my_vols                 # get vol-nnn ids of all created volumes (third column is true if encrypted)
 </pre>
 
 <p>Note that snapshots do not consume extra space.  Amazon implements them using 
@@ -547,6 +547,11 @@ fm_inst i-nnn /var/log/cloud-init-output.log .
 <p>Make sure the work is done, then:</p>
 <pre>
 delete_inst i-nnn
+</pre>
+
+<p>Or gather up multiple names and use this one:</p>
+<pre>
+delete_insts i-nnn i-ooo i-ppp ...
 </pre>
 
 <p>For the example.sh script earlier, we could have done something as simple as the following to 
