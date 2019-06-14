@@ -10,6 +10,7 @@
   - [Create Your "Master" Instance](#create-your-master-instance)
   - [Create Your Default master_inst Script](#create-your-default-masterinst-script)
   - [Install Software On Your Master Instance](#install-software-on-your-master-instance)
+  - [Harden SSH on Master Instance](#harden-ssh-on-master-instance)
   - [Stop Your Master Instance!](#stop-your-master-instance)
 - [Instance Queries](#instance-queries)
 - [Other Owner Queries](#other-owner-queries)
