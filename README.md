@@ -23,7 +23,6 @@
   - [Create Multiple Instances](#create-multiple-instances)
   - [Create Multiple Instances as Clones of the Master](#create-multiple-instances-as-clones-of-the-master)
   - [Create Multiple Spot Instances](#create-multiple-spot-instances)
-  - [Delete Instances](#delete-instances)
 - [On Each Launched Instance](#on-each-launched-instance)
 - [Retrieving Results from Instances](#retrieving-results-from-instances)
 
@@ -464,16 +463,6 @@ create_insts 3 -script "local_script" -spot 0.01 -clone_master
 <p>
 Note that spot instances may not be stopped, but they can be terminated using
 delete_inst.</p>
-
-## Delete Instances
-
-<p>
-Here are the commands for deleting instances:</p>
-
-<pre>
-delete_inst i-nnn
-delete_inst i-nnn i-mmm ...
-</pre>
 
 # On Each Launched Instance
 
