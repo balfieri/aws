@@ -1,0 +1,120 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+# sudo yum install -y gcc git pam-devel automake libtool
+# git clone https://github.com/google/google-authenticator-libpam
+# ./bootstrap.sh
+# ./configure
+# make
+# sudo make install
+#
+# Use sed to edit the /etc/pam.d/sshd file and add this to the end, but should first delete any line that contains it:
+#     auth required /usr/local/lib/security/pam_google_authenticator.so secret=/home/private/${USER}/.google_authenticator [authtok_prompt=authenticator token: ] debug
+# sudo mkdir -p /home/private/ec2-user/.ssh
+# sudo /usr/local/bin/google-authenticator -t -d -C -s /home/private/ec2-user/.google_authenticator -f --rate-limit=2 --rate-time=30 -w 2 --qr-mode=NONE
+# sudo chown ec2-user:ec2-user /home/private/ec2-user/.google_authenticator
+# secret_code=`sudo head -1 /home/private/ec2-user/.google_authenticator`
+# sudo /etc/init.d/sshd restart
+
+my $inst = shift @ARGV || `master_inst`;
+my $contents = <<EOF;
+# Package generated configuration file
+# See the sshd_config(5) manpage for details
+
+# protocol 2 is the secure one
+Protocol 2
+
+# HostKeys for protocol version 2
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_dsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+UsePrivilegeSeparation yes
+
+#ListenAddress ::
+#ListenAddress 0.0.0.0
+
+# Lifetime and size of ephemeral version 1 server key
+KeyRegenerationInterval 3600
+
+# 1024 is max
+ServerKeyBits 1024
+
+# Logging
+SyslogFacility AUTH
+LogLevel INFO
+
+# Authentication:
+LoginGraceTime 600
+PermitRootLogin no
+StrictModes yes
+RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile	/home/private/%u/.ssh/authorized_keys
+
+# restrict allowed users to only those on this machine
+AllowUsers ec2-user
+
+# Don't read the user's ~/.rhosts and ~/.shosts files
+IgnoreRhosts yes
+RhostsRSAAuthentication no
+#IgnoreUserKnownHosts yes
+HostbasedAuthentication no
+
+# Disable tunnelled clear text passwords
+PasswordAuthentication no
+
+# Don't allow empty passwords (actually we don't allow any passwords)
+PermitEmptyPasswords no
+
+# Change to yes to enable challenge-response passwords (PAM google-authenticator TOTP)
+ChallengeResponseAuthentication yes
+
+# Kerberos options
+#KerberosAuthentication no
+#KerberosGetAFSToken no
+#KerberosOrLocalPasswd yes
+#KerberosTicketCleanup yes
+
+# GSSAPI options
+#GSSAPIAuthentication no
+#GSSAPICleanupCredentials yes
+
+# allow TPC forwarding because we use ssh to tunnel things like VNC
+# (plus it's so useful)
+AllowTcpForwarding yes
+
+# restrict others
+X11Forwarding no
+X11DisplayOffset 10
+PrintMotd no
+PrintLastLog yes
+TCPKeepAlive yes
+UseLogin no
+UseDNS no
+
+# start dropping connection requests after 10 unauthenticated
+# % chance of dropping once we reach 10
+# drop everything after 60
+MaxStartups 10:30:60
+
+# disconnect after client has been idle for 10 minutes
+ClientAliveInterval 600
+
+# message printed when login occurs
+Banner /etc/issue.net
+
+# Allow client to pass locale environment variables
+AcceptEnv LANG LC_*
+
+# We currently use scp rather than sftp so no need to enable it
+#Subsystem sftp /usr/lib/openssh/sftp-server
+
+# Enable google-authenticator PAM 
+# Require both publickey and TOTP input
+UsePAM yes
+AuthenticationMethods publickey,keyboard-interactive
+EOF
+print $contents;

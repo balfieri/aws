@@ -249,7 +249,7 @@ one master_inst script and have it search up a directory tree until it finds the
 file you keep around.  It's up to you.  I use the former technique whenever possible.
 </p>
 
-## Harden SSH On Your Master Instance
+## RECOMMENDED: Harden SSH On Your Master Instance
 
 Coming soon...
 
@@ -267,7 +267,7 @@ on_inst sudo yum update -y
 Install additional apps that you will need, such as C++ and Python3:</p>
 
 <pre>
-on_inst sudo yum install gcc-c++ python3 
+on_inst sudo yum install -y gcc-c++ python3 git
 </pre>
 
 ## Stop Your Master Instance!
