@@ -47,11 +47,11 @@ I recommend the following:
 
 1. Create a separate AWS (root) account for each group of users who need to work on the same stuff.  I prefer multiple accounts rather than one account with lots of complicated boundaries inside the account.  It's just less error-prone.  Use one Virtual Private Cloud (VPC) within each account. 
 
-2. Use SSH as the main mechanism for connecting to instances.  Even VNC can be run through SSH tunnels.  I trust SSH when it's set up properly.  In a later section, I will show you how to harden SSH on your instances so that hackers have no chance of getting in.  For SSH, I use a Yubikey encryption device plugged into my PC with a required passcode, plus a time-based authenticator code on my phone.  I don't use VPN or special gateway instances.  Stick to one mechanism: SSH.  Do not even allow pinging of instances from the internet.
+2. Create a special group within each AWS root account for admins of that account.  Call it "admins".  Only these users may perform administrative actions for the account.  Only they have SSH keys that allow them to SSH to instances as ec2-user  which should be the only sudo-capable Linux username.  
 
-3. Create a special group within each AWS root account for admins of that account.  Call it "admins".  Only these users may perform administrative actions for the account.  Only they have SSH keys that allow them to SSH to instances as "admin" which will be the only sudo-capable Linux username.  
+3. Use SSH as the main mechanism for connecting to instances.  Even VNC can be run through SSH tunnels.  I trust SSH when it's set up properly.  In a later section, I will show you how to harden SSH on your instances so that hackers have no chance of getting in.  For SSH, I use a Yubikey encryption device plugged into my PC with a required passcode, plus a time-based authenticator code on my phone.  I don't use VPN or special gateway instances.  Stick to one mechanism: SSH.  Do not even allow pinging of instances from the internet.
 
-4. By default, do not allow non-admin users to do anything with AWS, including read-only things.  There is no reason to create some kind of "users" group by default.  Instead, allow those users only SSH access to one or more instances using non-admin Linux usernames.  For the most part, non-admin users can operate without even worrying about whether their servers live in AWS, Google Cloud, or on-premises.  Later, I will show how to map subdomain names to running instances.
+4. By default, do not allow non-admin users to do anything with AWS, including read-only things.  There is no reason to create some kind of "users" group by default.  Instead, allow those users only SSH access to one or more instances using non-admin Linux usernames.  For the most part, non-admin users can operate without even worrying about whether their servers live in AWS, Google Cloud, or on-premises.  Later, I will show how to map subdomain names to running instances to make it easier to log in in the face of changing IP addresses.
 
 ## Set Up Your Local PC for AWS Command Line
 
@@ -93,19 +93,25 @@ mind that an owner (account) may belong to at most one region at a time:</p>
 my_regions                              # returns list of available regions
 </pre>
 
-## Create an SSH Key Pair or Upload a Pre-Generated Public Key
+## Create an Admin SSH Key Pair or Upload a Pre-Generated Public Key
 
 <p>
-We are going to create an initial key pair that we'll use to SSH to our master instance.  
+We are going to create an key pair that we'll use to SSH to our master instance as ec2-user,
+which is the only Linux username with sudo privilege.  
 When we create the master instance, we'll
 indicate that only this key pair is allowed to SSH into the instance.  
-Once we SSH into the master, we can manually set up new users and modify the 
-/etc/ssh/sshd_config file to work for those users.  So this key pair
-is temporary until the master instance is set up with real users and real SSH public keys.</p>
+A little later, we'll add some non-admin users with their SSH keys, but we won't
+use the commands shown here.  These are just for the admin ec2-user.
 
 <p>
-Embed your LASTNAME in the key name or whatever you want to call it to make it unique.
-This is just the convention that I happen to use:</p>
+NOTE: ec2-user, as well as root and others,
+will be initialized during aws instance creation to disallow password logins, so the only way to log in as ec2-user is using
+SSH.  That's good because we don't want non-admin users to be able to "su - ec2-user".
+Later, we will setting up non-admin users with the same restriction so that non-admin users can't "su - normal_user".</p>
+
+<p>
+Back to setting up SSH keys for you, the admin.
+Embed your LASTNAME in the key name or whatever you want to call it to make it unique.</p>
 <pre>
 aws ec2 create-key-pair --key-name awsLASTNAMEkey --query 'KeyMaterial' \
                         --output text > ~/.ssh/awsLASTNAMEkey.pem
@@ -113,20 +119,20 @@ chmod 400 ~/.ssh/awsLASTNAMEkey.pem     # required
 </pre>
 
 <p>
-If you prefer to use your own key pair (or have a device like a Yubikey where the public key is generated by the device and the
-private key is inaccessible), then you can upload your existing public key to AWS using something like the following.  Or you 
-could add this to /etc/ssh/sshd_config on the master instance when you set up real users.</p>
+I prefer to generate my own SSH key pair and upload just the public key which is the only
+key that's needed on the server side of SSH.
+In fact, I use - and highly recommend - a Yubikey device which hides the private key even from me, 
+so I couldn't upload the private key even if I wanted to.</p>
 
 <pre>
 aws ec2 import-key-pair --key-name awsLASTNAMEkey \
                         --public-key-material file://~/.ssh/awsLASTNAMEkey.pub
 </pre>
 
-
 ## Allow SSH Access to Instances
 
 <p>
-Allow external users to SSH to instances in your security group, in general.  SSH uses protocol TCP, port 22.  Without this authorization,
+Allow external users - including yourself - to SSH to instances in your security group.  SSH uses protocol TCP, port 22.  Without this authorization,
 you won't even be able to get to the master instance even if you have a key pair set up above:</p>
 <pre>
 auth_group_ingress tcp 22             
@@ -151,19 +157,19 @@ group_rules
 <p>That should include this ingress rule for ssh, among others:</p>
 
 <pre>
-                {
-                    "PrefixListIds": [],
-                    "FromPort": 22,
-                    "IpRanges": [
-                        {
-                            "CidrIp": "0.0.0.0/0"
-                        }
-                    ],
-                    "ToPort": 22,
-                    "IpProtocol": "tcp",
-                    "UserIdGroupPairs": [],
-                    "Ipv6Ranges": []
-                }
+{
+    "PrefixListIds": [],
+    "FromPort": 22,
+    "IpRanges": [
+        {
+            "CidrIp": "0.0.0.0/0"        # allow any incoming IP
+        }
+    ],
+    "ToPort": 22,
+    "IpProtocol": "tcp",
+    "UserIdGroupPairs": [],
+    "Ipv6Ranges": []
+}
 </pre>
 
 <p>
@@ -207,7 +213,7 @@ linux2_image
 </pre>
 
 <p>Create one on-demand instance using the t2.medium instance type for starters and the SSH key pair that you created above so that
-you (and only you) can SSH to the instance:</p>
+you (and only you) can SSH to the instance as admin ec2-user:</p>
 <pre>
 create_inst -type t2.medium -image ami-009d6802948d06e52 -key awsLASTNAMEkey
 </pre>
@@ -222,7 +228,7 @@ my_insts
 ## Create Your Default master_inst Script
 
 <p>
-Create a "master_inst" script in a directory that is on your PATH and have it contain this code where i-nnn is your instance id:</p>
+Create a "master_inst" script in a directory on your PC that is on your PATH and have it contain this code where i-nnn is your instance id:</p>
 
 <pre>
 #/bin/bash
@@ -231,8 +237,8 @@ echo -n "i-nnn";
 
 <p>
 Now when you type "master_inst" it will return your master instance id.
-This is IMPORTANT because many of the scripts will use master_inst to get the
-default instance id for operations.  You can usually override it, but usually you don't want to.
+```This is IMPORTANT because many of the scripts will use master_inst to get the
+default instance id for operations.```  You can usually override it, but usually you don't want to.
 </p>
 
 <p>
@@ -243,22 +249,26 @@ one master_inst script and have it search up a directory tree until it finds the
 file you keep around.  It's up to you.  I use the former technique whenever possible.
 </p>
 
-## Install Software On Your Master Instance
-
-<p>
-SSH into the master instance and install apps that aren't there that you might need, such as C++ and Python3:
-</p>
-
-<pre>
-on_inst                         # should ssh you to your master instance
-$ sudo yum update -y            # updates system software
-$ sudo yum install gcc-c++      # for example
-$ sudo yum install python3      # for example
-</pre>
-
 ## Harden SSH On Your Master Instance
 
 Coming soon...
+
+## Install Software On Your Master Instance
+
+<p>
+First, update the existing software on your master instance:</p>
+</p>
+
+<pre>
+on_inst sudo yum update -y 
+</pre>
+
+<p>
+Install additional apps that you will need, such as C++ and Python3:</p>
+
+<pre>
+on_inst sudo yum install gcc-c++ python3 
+</pre>
 
 ## Stop Your Master Instance!
 
