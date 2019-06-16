@@ -685,13 +685,10 @@ Cloud-init v. 18.2-72.amzn2.0.6 finished at Mon, 11 Feb 2019 23:12:33 +0000. Dat
 </pre>
 
 <p>The work is done in this case, so our harvesting script might copy some files off the instance using fm_inst, then will
-delete the instance:</p>
-<pre>
-delete_inst i-nnn
-</pre>
+delete the instance.
 
 <p>
-Once all instances have been harvested, they should all be in the shutting-down or terminated state.  After about
+Once all instances have been harvested and deleted, they should all be in the shutting-down or terminated state.  After about
 15 minutes, terminated instances will drop off the <b>my_insts</b> list.</p>
 
 Bob Alfieri<br>
