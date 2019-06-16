@@ -503,6 +503,16 @@ ec2-metadata -l
 echo "PASS"
 </pre>
 
+<p>
+Often times, you may need to upload some data and a C++ program to your master instance.
+In this case, use the to_inst command to upload a tar bundle beforehand, untar it, then 
+build whatever needs to get built on the master_inst before invoking create_insts. For example:</p>
+
+<pre>
+to_inst my_bundle.tar.gz my_bundle.tar.gz
+on_inst 'tar xvfz my_bundle.tar.gz; cd bundle; ./build.sh'
+</pre>
+
 ## Create Multiple Instances as Clones of the Master and Execute a Script On Each
 
 <p>
