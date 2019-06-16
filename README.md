@@ -172,7 +172,7 @@ You can check your ingress and egress rules using this:</p>
 group_rules
 </pre>
 
-<p>The output from that should include this ingress rule for ssh, among others:</p>
+<p>The output from that should include this ingress rule for ssh:</p>
 
 <pre>
 {
@@ -191,15 +191,33 @@ group_rules
 </pre>
 
 <p>
+You'll also see the default ingress rule which disallows all incoming traffic:</p>
+
+<pre>
+{
+    "IpProtocol": "-1",                 # means "any" protocol
+    "PrefixListIds": [],
+    "IpRanges": [],                     # no allowed IP ranges
+    "UserIdGroupPairs": [
+        {
+            "UserId": "780936156948",
+            "GroupId": "sg-1d247e5d"
+        }
+    ],
+    "Ipv6Ranges": []
+},
+</pre>
+
+<p>
 The default egress rule is to allow all outgoing traffic:</p>
 
 <pre>
 {
-    "IpProtocol": "-1",             # means "any"
+    "IpProtocol": "-1",                 # means "any"
     "PrefixListIds": [],
     "IpRanges": [
         {
-            "CidrIp": "0.0.0.0/0"   # any destination IP
+            "CidrIp": "0.0.0.0/0"       # full range of IPv4 addresses
         }
     ],
     "UserIdGroupPairs": [],
