@@ -88,12 +88,18 @@ export PATH=...
 <p>
 Now we can configure the AWS environment on your PC which will set you up for a particular account, group, VPC, and region.</p>
 
+<p>If you want to first list all regions that you have available to you, use this command, but keep in
+mind that an account may belong to at most one region at a time:</p>
+<pre>
+my_regions                              # returns list of available regions
+</pre>
+
 <pre>
 aws configure                           
                                         # then respond to the four questions: 
 AWS Access Key ID:                      # from AWS Console
 AWS Secret Access Key:                  # from AWS Console
-Default region name:                    # e.g., us-east-1
+Default region name:                    # I am closest to "us-east-1"
 Default output format:                  # I normally use "text"
 </pre>
 
@@ -107,16 +113,10 @@ my_region                               # returns the region you specified above
 
 <p>You'll notice that those don't print a newline.  That's so other scripts can use them on command lines like `my_group` etc.</p>
 
-<p>By the way, if you want to list all regions that you have available to you, use this command, but keep in
-mind that an ccount (owner) may belong to at most one region at a time:</p>
-<pre>
-my_regions                              # returns list of available regions
-</pre>
-
 ## Create an Admin SSH Key Pair or Upload a Pre-Generated Public Key
 
 <p>
-We are going to create an key pair that we'll use to SSH to our master instance as ec2-user,
+We are going to create an SSH key pair that we'll use to SSH to our master instance as ec2-user,
 which is the only Linux username with sudo privilege.  
 When we create the master instance, we'll
 indicate that only this key pair is allowed to SSH into the instance.  
