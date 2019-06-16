@@ -252,8 +252,8 @@ echo -n "i-nnn";
 
 <p>
 Now when you type "master_inst" it will return your master instance id.
-```This is IMPORTANT because many of the scripts will use master_inst to get the
-default instance id for operations.```  You can usually override it, but usually you don't want to.
+<b>This is IMPORTANT because many of the scripts will use master_inst to get the
+default instance id for operations.</b>  You can usually override it, but usually you don't want to.
 </p>
 
 <p>
@@ -325,9 +325,9 @@ my_zones                # list of availability zones within your owner region
 If you don't need more than one environment, then you can skip the rest of this section.</p>
 
 <p>
-If you'd like to set up a second profile, you can provide your own ```my_profile``` script that must be 
+If you'd like to set up a second profile, you can provide your own <b>my_profile</b> script that must be 
 found earlier on your PATH than the one provided by this repo which always returns "default".  So let's
-say you want to use a profile called "work1", you would create a ```my_profile``` script that does this:
+say you want to use a profile called "work1", you would create a <b>my_profile</b> script that does this:
 
 <pre>
 #!/bin/bash
