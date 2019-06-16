@@ -73,27 +73,29 @@ the AWS Console for your account.  As described earlier, you can have one "admin
 with you as the only user who can do anything, and then non-admin users having only SSH accesss.  Or you can decide to give non-admin users
 their own security group(s) in which case you'll need to assign them access keys via the AWS console so that they can 
 administer resources in that security group.  The difference between the "admins" group and these other non-admin groups and users is that 
-they will likely have access to fewer resources and privileges within the VPC and account.</p>
+the latter will likely have access to fewer resources and privileges within account.</p>
 
 <p>
-That said, the rest of this document applies to any AWS user who has some level of 
+With that nuance clarified, the rest of this document applies to any AWS user who has some level of 
 administrative privilege within some security group within some VPC within some AWS account.  For users who have
-only SSH access to instances, they would not be allowed to execute any of the scripts herein because they wouldn't
-have AWS access keys (only SSH keys which are different).  OK, enough of that.  Let's get down to business.</p>
+only SSH access to instances via normal server SSH mechanisms, they would not be allowed to execute any of the scripts herein 
+because they wouldn't have any AWS access keys (only SSH keys which are different).</p>
 
-you </p>
+<p>
+Here's how to configure the AWS environment on your PC:</p>
+
 <pre>
 aws configure                           
                                         # then respond to the four questions: 
-AWS Access Key ID:
-AWS Secret Access Key:
+AWS Access Key ID:                      # from AWS Console
+AWS Secret Access Key:                  # from AWS Console
 Default region name:                    # e.g., us-east-1
-Default output format:                  # I normally use text
+Default output format:                  # I normally use "text"
 </pre>
 
 <p>Do some sanity checks:</p>
 <pre>
-my_id                                   # returns your owner (account) id (an integer)
+my_account                              # returns your owner (account) id (an integer)
 my_group                                # returns your sg-nnn security group id
 my_vpc                                  # returns your vpc-nnn VPC id
 my_region                               # returns the region you specified above
@@ -342,7 +344,7 @@ inst_json               # list all information in JSON format
 
 <p>These commands are not specific to any instance(s):</p>
 <pre>
-my_id                   # returns your owner (account) id (an integer)
+my_account              # returns your owner (account) id (an integer)
 my_group                # returns your sg-nnn security group id
 my_vpc                  # returns your vpc-nnn VPC id
 my_region               # returns the region you specified above
