@@ -7,7 +7,7 @@
   - [Create an Admin SSH Key Pair or Upload a Pre-Generated Public Key](#create-an-admin-ssh-key-pair-or-upload-a-pre-generated-public-key)
   - [Allow SSH Access to Instances](#allow-ssh-access-to-instances)
   - [Create Your "Master" Instance](#create-your-master-instance)
-  - [Create Your Default master_inst Script](#create-your-default-masterinst-script)
+  - [Set Your AWS_MASTER_INSTANCE Environment Variable](#set-your-awsmasterinstance-environment-variable)
   - [HIGHLY RECOMMENDED: Harden SSH On Your Master Instance](#highly-recommended-harden-ssh-on-your-master-instance)
   - [Install Software On Your Master Instance](#install-software-on-your-master-instance)
   - [Stop Your Master Instance When Not In Use](#stop-your-master-instance-when-not-in-use)
@@ -239,15 +239,13 @@ Console.</p>.
 my_insts
 </pre>
 
-## Create Your Default master_inst Script
+## Set Your AWS_MASTER_INSTANCE Environment Variable
 
 <p>
-Create a "master_inst" script in a directory on your PC that is on your PATH and have it contain this code where i-nnn is your instance id
-shown by my_insts above:</p>
+Add the following to your .bash_profile or similar for other shells.  <b>i-nnn</b> is the instance id returned above by my_insts:</p>
 
 <pre>
-#/bin/bash
-echo -n "i-nnn";
+export AWS_MASTER_INSTANCE=i-nnn
 </pre>
 
 <p>
@@ -261,7 +259,7 @@ Alternatively, assuming you have "." at the front of your PATH, you can have dif
 Then when you cd to a particular directory, these scripts will pick up the master_inst in that directory.
 So the master_inst script gives context for most of the scripts described here.  Alternatively, you could write
 one master_inst script and have it search up a directory tree until it finds the instance name in some
-file you keep around.  It's up to you.  I use the former technique whenever possible.
+file you keep around.  It's up to you.  I use the environment-variable technique.
 </p>
 
 ## HIGHLY RECOMMENDED: Harden SSH On Your Master Instance
@@ -325,20 +323,20 @@ my_zones                # list of availability zones within your owner region
 If you don't need more than one environment, then you can skip the rest of this section.</p>
 
 <p>
-If you'd like to set up a second profile, you can provide your own <b>my_profile</b> script that must be 
-found earlier on your PATH than the one provided by this repo which always returns "default".  So let's
-say you want to use a profile called "work1", you would create a <b>my_profile</b> script that does this:
+If you'd like to set up a second profile, called "work1" for example, then you can define this environment
+variable in your .bash_profile or similar for other shells.  Then <b>my_profile</b> will write out "work1" in this case:</p>
 
 <pre>
-#!/bin/bash
-echo -n "work1";
+export AWS_DEFAULT_PROFILE=work1
 </pre>
 
-<p>Test that it is found on your PATH before the default <b>my_profile</b> from this repo:</p>
+<p>Test that it writes out the proper profile name using <b>my_profile</b>:</p>
 
 <pre>
 my_profile              # should return "work1", not "default"
 </pre>
+
+<p>Unlike AWS_MASTER_INSTANCE, this environment variable does not need to be set.  <b>my_profile</b> defaults to "default".</p>
 
 <p>Next, configure this profile the way you configured the "default" one, except supply the profile name
 on the command line:</p>
@@ -347,7 +345,7 @@ on the command line:</p>
 aws configure --profile work1
 </pre>
 
-<p>All subsequent scripts in this repo will now pick up your "my_profile" script and use "work1"
+<p>All subsequent scripts in this repo use "my_profile" and use will pick up "work1"
 as the profile for all AWS commands.</p>
 
 # Instance Queries

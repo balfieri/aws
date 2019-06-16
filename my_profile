@@ -1,2 +1,6 @@
-#!/bin/bash
-echo -n "default";
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my $profile = $ENV{AWS_DEFAULT_PROFILE} || "default";
+print $profile

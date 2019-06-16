@@ -1,0 +1,8 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+defined $ENV{AWS_MASTER_INSTANCE} or die "ERROR: master_inst: AWS_MASTER_INSTANCE environment variable is not set\n";
+
+print $ENV{AWS_MASTER_INSTANCE};
