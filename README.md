@@ -10,7 +10,7 @@
   - [Create Your Default master_inst Script](#create-your-default-masterinst-script)
   - [HIGHLY RECOMMENDED: Harden SSH On Your Master Instance](#highly-recommended-harden-ssh-on-your-master-instance)
   - [Install Software On Your Master Instance](#install-software-on-your-master-instance)
-  - [Stop Your Master Instance!](#stop-your-master-instance)
+  - [Stop Your Master Instance When Not In Use](#stop-your-master-instance-when-not-in-use)
 - [Environment Queries](#environment-queries)
 - [Environment Actions](#environment-actions)
 - [Instance Queries](#instance-queries)
@@ -285,11 +285,11 @@ Install additional apps that you will need, such as C++ and Python3:</p>
 on_inst sudo yum install -y gcc-c++ python3 git
 </pre>
 
-## Stop Your Master Instance!
+## Stop Your Master Instance When Not In Use
 
 <p>Remember to stop your master instance when you aren't using it.  This will perform the
 equivalent of a "shutdown" on that instance.  But the EBS root volume persists.  We're not
-deleting the instance.</p>
+deleting the instance.  We can re-start it later.</p>
 
 <pre>
 stop_inst
