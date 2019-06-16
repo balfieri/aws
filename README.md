@@ -58,18 +58,20 @@ I recommend the following:
 
 ## Set Up Your Local PC for AWS Command Line
 
-<p>Configure your AWS environment.  First you must obtain the "access key id" and "secret access key" from 
+<p>First you must obtain the "access key id" and "secret access key" from 
 the AWS Console for your account.  As described earlier, you can have one "admins" security group
 with you as the only user who can do anything, and then non-admin users having only SSH accesss.  Or you can decide to give non-admin users
-their own security group(s) in which case you'll need to assign them access keys via the AWS console so that they can 
+their own security group(s) in which case you'd need to assign them access keys via the AWS console so that they can 
 administer resources in that security group.  The difference between the "admins" group and these other non-admin groups and users is that 
 the latter will likely have access to fewer resources and privileges within account.</p>
 
 <p>
-With that nuance clarified, the rest of this document applies to any AWS user who has some level of 
-administrative privilege within some security group within some VPC within some AWS account.  For users who have
-only SSH access to instances via normal SSH server mechanisms, they would not be allowed to execute any of the scripts herein 
-because they wouldn't have any AWS access keys (only SSH keys, which differ from AWS access keys).</p>
+With that nuance (I hope) clarified, the rest of this document applies to any AWS user who has some level of 
+administrative privilege within some security group within some VPC within some AWS account, even if that user is not
+the AWS account owner.  For users who have
+only SSH access to instances via normal SSH server mechanisms, they would not be allowed to execute any of the scripts described in this
+document because they wouldn't have any AWS access keys.  They would have only SSH keys, which is a Linux server concept, not an AWS
+concept.</p>
 
 <p>
 Install aws-cli (search web for how to do this on your type of PC).</p>
