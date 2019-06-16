@@ -179,14 +179,31 @@ group_rules
 <pre>
 {
     "PrefixListIds": [],
-    "FromPort": 22,
+    "FromPort": 22,                     # default ssh port
     "IpRanges": [
         {
-            "CidrIp": "0.0.0.0/0"        # allow any incoming IP
+            "CidrIp": "0.0.0.0/0"       # allow any incoming IP
         }
     ],
     "ToPort": 22,
     "IpProtocol": "tcp",
+    "UserIdGroupPairs": [],
+    "Ipv6Ranges": []
+}
+</pre>
+
+<p>
+The default egress rule is to allow all outgoing traffic:</p>
+
+<pre>
+{
+    "IpProtocol": "-1",             # means "any"
+    "PrefixListIds": [],
+    "IpRanges": [
+        {
+            "CidrIp": "0.0.0.0/0"   # any destination IP
+        }
+    ],
     "UserIdGroupPairs": [],
     "Ipv6Ranges": []
 }
@@ -209,10 +226,6 @@ Typically you'll get a program running on the master instance, then take a snaps
 More on that later.
 </p>
 
-<p>
-The first one is slightly more complicated than doing others, but we need only do this once:
-</p>
-
 <p>Get the list of the most recent Amazon Linux2 images (assuming you want to run that).
 This will return a list of ami-nnn image ids and creation dates.
 Normally you'll just pick the most recent one:</p>
@@ -220,7 +233,7 @@ Normally you'll just pick the most recent one:</p>
 linux2_images
 </pre>
 
-<p>If you just want to see the most recent one from Amazon, use this:</p>
+<p>If you just want to get the most recent one from Amazon, use this:</p>
 <pre>
 linux2_image
 </pre>
@@ -231,10 +244,10 @@ you (and only you) can SSH to the instance as admin ec2-user:</p>
 create_inst -type t2.medium -image ami-009d6802948d06e52 -key awsLASTNAMEkey
 </pre>
 
-<p>Note: the new EBS root volume will be encrypted assuming the account owner had set up default EBS volume encryption in the AWS
+<p>Note: the new EBS root volume (virtual disk) will be encrypted, assuming the account owner had set up default EBS volume encryption in the AWS
 Console.</p>.
 
-<p>Sanity check to get your i-nnn instance id:</p>
+<p>Sanity check to get your i-nnn instance id.  You should have only one instance at this point:</p>
 <pre>
 my_insts
 </pre>
