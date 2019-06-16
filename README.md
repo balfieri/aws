@@ -74,9 +74,9 @@ document because they wouldn't have any AWS access keys.  They would have only S
 concept.</p>
 
 <p>
-Install aws-cli (search web for how to do this on your type of PC).</p>
+Install aws-cli.  Search web for how to do this on your type of PC.</p>
 
-<p>Clone or download this repo and put it on your PATH:</p>
+<p>Next, clone this repo and put it on your PATH:</p>
 
 <pre>
 cd [somewhere]
@@ -85,7 +85,7 @@ export PATH=...
 </pre>
 
 <p>
-Configure the AWS environment on your PC which will set you up for a particular account, group, VPC, and region:</p>
+Now we can configure the AWS environment on your PC which will set you up for a particular account, group, VPC, and region:</p>
 
 <pre>
 aws configure                           
@@ -99,8 +99,8 @@ Default output format:                  # I normally use "text"
 <p>Do some sanity checks:</p>
 <pre>
 my_account                              # returns your account/owner id (an integer)
-my_group                                # returns your sg-nnn security group id
-my_vpc                                  # returns your vpc-nnn VPC id
+my_group                                # returns your "sg-nnn" security group id
+my_vpc                                  # returns your "vpc-nnn" VPC id (typically one per account)
 my_region                               # returns the region you specified above
 </pre>
 
