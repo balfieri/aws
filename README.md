@@ -78,8 +78,8 @@ the latter will likely have access to fewer resources and privileges within acco
 <p>
 With that nuance clarified, the rest of this document applies to any AWS user who has some level of 
 administrative privilege within some security group within some VPC within some AWS account.  For users who have
-only SSH access to instances via normal server SSH mechanisms, they would not be allowed to execute any of the scripts herein 
-because they wouldn't have any AWS access keys (only SSH keys which are different).</p>
+only SSH access to instances via normal SSH server mechanisms, they would not be allowed to execute any of the scripts herein 
+because they wouldn't have any AWS access keys (only SSH keys, which differ from AWS access keys).</p>
 
 <p>
 Here's how to configure the AWS environment on your PC:</p>
