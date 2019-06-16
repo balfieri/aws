@@ -4,15 +4,15 @@
 - [One-Time Setup](#one-time-setup)
   - [My Security Philosophy](#my-security-philosophy)
   - [Set Up Your Local PC for AWS Command Line](#set-up-your-local-pc-for-aws-command-line)
-  - [Create an SSH Key Pair or Upload a Pre-Generated Public Key](#create-an-ssh-key-pair-or-upload-a-pre-generated-public-key)
+  - [Create an Admin SSH Key Pair or Upload a Pre-Generated Public Key](#create-an-admin-ssh-key-pair-or-upload-a-pre-generated-public-key)
   - [Allow SSH Access to Instances](#allow-ssh-access-to-instances)
   - [Create Your "Master" Instance](#create-your-master-instance)
   - [Create Your Default master_inst Script](#create-your-default-masterinst-script)
+  - [HIGHLY RECOMMENDED: Harden SSH On Your Master Instance](#highly-recommended-harden-ssh-on-your-master-instance)
   - [Install Software On Your Master Instance](#install-software-on-your-master-instance)
-  - [Harden SSH on Your Master Instance](#harden-ssh-on-your-master-instance)
   - [Stop Your Master Instance!](#stop-your-master-instance)
 - [Instance Queries](#instance-queries)
-- [Other Owner Queries](#other-owner-queries)
+- [Environment Queries](#environment-queries)
 - [Instance Actions](#instance-actions)
   - [Start/Stop/Modify](#startstopmodify)
   - [SSH and SCP](#ssh-and-scp)
@@ -20,10 +20,10 @@
 - [Launching New Instances](#launching-new-instances)
   - [Create One Instance](#create-one-instance)
   - [Create Multiple Instances](#create-multiple-instances)
-  - [Create Multiple Instances as Clones of the Master](#create-multiple-instances-as-clones-of-the-master)
+  - [Create Multiple Instances as Clones of the Master and Execute a Script On Each](#create-multiple-instances-as-clones-of-the-master-and-execute-a-script-on-each)
   - [Create Multiple Spot Instances](#create-multiple-spot-instances)
-- [On Each Launched Instance](#on-each-launched-instance)
-- [Retrieving Results from Instances](#retrieving-results-from-instances)
+- [On Each Launched Instance Running the Same Script](#on-each-launched-instance-running-the-same-script)
+- [Harvesting Results from Instances Running the Same Script](#harvesting-results-from-instances-running-the-same-script)
 
 # Overview
 
@@ -263,7 +263,7 @@ one master_inst script and have it search up a directory tree until it finds the
 file you keep around.  It's up to you.  I use the former technique whenever possible.
 </p>
 
-## RECOMMENDED: Harden SSH On Your Master Instance
+## HIGHLY RECOMMENDED: Harden SSH On Your Master Instance
 
 Coming soon...
 
@@ -338,7 +338,7 @@ inst_zone               # availability zone within region
 inst_json               # list all information in JSON format
 </pre>
 
-# Other Owner Queries
+# Environment Queries
 
 <p>These commands are not specific to any instance(s):</p>
 <pre>
@@ -361,6 +361,7 @@ resize_inst_vol gigabytes # stops instance and resizes its root EBS volume
 </pre>
 
 ## SSH and SCP
+
 <pre>
 on_inst                 # ssh to the instance
 on_inst cmd args...     # ssh to the instance and run "cmd args..."
@@ -434,7 +435,7 @@ ec2-metadata -l
 echo "PASS"
 </pre>
 
-## Create Multiple Instances as Clones of the Master
+## Create Multiple Instances as Clones of the Master and Execute a Script On Each
 
 <p>
 Create 3 on-demand instances cloned from the current master_inst.
@@ -488,10 +489,10 @@ create_insts 3 -script "local_script" -spot 0.01 -clone_master
 Note that spot instances may not be stopped, but they can be terminated using
 delete_inst.</p>
 
-# On Each Launched Instance
+# On Each Launched Instance Running the Same Script
 
 <p>
-The command script <b>running _on_ each launched instance</b> can use the following ec2-metadata commands to 
+The script <b>running _on_ each launched instance</b> can use the following ec2-metadata commands to 
 retrieve information it needs in order to figure out what work it should do.</p>
 
 <p>
@@ -514,10 +515,9 @@ to stdout or some results_file in /tmp.</p>
 
 <p>
 Of course, there are other ways each instance can get information.  It could look in an S3 bucket (more on that later) or use a 
-database.  The above technique has an advantage that it doesn't require anything else besides the master instance and its
-VBS root volume.</p>
+database.  The above technique has an advantage that it doesn't require anything else besides the master instance.</p>
 
-# Retrieving Results from Instances
+# Harvesting Results from Instances Running the Same Script
 
 <p>
 You can issue the following commands from your PC to get results from your instances and 
