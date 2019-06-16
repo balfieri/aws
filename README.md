@@ -334,7 +334,7 @@ say you want to use a profile called "work1", you would create a <b>my_profile</
 echo -n "work1";
 </pre>
 
-<p>Test that it is found on your PATH before the default ```my_profile``` from this repo:</p>
+<p>Test that it is found on your PATH before the default <b>my_profile</b> from this repo:</p>
 
 <pre>
 my_profile              # should return "work1", not "default"
