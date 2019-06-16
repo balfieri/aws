@@ -6,7 +6,6 @@
   - [Set Up Your Local PC for AWS Command Line](#set-up-your-local-pc-for-aws-command-line)
   - [Create an SSH Key Pair or Upload a Pre-Generated Public Key](#create-an-ssh-key-pair-or-upload-a-pre-generated-public-key)
   - [Allow SSH Access to Instances](#allow-ssh-access-to-instances)
-  - [Enable EBS Volume Encryption by Default](#enable-ebs-volume-encryption-by-default)
   - [Create Your "Master" Instance](#create-your-master-instance)
   - [Create Your Default master_inst Script](#create-your-default-masterinst-script)
   - [Install Software On Your Master Instance](#install-software-on-your-master-instance)
@@ -54,6 +53,8 @@ I recommend the following:
 4. By default, do not allow non-admin users to do anything with AWS, including read-only things.  There is no reason to create some kind of "users" group by default.  Instead, allow those users only SSH access to one or more instances using non-admin Linux usernames.  For the most part, non-admin users can operate without even worrying about whether their servers live in AWS, Google Cloud, or on-premises.  Later, I will show how to map subdomain names to running instances to make it easier to log in in the face of changing IP addresses.
 
 5. The exception to the default in #4 is when you want to allow users to launch their own instances.  In that case, you'll want to put them into their own security group within the VPC, possibly in a per-user security group.  This way, the user can administer his/her own instances within the VPC, and not have privilege to manipulate other instances in other security groups (besides SSH to those instances if you so allow).
+
+6. Enable EBS volume encryption by default.  This ensures that all volumes (virtual disks) are encrypted by default.  Go to the EC2 Dashboard, select your region, then click on Settings under Account Attributes on the right.  Check the box labeled "Always encrypt new EBS volumes."  If you use multiple regions, you must do this for each region.</p>
 
 ## Set Up Your Local PC for AWS Command Line
 
@@ -197,13 +198,6 @@ revoke_group_ingress protocol port
 revoke_group_egress  protocol port
 </pre>
 
-## Enable EBS Volume Encryption by Default
-
-<p>
-This ensures that all volumes (virtual disks) are encrypted by default.  Go to the EC2 Dashboard, select your region, then click on
-Settings under Account Attributes on the right.  Check the box labeled "Always encrypt new EBS volumes."  If you use multiple
-regions, you must do this for each region.</p>
-
 ## Create Your "Master" Instance
 
 <p>
@@ -234,7 +228,8 @@ you (and only you) can SSH to the instance as admin ec2-user:</p>
 create_inst -type t2.medium -image ami-009d6802948d06e52 -key awsLASTNAMEkey
 </pre>
 
-<p>Note: the new EBS root volume will be encrypted assuming you had set up default EBS volume encryption earlier.</p>.
+<p>Note: the new EBS root volume will be encrypted assuming the account owner had set up default EBS volume encryption in the AWS
+Console.</p>.
 
 <p>Sanity check to get your i-nnn instance id:</p>
 <pre>
@@ -244,7 +239,8 @@ my_insts
 ## Create Your Default master_inst Script
 
 <p>
-Create a "master_inst" script in a directory on your PC that is on your PATH and have it contain this code where i-nnn is your instance id:</p>
+Create a "master_inst" script in a directory on your PC that is on your PATH and have it contain this code where i-nnn is your instance id
+shown by my_insts above:</p>
 
 <pre>
 #/bin/bash
@@ -258,7 +254,7 @@ default instance id for operations.```  You can usually override it, but usually
 </p>
 
 <p>
-Assuming you have "." at the front of your PATH, you can have different master_inst scripts in different directories.
+Alternatively, assuming you have "." at the front of your PATH, you can have different master_inst scripts in different directories.
 Then when you cd to a particular directory, these scripts will pick up the master_inst in that directory.
 So the master_inst script gives context for most of the scripts described here.  Alternatively, you could write
 one master_inst script and have it search up a directory tree until it finds the instance name in some
