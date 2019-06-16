@@ -348,6 +348,14 @@ aws configure --profile work1
 <p>All subsequent scripts in this repo use "my_profile" and use will pick up "work1"
 as the profile for all AWS commands.</p>
 
+<p>
+If you end up using multiple profiles from the same PC username, you should consider adding aliases to redefine 
+the two environment variables, for example:</p>
+
+<pre>
+alias work1="export AWS_DEFAULT_PROFILE=work1; export AWS_MASTER_INSTANCE=i-0123456789abc"
+</pre>
+
 # Instance Queries
 
 <p>
