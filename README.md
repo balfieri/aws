@@ -325,19 +325,19 @@ my_zones                # list of availability zones within your owner region
 If you don't need more than one environment, then you can skip the rest of this section.</p>
 
 <p>
-If you'd like to set up a second profile, you can provide your own <pre>my_profile</pre> script that must be 
+If you'd like to set up a second profile, you can provide your own ```my_profile``` script that must be 
 found earlier on your PATH than the one provided by this repo which always returns "default".  So let's
-say you want to use a profile called "work1", you would create a <pre>my_profile</pre> script that does this:
+say you want to use a profile called "work1", you would create a ```my_profile``` script that does this:
 
 <pre>
 #!/bin/bash
 echo -n "work1";
 </pre>
 
-<p>Test that it is found on your path before the default on in this repo.</p>
+<p>Test that it is found on your PATH before the default ```my_profile``` from this repo:</p>
 
 <pre>
-my_profile              # should return "work1"
+my_profile              # should return "work1", not "default"
 </pre>
 
 <p>Next, configure this profile the way you configured the "default" one, except supply the profile name
