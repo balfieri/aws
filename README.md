@@ -509,9 +509,13 @@ In this case, use the to_inst command to upload a tar bundle beforehand, untar i
 build whatever needs to get built on the master_inst before invoking create_insts. For example:</p>
 
 <pre>
-to_inst my_bundle.tar.gz my_bundle.tar.gz
-on_inst 'tar xvfz my_bundle.tar.gz; cd bundle; ./build.sh'
+to_inst my_app.tar.gz my_app.tar.gz
+on_inst 'tar xvfz my_app.tar.gz; cd my_app; ./build.sh' 
 </pre>
+
+<p>
+If you have a huge amount of data (many GBs or TBs), then you'll want to load it into
+an S3 bucket, then access the data from the instances.  More on S3 later.</p>
 
 ## Create Multiple Instances as Clones of the Master and Execute a Script On Each
 
