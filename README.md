@@ -11,8 +11,9 @@
   - [HIGHLY RECOMMENDED: Harden SSH On Your Master Instance](#highly-recommended-harden-ssh-on-your-master-instance)
   - [Install Software On Your Master Instance](#install-software-on-your-master-instance)
   - [Stop Your Master Instance!](#stop-your-master-instance)
-- [Instance Queries](#instance-queries)
 - [Environment Queries](#environment-queries)
+- [Environment Actions](#environment-actions)
+- [Instance Queries](#instance-queries)
 - [Instance Actions](#instance-actions)
   - [Start/Stop/Modify](#startstopmodify)
   - [SSH and SCP](#ssh-and-scp)
@@ -85,7 +86,7 @@ export PATH=...
 </pre>
 
 <p>
-Now we can configure the AWS environment on your PC which will set you up for a particular account, group, VPC, and region:</p>
+Now we can configure the AWS environment on your PC which will set you up for a particular account, group, VPC, and region.</p>
 
 <pre>
 aws configure                           
@@ -305,6 +306,50 @@ Most of the scripts here will automatically issue a "start_inst" to make sure th
 started, but they won't stop the instance automatically unless the script requires that
 it be stopped.</p>
 
+# Environment Queries
+
+<p>These commands are not specific to any instance(s):</p>
+<pre>
+my_profile              # returns "default" (see next section)
+my_account              # returns your account/owner id (an integer)
+my_group                # returns your sg-nnn security group id
+my_vpc                  # returns your vpc-nnn VPC id
+my_region               # returns the region you specified above
+my_regions              # list of regions that your owner could use (only one allowed)
+my_zones                # list of availability zones within your owner region
+</pre>
+
+# Environment Actions
+
+<p>When you configured your aws environment earlier, AWS gave your environment a profile name called "default".  
+If you don't need more than one environment, then you can skip the rest of this section.</p>
+
+<p>
+If you'd like to set up a second profile, you can provide your own <pre>my_profile</pre> script that must be 
+found earlier on your PATH than the one provided by this repo which always returns "default".  So let's
+say you want to use a profile called "work1", you would create a <pre>my_profile</pre> script that does this:
+
+<pre>
+#!/bin/bash
+echo -n "work1";
+</pre>
+
+<p>Test that it is found on your path before the default on in this repo.</p>
+
+<pre>
+my_profile              # should return "work1"
+</pre>
+
+<p>Next, configure this profile the way you configured the "default" one, except supply the profile name
+on the command line:</p>
+
+<pre>
+aws configure work1
+</pre>
+
+<p>All subsequent scripts in this repo will now pick up your "my_profile" script and use "work1"
+as the profile for all AWS commands.</p>
+
 # Instance Queries
 
 <p>
@@ -336,18 +381,6 @@ inst_image              # ami-nnn image id that the instance is running
 inst_vol                # volume id of root EBS root volume
 inst_device             # /dev/xda1 or whatever root mount point
 inst_json               # list all information in JSON format
-</pre>
-
-# Environment Queries
-
-<p>These commands are not specific to any instance(s):</p>
-<pre>
-my_account              # returns your account/owner id (an integer)
-my_group                # returns your sg-nnn security group id
-my_vpc                  # returns your vpc-nnn VPC id
-my_region               # returns the region you specified above
-my_regions              # list of regions that your owner could use (only one allowed)
-my_zones                # list of availability zones within your owner region
 </pre>
 
 # Instance Actions
