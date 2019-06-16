@@ -58,17 +58,6 @@ I recommend the following:
 
 ## Set Up Your Local PC for AWS Command Line
 
-<p>Clone or download this repo and put it on your PATH:</p>
-
-<pre>
-cd [somewhere]
-git clone https://github.com/balfieri/aws
-export PATH=...
-</pre>
-
-<p>
-Install aws-cli (search web for how to do this on your type of PC).</p>
-
 <p>Configure your AWS environment.  First you must obtain the "access key id" and "secret access key" from 
 the AWS Console for your account.  As described earlier, you can have one "admins" security group
 with you as the only user who can do anything, and then non-admin users having only SSH accesss.  Or you can decide to give non-admin users
@@ -83,7 +72,18 @@ only SSH access to instances via normal SSH server mechanisms, they would not be
 because they wouldn't have any AWS access keys (only SSH keys, which differ from AWS access keys).</p>
 
 <p>
-Here's how to configure the AWS environment on your PC:</p>
+Install aws-cli (search web for how to do this on your type of PC).</p>
+
+<p>Clone or download this repo and put it on your PATH:</p>
+
+<pre>
+cd [somewhere]
+git clone https://github.com/balfieri/aws
+export PATH=...
+</pre>
+
+<p>
+Configure the AWS environment on your PC which will set you up for a particular account, group, VPC, and region:</p>
 
 <pre>
 aws configure                           
