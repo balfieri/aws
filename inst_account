@@ -1,0 +1,9 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $inst = shift @ARGV || `master_inst`;
+my $account = `aws ec2 describe-instances --instance-ids ${inst} --query 'Reservations[*].[OwnerId]' --output text`;
+chomp $account;
+print $account;
