@@ -344,7 +344,7 @@ my_profile              # should return "work1"
 on the command line:</p>
 
 <pre>
-aws configure work1
+aws configure --profile work1
 </pre>
 
 <p>All subsequent scripts in this repo will now pick up your "my_profile" script and use "work1"
