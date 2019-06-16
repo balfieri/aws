@@ -53,6 +53,8 @@ I recommend the following:
 
 4. By default, do not allow non-admin users to do anything with AWS, including read-only things.  There is no reason to create some kind of "users" group by default.  Instead, allow those users only SSH access to one or more instances using non-admin Linux usernames.  For the most part, non-admin users can operate without even worrying about whether their servers live in AWS, Google Cloud, or on-premises.  Later, I will show how to map subdomain names to running instances to make it easier to log in in the face of changing IP addresses.
 
+5. The exception to #4 is when you want to allow users to launch their own instances.  In that case, you'll likely want to put then into their own security group with the VPC, possibly in a per-user security group.  This way, the user can administer his/her own instances within the VPC, and not have privilege to do anything with instances in other security group except for possibly SSH to them if you so allow.
+
 ## Set Up Your Local PC for AWS Command Line
 
 <p>Clone or download this repo and put it on your PATH:</p>
