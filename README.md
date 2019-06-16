@@ -204,7 +204,7 @@ revoke_group_egress  protocol port
 ## Create Your "Master" Instance
 
 <p>
-Typically, you'll want one instance to act as a template for others.  We'll call this your "master instance."
+Typically, you'll want one instance to act as a default or as a template for others.  We'll call this your "master instance."
 Typically you'll get a program running on the master instance, then take a snapshot and use that snapshot to clone new instances.
 More on that later.
 </p>
@@ -362,7 +362,7 @@ alias work1="export AWS_DEFAULT_PROFILE=work1; export AWS_MASTER_INSTANCE=i-0123
 These commands show information for all instances:</p>
 
 <pre>
-master_inst             # i-nnn id of current master instance
+master_inst             # show i-nnn id of master (i.e., default) instance
 my_insts                # list i-nnn ids of all of your instances 
 my_insts -show_useful   # list useful information for all instances
 my_insts_json           # list all information for all instances in JSON format
