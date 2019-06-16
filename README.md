@@ -602,7 +602,7 @@ PASS
 Cloud-init v. 18.2-72.amzn2.0.6 finished at Mon, 11 Feb 2019 23:12:33 +0000. Datasource DataSourceEc2.  Up 52.25 seconds
 </pre>
 
-<p>The work is done in this case, so our script might copy some files off the instance using fm_inst, then will
+<p>The work is done in this case, so our harvesting script might copy some files off the instance using fm_inst, then will
 delete the instance:</p>
 <pre>
 delete_inst i-nnn
