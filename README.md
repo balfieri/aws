@@ -159,13 +159,11 @@ auth_group_ingress tcp 22
 </pre>
 
 <p>
-You may similarly set up egress rules using:
+The default egress rule is to allow all outgoing traffic, but you can add more specific rules using:</p>
 
 <pre>
 auth_group_egress protocol port
 </pre> 
-
-<p>But I'd avoid that until you really need it.</p>
 
 <p>
 You can check your ingress and egress rules using this:</p>
@@ -174,7 +172,7 @@ You can check your ingress and egress rules using this:</p>
 group_rules
 </pre>
 
-<p>That should include this ingress rule for ssh, among others:</p>
+<p>The output from that should include this ingress rule for ssh, among others:</p>
 
 <pre>
 {
