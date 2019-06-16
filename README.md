@@ -53,7 +53,7 @@ I recommend the following:
 
 4. By default, do not allow non-admin users to do anything with AWS, including read-only things.  There is no reason to create some kind of "users" group by default.  Instead, allow those users only SSH access to one or more instances using non-admin Linux usernames.  For the most part, non-admin users can operate without even worrying about whether their servers live in AWS, Google Cloud, or on-premises.  Later, I will show how to map subdomain names to running instances to make it easier to log in in the face of changing IP addresses.
 
-5. The exception to #4 is when you want to allow users to launch their own instances.  In that case, you'll likely want to put then into their own security group with the VPC, possibly in a per-user security group.  This way, the user can administer his/her own instances within the VPC, and not have privilege to do anything with instances in other security group except for possibly SSH to them if you so allow.
+5. The exception to the default in #4 is when you want to allow users to launch their own instances.  In that case, you'll want to put then into their own security group within the VPC, possibly in a per-user security group.  This way, the user can administer his/her own instances within the VPC, and not have privilege to manipulate other instances in other security groups (besides SSH to those instances if you so allow).
 
 ## Set Up Your Local PC for AWS Command Line
 
@@ -69,7 +69,19 @@ export PATH=...
 Install aws-cli (search web for how to do this on your type of PC).</p>
 
 <p>Configure your AWS environment.  First you must obtain the "access key id" and "secret access key" from whomever manages
-your AWS resources.  These are obtained from the AWS Console.</p>
+your AWS resources.  These are obtained from the AWS Console.  As described earlier, you can have one "admins" security group
+with you as the only user who can do anything and non-admin users having only SSH accesss.  Or you can decide to give non-admin users
+their own security group(s) in which case you'll need to assign them access keys via the AWS console so that they can 
+administer resources in that security group.  The difference between "admins" and their groups is that they will likely have
+access to fewer resources and privileges within the VPC.</p>
+
+<p>
+That said, the rest of this document applies to any AWS user who has some level of 
+administrative privilege within some security group within some VPC within some AWS account.  For users who have
+only SSH access to instances, they would not be allowed to execute any of these scripts herein because they wouldn't
+have AWS access keys (only SSH keys which are different).  OK, enough of that.  Let's get down to business.</p>
+
+you </p>
 <pre>
 aws configure                           
                                         # then respond to the four questions: 
