@@ -95,7 +95,7 @@ Default output format:                  # I normally use "text"
 
 <p>Do some sanity checks:</p>
 <pre>
-my_account                              # returns your owner (account) id (an integer)
+my_account                              # returns your account/owner id (an integer)
 my_group                                # returns your sg-nnn security group id
 my_vpc                                  # returns your vpc-nnn VPC id
 my_region                               # returns the region you specified above
@@ -104,7 +104,7 @@ my_region                               # returns the region you specified above
 <p>You'll notice that those don't print a newline.  That's so other scripts can use them on command lines like `my_group` etc.</p>
 
 <p>By the way, if you want to list all regions that you have available to you, use this command, but keep in
-mind that an owner (account) may belong to at most one region at a time:</p>
+mind that an ccount (owner) may belong to at most one region at a time:</p>
 <pre>
 my_regions                              # returns list of available regions
 </pre>
@@ -344,7 +344,7 @@ inst_json               # list all information in JSON format
 
 <p>These commands are not specific to any instance(s):</p>
 <pre>
-my_account              # returns your owner (account) id (an integer)
+my_account              # returns your account/owner id (an integer)
 my_group                # returns your sg-nnn security group id
 my_vpc                  # returns your vpc-nnn VPC id
 my_region               # returns the region you specified above
