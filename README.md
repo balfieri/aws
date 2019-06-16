@@ -68,17 +68,17 @@ export PATH=...
 <p>
 Install aws-cli (search web for how to do this on your type of PC).</p>
 
-<p>Configure your AWS environment.  First you must obtain the "access key id" and "secret access key" from whomever manages
-your AWS resources.  These are obtained from the AWS Console.  As described earlier, you can have one "admins" security group
-with you as the only user who can do anything and non-admin users having only SSH accesss.  Or you can decide to give non-admin users
+<p>Configure your AWS environment.  First you must obtain the "access key id" and "secret access key" from 
+the AWS Console for your account.  As described earlier, you can have one "admins" security group
+with you as the only user who can do anything, and then non-admin users having only SSH accesss.  Or you can decide to give non-admin users
 their own security group(s) in which case you'll need to assign them access keys via the AWS console so that they can 
-administer resources in that security group.  The difference between "admins" and their groups is that they will likely have
-access to fewer resources and privileges within the VPC.</p>
+administer resources in that security group.  The difference between the "admins" group and these other non-admin groups and users is that 
+they will likely have access to fewer resources and privileges within the VPC and account.</p>
 
 <p>
 That said, the rest of this document applies to any AWS user who has some level of 
 administrative privilege within some security group within some VPC within some AWS account.  For users who have
-only SSH access to instances, they would not be allowed to execute any of these scripts herein because they wouldn't
+only SSH access to instances, they would not be allowed to execute any of the scripts herein because they wouldn't
 have AWS access keys (only SSH keys which are different).  OK, enough of that.  Let's get down to business.</p>
 
 you </p>
