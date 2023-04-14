@@ -627,7 +627,7 @@ my_insts -time 2019-02-11T03:24:03.000Z -show_state
 </pre>
 
 <p>
-Even easier, you could find all instances that were created using the last <b>my_image</b>:</p>
+Even easier, you could find all instances that were created using the last <b>my_image</b> (remembering that -clone_master will cause an implicit image snapshot of the master):</p>
 <pre>
 my_insts -image `my_image` -show_state
 </pre>
