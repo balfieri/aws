@@ -254,10 +254,10 @@ linux2_images
 linux2_image
 </pre>
 
-<p>Create one on-demand instance using the t2.medium instance type for starters and the SSH key pair that you created above so that
+<p>Create one on-demand instance using the t3.medium instance type for starters and the SSH key pair that you created above so that
 you (and only you) can SSH to the instance as admin ec2-user:</p>
 <pre>
-create_inst -type t2.medium -image ami-009d6802948d06e52 -key awsLASTNAMEkey
+create_inst -type t3.medium -image ami-009d6802948d06e52 -key awsLASTNAMEkey
 </pre>
 
 <p>Note: the new EBS root volume (virtual disk) will be encrypted, assuming the account owner had set up default EBS volume encryption in the AWS
@@ -404,7 +404,7 @@ just let it use `master_inst` to get your master instance id.</p>
 
 <pre>
 inst_state              # pending, running, shutting-down, terminated, stopping, stopped
-inst_type               # t2.medium, etc.
+inst_type               # t3.medium, etc.
 inst_host               # "" if not running, else the hostname it's running on
 inst_zone               # availability zone within region
 inst_vpc                # VPC id
@@ -424,7 +424,7 @@ inst_json               # list all information in JSON format
 <pre>
 start_inst              # scripts call this automatically, so don't need to manually
 stop_inst               # stop instance if it's running
-change_inst_type type   # stops instance and changes its type (t2.medium, etc.)
+change_inst_type type   # stops instance and changes its type (t3.medium, etc.)
 resize_inst_vol gigabytes # stops instance and resizes its root EBS volume
 </pre>
 
@@ -468,7 +468,7 @@ create_inst
 
 <p>Override instance type:</p>
 <pre>
-create_inst -type t2.nano
+create_inst -type t3.nano
 </pre>
 
 <p>Override availability zone (note: must be in my_region):</p>
@@ -611,11 +611,11 @@ The following command will show all useful information about all instances:</p>
 my_insts -show_useful
 </pre>
 <pre>
-i-0fcb24869e6f081a1	2019-02-07T23:19:44.000Z	stopped	t2.medium	ami-009d6802948d06e52	us-east-1a	None	
-i-0000de611bb6799db	2019-02-11T03:20:27.000Z	terminated	t2.medium	ami-013c046b8914ec5a7	us-east-1a	None	751871c6340f86b91aaf19478278b67c0af76a114cb88fe101b188c1fbda
-i-0d0b236507c47ff02	2019-02-11T03:24:03.000Z	running	t2.medium	ami-013c046b8914ec5a7	us-east-1a	None	e12c1301f0cd35347ffa0c39f854e1354ad627aa5f4927a034a898d31b22
-i-0aa0531f3b57fc14a	2019-02-11T03:24:03.000Z	running	t2.medium	ami-013c046b8914ec5a7	us-east-1a	None	e12c1301f0cd35347ffa0c39f854e1354ad627aa5f4927a034a898d31b22
-i-01f1e5135fa9a2c0a	2019-02-11T03:24:03.000Z	running	t2.medium	ami-013c046b8914ec5a7	us-east-1a	None	e12c1301f0cd35347ffa0c39f854e1354ad627aa5f4927a034a898d31b22
+i-0fcb24869e6f081a1	2019-02-07T23:19:44.000Z	stopped	t3.medium	ami-009d6802948d06e52	us-east-1a	None	
+i-0000de611bb6799db	2019-02-11T03:20:27.000Z	terminated	t3.medium	ami-013c046b8914ec5a7	us-east-1a	None	751871c6340f86b91aaf19478278b67c0af76a114cb88fe101b188c1fbda
+i-0d0b236507c47ff02	2019-02-11T03:24:03.000Z	running	t3.medium	ami-013c046b8914ec5a7	us-east-1a	None	e12c1301f0cd35347ffa0c39f854e1354ad627aa5f4927a034a898d31b22
+i-0aa0531f3b57fc14a	2019-02-11T03:24:03.000Z	running	t3.medium	ami-013c046b8914ec5a7	us-east-1a	None	e12c1301f0cd35347ffa0c39f854e1354ad627aa5f4927a034a898d31b22
+i-01f1e5135fa9a2c0a	2019-02-11T03:24:03.000Z	running	t3.medium	ami-013c046b8914ec5a7	us-east-1a	None	e12c1301f0cd35347ffa0c39f854e1354ad627aa5f4927a034a898d31b22
 </pre>
 
 <p>
