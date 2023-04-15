@@ -247,7 +247,7 @@ This will return a list of ami-nnn image ids and creation dates.
 Normally you'll just pick the most recent one:</p>
 <pre>
 linux2_images                           # defaults to x86_64 for t3 instances, etc.
-linux2_images -arch arm64               # for t4g instances, etc.
+linux2_images -arch arm64               # for t4g instances, c7g instances, etc.
 </pre>
 
 <p>If you just want to get the most recent one from Amazon, use this:</p>
@@ -262,9 +262,10 @@ you (and only you) can SSH to the instance as admin ec2-user:</p>
 create_inst -type t3.medium -image `linux2_image` -key awsLASTNAMEkey
 </pre>
 
-<p>Here's the same, except for a t4g.medium (newer Amazon arm64 CPUs that provide better price/performance):</p>
+<p>Here's the same, except for a t4g.medium or c7g.large (newer Amazon arm64 CPUs that provide better price/performance):</p>
 <pre>
-create_inst -type t3.medium -image `linux2_image -arch arm64` -key awsLASTNAMEkey
+create_inst -type t4g.medium -image `linux2_image -arch arm64` -key awsLASTNAMEkey
+create_inst -type c7g.large -image `linux2_image -arch arm64` -key awsLASTNAMEkey
 </pre>
 
 <p>Note: the new EBS root volume (virtual disk) will be encrypted, assuming the account owner had set up default EBS volume encryption in the AWS
@@ -416,7 +417,7 @@ just let it use `master_inst` to get your master instance id.</p>
 
 <pre>
 inst_state              # pending, running, shutting-down, terminated, stopping, stopped
-inst_type               # t3.medium, t4g.medium, etc.
+inst_type               # t3.medium, t4g.medium, c7g.large, etc.
 inst_host               # "" if not running, else the hostname it's running on
 inst_zone               # availability zone within region
 inst_vpc                # VPC id
