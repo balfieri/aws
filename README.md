@@ -262,7 +262,7 @@ you (and only you) can SSH to the instance as admin ec2-user:</p>
 create_inst -type t3.medium -image `linux2_image` -key awsLASTNAMEkey
 </pre>
 
-<p>Here's the same, except for a t4d.medium (newer Amazon arm64 CPUs that provide better price/performance):</p>
+<p>Here's the same, except for a t4g.medium (newer Amazon arm64 CPUs that provide better price/performance):</p>
 <pre>
 create_inst -type t3.medium -image `linux2_image -arch arm64` -key awsLASTNAMEkey
 </pre>
@@ -272,7 +272,7 @@ Console.</p>.
 
 <p>Sanity check to get your i-nnn instance id.  You should have only one instance at this point:</p>
 <pre>
-my_insts
+my_insts -show_useful
 </pre>
 
 ## Set Your AWS_MASTER_INSTANCE Environment Variable
