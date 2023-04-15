@@ -246,18 +246,25 @@ More on that later.
 This will return a list of ami-nnn image ids and creation dates.
 Normally you'll just pick the most recent one:</p>
 <pre>
-linux2_images
+linux2_images                           # defaults to x86_64 for t3 instances, etc.
+linux2_images -arch arm64               # for t4g instances, etc.
 </pre>
 
 <p>If you just want to get the most recent one from Amazon, use this:</p>
 <pre>
 linux2_image
+linux2_image -arch arm64
 </pre>
 
 <p>Create one on-demand instance using the t3.medium instance type for starters and the SSH key pair that you created above so that
 you (and only you) can SSH to the instance as admin ec2-user:</p>
 <pre>
-create_inst -type t3.medium -image ami-009d6802948d06e52 -key awsLASTNAMEkey
+create_inst -type t3.medium -image `linux2_image` -key awsLASTNAMEkey
+</pre>
+
+<p>Here's the same, except for a t4d.medium (newer Amazon arm64 CPUs that provide better price/performance):</p>
+<pre>
+create_inst -type t3.medium -image `linux2_image -arch arm64` -key awsLASTNAMEkey
 </pre>
 
 <p>Note: the new EBS root volume (virtual disk) will be encrypted, assuming the account owner had set up default EBS volume encryption in the AWS
@@ -286,14 +293,19 @@ default instance id for operations.</b>  You can usually override it, but usuall
 <p>
 Alternatively, assuming you have "." at the front of your PATH, you can have different master_inst scripts in different directories.
 Then when you cd to a particular directory, these scripts will pick up the master_inst in that directory.
-So the master_inst script gives context for most of the scripts described here.  Alternatively, you could write
-one master_inst script and have it search up a directory tree until it finds the instance name in some
-file you keep around.  It's up to you.  I use the environment-variable technique.
+So the master_inst script gives context for most of the scripts described here.  
+</p>
+
+<p>
+Alternatively, you could write one master_inst script and have it search up a directory tree until it finds the instance name in some
+file you keep around.  It's up to you.  I use the environment-variable technique, particularly since I normally have just one master instance. 
+Some people don't like environment variables, for good reason.
 </p>
 
 ## HIGHLY RECOMMENDED: Harden SSH On Your Master Instance
 
-Coming soon...
+There are a set of common techniques to "harden" SSH on a server. Those techniques can be applied to your master instance to make it more secure.
+I will list them here at some point. In the meantime, you could do a web search for "harden ssh".
 
 ## Install Software On Your Master Instance
 
@@ -306,7 +318,7 @@ on_inst sudo yum update -y
 </pre>
 
 <p>
-Install additional apps that you will need, such as C++ and Python3:</p>
+Install any apps that you will need, such as C++, Python3, and GIT:</p>
 
 <pre>
 on_inst sudo yum install -y gcc-c++ python3 git
@@ -404,7 +416,7 @@ just let it use `master_inst` to get your master instance id.</p>
 
 <pre>
 inst_state              # pending, running, shutting-down, terminated, stopping, stopped
-inst_type               # t3.medium, etc.
+inst_type               # t3.medium, t4g.medium, etc.
 inst_host               # "" if not running, else the hostname it's running on
 inst_zone               # availability zone within region
 inst_vpc                # VPC id

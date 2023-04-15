@@ -3,4 +3,6 @@
 use strict;
 use warnings;
 
-system( "linux2_images | head -1 | cut -c1-21" );
+my $args = join( " ", @ARGV );
+
+system( "linux2_images ${args} | head -1 | cut -c1-21" );
