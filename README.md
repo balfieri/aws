@@ -49,7 +49,7 @@ I recommend the following:
 
 2. Create a special group within each AWS root account for admins of that account.  Call it "admins".  Only these users may perform administrative actions for the account.  Only they have SSH keys that allow them to SSH to instances as ec2-user  which should be the only sudo-capable Linux username.  
 
-3. Use SSH as the main mechanism for connecting to instances.  Even VNC can be run through SSH tunnels.  I trust SSH when it's set up properly.  In a later section, I will show you how to harden SSH on your instances so that hackers have no chance of getting in.  For SSH, I use a Yubikey encryption device plugged into my PC with a required passcode, plus a time-based authenticator code on my phone.  I don't use VPN or special gateway instances.  Stick to one mechanism: SSH.  Do not even allow pinging of instances from the internet.
+3. Use SSH as the only mechanism for connecting to instances. Even VNC can be run through SSH tunnels.  I trust SSH when it's set up properly.  In a later section, I will show you how to harden SSH on your instances so that hackers have no chance of getting in. 
 
 4. By default, do not allow non-admin users to do anything with AWS, including read-only things.  There is no reason to create some kind of "users" group by default.  Instead, allow those users only SSH access to one or more instances using non-admin Linux usernames.  For the most part, non-admin users can operate without even worrying about whether their servers live in AWS, Google Cloud, or on-premises.  Later, I will show how to map subdomain names to running instances to make it easier to log in in the face of changing IP addresses.
 
@@ -305,8 +305,14 @@ Some people don't like environment variables, for good reason.
 
 ## HIGHLY RECOMMENDED: Harden SSH On Your Master Instance
 
+<p>
 There are a set of common techniques to "harden" SSH on a server. Those techniques can be applied to your master instance to make it more secure.
-I will list them here at some point. In the meantime, you could do a web search for "harden ssh".
+You could do a web search for "harden ssh" to get the latest thinking on the topic. A few such ideas are:</p>
+
+* Use a Yubikey encryption device plugged into your PC with a required passcode. This hides the private key, even from yuo.
+* Use a time-based authenticator on your phone for 2-factor authentication.
+* Don't use a VPN or special gateways. Stick to one mechanism: SSH.
+* Do not even allow pinging of instances from the internet.
 
 ## Install Software On Your Master Instance
 
