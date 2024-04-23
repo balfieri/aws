@@ -309,7 +309,7 @@ Some people don't like environment variables, for good reason.
 There are a set of common techniques to "harden" SSH on a server. Those techniques can be applied to your master instance to make it more secure.
 You could do a web search for "harden ssh" to get the latest thinking on the topic. A few such ideas are:</p>
 
-* Use a Yubikey encryption device plugged into your PC with a required passcode. This hides the private key, even from yuo.
+* Use a Yubikey encryption device plugged into your PC with a required passcode. This hides the private key, even from you.
 * Use a time-based authenticator on your phone for 2-factor authentication.
 * Don't use a VPN or special gateways. Stick to one mechanism: SSH.
 * Do not even allow pinging of instances from the internet.
@@ -330,6 +330,9 @@ Install any apps that you will need, such as C++, Python3, and GIT:</p>
 <pre>
 on_inst sudo yum install -y gcc-c++ python3 git
 </pre>
+
+<p>
+How often do I recreate my master instance from scratch? About once/year.
 
 ## Stop Your Master Instance When Not In Use
 
@@ -597,26 +600,27 @@ The script <b>running _on_ each launched instance</b> can use the following ec2-
 retrieve information it needs in order to figure out what work it should do.</p>
 
 <p>
-This command will retrieve the contents of the file:local_script:</p>
-<pre>
-$ ec2-metadata -d         
-</pre>
-
-<p>
 This command will retrieve the launch index.
 You can use the launch index to determine which part of your larger job that
-this instance is supposed to perform. Its interpretation is completely up to you.</p>
+this instance is supposed to perform. Its interpretation is completely up to you:</p>
 <pre>
 $ ec2-metadata -l         
 </pre>
 
 <p>
-When the instance is done with its work, it will typically write some kind of "PASS" indication
-to stdout or some results_file in /tmp.</p>
+Less useful, but this command will retrieve the contents of the file:local_script:</p>
+<pre>
+$ ec2-metadata -d         
+</pre>
 
 <p>
-Of course, there are other ways each instance can get information.  It could look in an S3 bucket (more on that later) or use a 
-database.  The above technique has an advantage that it doesn't require anything else besides the master instance.</p>
+When the instance is done with its work, it will typically write some kind of "PASS" indication
+to stdout (which does to /var/log/cloud-init-output.log) or to some results_file in /tmp.</p>
+
+<p>
+Of course, there are other ways each instance can get information. It could look in an S3 bucket (more on that later) or use a 
+database. The above technique has an advantage that it doesn't require anything else besides the master instance, assuming 
+your application doesn't need a large amount of shared data.</p>
 
 # Harvesting Results from Instances Running the Same Script
 

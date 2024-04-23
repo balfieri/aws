@@ -5,14 +5,11 @@ use warnings;
 
 my $inst = (@ARGV != 0 && ($ARGV[0] =~ /^i-/)) ? (shift @ARGV) : `master_inst`; 
 my $username = "ec2-user";
-my $script = "";
 while( @ARGV != 0 && $ARGV[0] =~ /^\-/ ) 
 {
     my $arg = shift @ARGV;
     if ( $arg eq "-as" ) {
         $username = shift @ARGV;
-    } elsif ( $arg eq "-script" ) {
-        $script = shift @ARGV;
     } else {
         die "ERROR: unknown on_inst option '$arg'\n";
     }
