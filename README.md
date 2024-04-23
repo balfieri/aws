@@ -722,5 +722,12 @@ delete the instance.
 Once all instances have been harvested and deleted, they should all be in the shutting-down or terminated state.  After about
 15 minutes, terminated instances will drop off the <b>my_insts</b> list.</p>
 
+# A Convenient Script to Launch and Harvest Results
+
+This section discusses a convenient script to canonically launch an application on multiple instances 
+and harvest the results. It uses the above scripts and ties it all together.
+
+(coming soon)
+
 Bob Alfieri<br>
 Chapel Hill, NC
