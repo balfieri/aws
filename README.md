@@ -25,6 +25,7 @@
   - [Create Multiple Spot Instances](#create-multiple-spot-instances)
 - [On Each Launched Instance Running the Same Script](#on-each-launched-instance-running-the-same-script)
 - [Harvesting Results from Instances Running the Same Script](#harvesting-results-from-instances-running-the-same-script)
+- [A Canonical Way to Launch and Harvest Results](#a-canonical-way-to-launch-and-harvest-results)
 
 # Overview
 
@@ -722,10 +723,11 @@ delete the instance.
 Once all instances have been harvested and deleted, they should all be in the shutting-down or terminated state.  After about
 15 minutes, terminated instances will drop off the <b>my_insts</b> list.</p>
 
-# A Convenient Script to Launch and Harvest Results
+# A Canonical Way to Launch and Harvest Results
 
 This section discusses a convenient script to canonically launch an application on multiple instances 
-and harvest the results. It uses the above scripts and ties it all together.
+and harvest the results. It sits on top of the above scripts and ties everything together. But you
+must first follow some simple rules.
 
 (coming soon)
 
