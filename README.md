@@ -332,7 +332,7 @@ on_inst sudo yum install -y gcc-c++ python3 git
 </pre>
 
 <p>
-How often do I recreate my master instance from scratch? About once/year.
+How often do I recreate my master instance from scratch? About once every year or two. But I typically "yum update -y" more often.
 
 ## Stop Your Master Instance When Not In Use
 
