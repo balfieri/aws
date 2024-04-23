@@ -285,6 +285,12 @@ Add the following to your .bash_profile or similar for other shells.  <b>i-nnn</
 export AWS_MASTER_INSTANCE=i-nnn
 </pre>
 
+If you don't want to embed it directly in your .bash_profile, you could put it in a file and instead put this in your .bash_profile:
+
+<pre>
+export AWS_MASTER_INSTANCE=`cat ~/.aws_master_instance.txt`
+</pre>
+
 <p>
 Now when you type "master_inst" it will return your master instance id.
 <b>This is IMPORTANT because many of the scripts will use master_inst to get the
@@ -314,6 +320,8 @@ You could do a web search for "harden ssh" to get the latest thinking on the top
 * Don't use a VPN or special gateways. Stick to one mechanism: SSH.
 * Do not even allow pinging of instances from the internet.
 
+Most of those ideas will require some editing of SSH config files on your master instance.
+        
 ## Install Software On Your Master Instance
 
 <p>
@@ -608,19 +616,19 @@ $ ec2-metadata -l
 </pre>
 
 <p>
-Less useful, but this command will retrieve the contents of the file:local_script:</p>
+Less useful because your script already knows what to do, but this command will retrieve the contents of the file:local_script:</p>
 <pre>
 $ ec2-metadata -d         
 </pre>
 
 <p>
 When the instance is done with its work, it will typically write some kind of "PASS" indication
-to stdout (which does to /var/log/cloud-init-output.log) or to some results_file in /tmp.</p>
+to stdout (which goes to /var/log/cloud-init-output.log) or to some results_file of your choosing in /tmp.</p>
 
 <p>
 Of course, there are other ways each instance can get information. It could look in an S3 bucket (more on that later) or use a 
 database. The above technique has an advantage that it doesn't require anything else besides the master instance, assuming 
-your application doesn't need a large amount of shared data.</p>
+your application doesn't need a huge amount of shared data or need to update some database.</p>
 
 # Harvesting Results from Instances Running the Same Script
 
