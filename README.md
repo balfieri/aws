@@ -602,6 +602,10 @@ create_insts 3 -script "local_script" -spot 0.01 -clone_master
 Note that spot instances may not be stopped, but they can be terminated using
 delete_inst.</p>
 
+<p>
+Note finally that EC2 (regardless of spot vs. non-spot) rounds up time to the nearest second, 
+with a minimum charge of 60 seconds per started instance.</p>
+
 # On Each Launched Instance Running the Same Script
 
 <p>
