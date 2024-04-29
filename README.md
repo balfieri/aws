@@ -733,7 +733,45 @@ This section discusses a convenient script to canonically launch an application 
 and harvest the results. It sits on top of the above scripts and ties everything together. But you
 must first follow some simple rules.
 
-(coming soon)
+The caller must first create a bundle.tar.gz with a ./build.sh script 
+and a ./run.sh script. Then to get one instance started, type:
+
+<pre>
+launch
+</pre>
+
+To get 3 instances started, type:
+
+<pre>
+launch -c 3
+</pre>
+
+<p>
+And there are arguments that can be used to change the name of the bundle and other
+things, but I recommend just using the defaults.
+
+<p>
+The launch script will do the following work:
+
+<p>
+The bundle.tar.gz is copied to the master_inst
+under a fresh ./run directory, this bundle is untar'ed in there,
+then the ./build.sh script is executed on the master_inst to
+do any one-time build. 
+
+<p>
+Then one or more instances are started
+as clones of the master_inst and the remote ./run.sh script is executed.
+The run.sh script on each instance must create a results.tar.gz
+within the ./run directory and write "PASS" to stdout.
+
+<p>
+After starting the instances, this script will wait for all of them
+to finish and will copy each stdout to ./results[1,2,3,...].out and 
+results.tar.gz to ./results[1,2,3,...].tar.gz
+on the current PC. Then the user can unpack all of the results[1,2,3,...].tar.gz
+and combine the results in an application-specific way on this side - the launch script 
+does not do this unpacking.
 
 Bob Alfieri<br>
 Chapel Hill, NC
