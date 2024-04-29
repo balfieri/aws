@@ -20,10 +20,16 @@ def cmd( c, echo=True, echo_stdout=False, can_die=True ):
     else:
         return ''
 
-bundle_name = "bundle"
+def get_script_dir():
+    script_path = sys.argv[0]
+    abs_script_path = os.path.abspath( script_path )
+    return os.path.dirname( abs_script_path )
+
+bundle_name = 'bundle'
 inst_cnt    = 1
 do_launch   = True
 do_harvest  = True
+spot        = ''
 
 i = 1
 while i < len(sys.argv):
@@ -37,25 +43,32 @@ while i < len(sys.argv):
         do_launch = int(sys.argv[i]) == 1
     elif arg == '-do_harvest':
         do_harvest = int(sys.argv[i]) == 1
+    elif arg == '-spot':
+        spot = sys.argv[i]
     else:
         die( f'unknown option: {arg}' )
     i += 1
 
 bundle_tar_path = f'{bundle_name}.tar.gz'
+# TODO: make sure bundle file exists
 
 if do_launch:
     print( f'Removing local results files...' )
-    cmd( f'rm -f results*.out results.tar.gz' )
+    cmd( f'rm -f results*.out results*.tar.gz' )
 
-    print( f'Copying {bundle_tar_path} to master instance...' )
+    print( f'Copying {bundle_tar_path} to master instance in fresh ./run dir...' )
     cmd( f'on_inst rm -fr ./run; mkdir ./run' )
     cmd( f'to_inst {bundle_tar_path} ./run/{bundle_tar_path}' )
 
-    print( f'Untaring and building bundle on master instance...' )
+    print( f'Untaring and building bundle on master instance under ./run dir...' )
     cmd( f'on_inst cd ./run; tar xvfz {bundle_tar_path}; ./build.sh' )
 
     print( f'Launching {inst_cnt} instances that are clones of the master instance...' )
-    cmd( f'create_insts {inst_cnt} -remote_script ./run.sh -clone_master' )
+    script = get_script_dir() + '/run_run_sh'
+    spot = f' -spot {spot}' if spot != '' else ''
+    cmd( f'create_insts {inst_cnt} -script {script} -clone_master {spot}' )
+else:
+    print( f'NOT relaunching work' )
 
 if do_harvest:
     print( f'Harvesting results...' )
@@ -72,3 +85,5 @@ if do_harvest:
 
         # otherwise sleep for 60 seconds and try again
         #
+else:
+    print( f'NOT harvesting results' )

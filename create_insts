@@ -58,7 +58,7 @@ chomp $token;
 if ( $spot eq "" ) {
     $zone = defined( $zone ) ? " --placement AvailabilityZone=${zone}" : "";
     if ( $script ne "" ) {
-        $script = `base64 ${script}`;
+        $script = `base64 -i ${script}`;
         chomp $script;
         $script = "--user-data ${script}";
     }
@@ -67,7 +67,7 @@ if ( $spot eq "" ) {
 } else {
     defined $zone or $zone = `inst_zone`;
     if ( $script ne "" ) {
-        $script = `base64 ${script}`;
+        $script = `base64 -i ${script}`;
         chomp $script;
         $script = ",UserData=${script}";
     }
