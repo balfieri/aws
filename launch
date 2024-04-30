@@ -50,7 +50,8 @@ while i < len(sys.argv):
     i += 1
 
 bundle_tar_path = f'{bundle_name}.tar.gz'
-# TODO: make sure bundle file exists
+if not os.path.exists( bundle_tar_path ): 
+    die( f'bundle {bundle_tar_path} not found, use -bundle switch to change name' )
 
 if do_launch:
     print( f'Removing local results files...' )
@@ -75,15 +76,33 @@ if do_harvest:
     image = cmd( 'my_image', echo=False, echo_stdout=True )
     while True:
         # get list of all instances that use image
+        s = cmd( f'my_insts -image {image} -show_state', echo=False, echo_stdout=True )
+        lines = s.rstrip( '\n' ).splitlines()
 
         # for each one in the stopped state, figure out its index, copy
         # and the stdout and results.tar.gz file to this PC. Then delete the instance.
+        num_left = 0
+        for line in lines:
+            fields = line.split()
+            name = fields[0]
+            state = fields[1]
+            if state == 'stopped':
+                print( f'Harvesting {name}...' )
+                # copy results.stdout file
+                # get instance id
+                # copy results.tar.gz file
+                # delete instance
+                print( f'Deleting {name}...' )
+                cmd( f'delete_inst {name}' )
+            elif state == 'stopping' or state == 'running':
+                num_left += 1
 
-        # report how many results we have harvested based on the number of results*.out files, 
-        # quit if we have them all
-        #
+        if num_left == 0:
+            print( 'Done harvesting results' )
+            break
 
-        # otherwise sleep for 60 seconds and try again
-        #
+        print( f'Sleeping for 60 seconds because {num_left} instances are not done yet' )
+        sleep( 60 )
+            
 else:
     print( f'NOT harvesting results' )
