@@ -434,7 +434,7 @@ These commands take an instance id as an argument, but normally you'll supply no
 just let it use `master_inst` to get your master instance id.</p>
 
 <pre>
-inst_state              # pending, running, shutting-down, terminated, stopping, stopped
+inst_state              # pending, running, stopping, stopped, shutting-down, terminated
 inst_type               # t3.medium, t4g.medium, c7g.large, c8g.metal, etc.
 inst_host               # "" if not running, else the hostname it's running on
 inst_zone               # availability zone within region
@@ -757,21 +757,30 @@ The launch script will do the following work:
 The bundle.tar.gz is copied to the master_inst
 under a fresh ./run directory, this bundle is untar'ed in there,
 then the ./build.sh script is executed on the master_inst to
-do any one-time build. 
+do any one-time build. We don't want to go through the source build
+on each instance.
 
 <p>
 Then one or more instances are started
-as clones of the master_inst and the remote ./run.sh script is executed.
-The run.sh script on each instance must create a results.tar.gz
-within the ./run directory and write "PASS" to stdout.
+as clones of the master_inst and the remote run.sh script is executed 
+within the ./run directory and its stdout/stderr are redirected to ./results.out.
+As a convenience to your run.sh script, a file called index.out in the ./run directory is
+created with just the launch index id from the 'ec2-metadata -l' command output.
+The run.sh script, if successful, must 1) create a results.tar.gz, and finally 
+2) write "PASS" to stdout. 
 
 <p>
-After starting the instances, this script will wait for all of them
-to finish and will copy each stdout to ./results[1,2,3,...].out and 
-results.tar.gz to ./results[1,2,3,...].tar.gz
-on the current PC. Then the user can unpack all of the results[1,2,3,...].tar.gz
-and combine the results in an application-specific way on this side - the launch script 
-does not do this unpacking.
+After starting the instances, the launch script will wait for all of them
+to finish and will copy each run/results.out to ./results[0,1,2,...].out and 
+run/results.tar.gz to ./results[0,1,2,...].tar.gz
+on the current PC, and delete instances once it's copied stuff from them.  
+The harvesting does not currently look for "PASS" in the results.out file, but it will
+likely do so in the future and give an early report of failing instances.
+
+<p>
+Once the launch script ends, the user script can unpack all of the results[0,1,2,...].tar.gz
+and combine the results in an application-specific way on this PC side. The user script
+can obviously also interrogate results[0,1,2,...].out.
 
 Bob Alfieri<br>
 Chapel Hill, NC

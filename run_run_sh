@@ -1,2 +1,3 @@
 cd ./run
-./run.sh
+rm -f results.out
+(ec2-metadata -l; ./run.sh) >& results.out
