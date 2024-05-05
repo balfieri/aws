@@ -1,3 +1,4 @@
 cd ./run
-rm -f results.out
-(ec2-metadata -l; ./run.sh) >& results.out
+rm -f index.out results.out
+ec2-metadata -l > index.out
+./run.sh `cat index.out` >& results.out

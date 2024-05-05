@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+#
+# doit.launch - outer script that calls launch and combines results
+#
+import os
+import sys
+import subprocess
+
+cmd_en = True
+
+def die( msg ):
+    print( f'ERROR: {msg}' )
+    sys.exit( 1 )
+
+def cmd( c, echo=True, echo_stdout=False, can_die=True ):
+    if echo: print( c )
+    if cmd_en:
+        info = subprocess.run( c, shell=True, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT )
+        if echo_stdout: print( info.stdout )
+        if can_die and info.returncode != 0: die( f'command failed: {c}' )
+        return info.stdout
+    else:
+        return ''
+
+
+# create bundle.tar.gz with files needed on launched servers
+cmd( 'tar cvfz bundle.tar.gz main.cpp build.sh run.sh' )
+
+# launch onto 3 instances
+cmd( 'launch -c 3' )
+
+# combine results
