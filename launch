@@ -55,11 +55,11 @@ if do_launch:
     cmd( f'rm -f results*.out results*.tar.gz' )
 
     print( f'Copying {bundle_tar_path} to master instance in fresh ./run dir...' )
-    cmd( f'on_inst rm -fr ./run; mkdir ./run' )
+    cmd( f'on_inst "rm -fr ./run; mkdir -p ./run"' )
     cmd( f'to_inst {bundle_tar_path} ./run/{bundle_tar_path}' )
 
     print( f'Untaring and building bundle on master instance under ./run dir...' )
-    cmd( f'on_inst cd ./run; tar xvfz {bundle_tar_path}; ./build.sh' )
+    cmd( f'on_inst "cd ./run; tar xvfz {bundle_tar_path}; ./build.sh"' )
 
     print( f'Launching {inst_cnt} instances that are clones of the master instance...' )
     script = get_script_dir() + '/run_run_sh'
