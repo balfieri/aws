@@ -37,7 +37,10 @@ while( @ARGV != 0 )
     } elsif ( $arg eq "-token" ) {
         $token = shift @ARGV;
     } elsif ( $arg eq "-clone_master" ) {
-        system( "image_snapshot_inst" ) == 0 or die "ERROR: could not clone master_inst\n"; 
+        my $now = `date "+%Y_%m_%d_%H_%M_%S"`;
+        my $master_inst = `master_inst`;
+        my $name = "${master_inst}_${now}";
+        system( "image_snapshot_inst ${name}" ) == 0 or die "ERROR: could not clone master_inst\n"; 
         $image = `my_image`;
     } else {
         die "ERROR: unknown create_insts option '$arg'\n";

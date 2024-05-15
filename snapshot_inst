@@ -12,6 +12,8 @@ print "Waiting for ${snapshot} to be in the 'completed' state...\n";
 for( ;; )
 {
     my $state = `aws ec2 describe-snapshots --snapshot-ids ${snapshot} --query 'Snapshots[*].State'`;
+    chomp $state;
     $state eq "completed" and last;
+    print "state is ${state}\n";
     sleep 1;
 }
