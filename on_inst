@@ -19,4 +19,4 @@ my $cmd = join( " ", @ARGV );
 system( "start_inst ${inst}" );
 my $host = `inst_host ${inst}`;
 my $key  = `inst_key ${inst}`;
-system( "ssh -i ~/.ssh/${key}.pem -o 'StrictHostKeyChecking no' ${username}\@${host} ${cmd}" );
+system( "ssh -i ~/.ssh/${key}.pem -o 'StrictHostKeyChecking no' ${username}\@${host} \"${cmd}\"" );
