@@ -782,5 +782,10 @@ Once the launch script ends, the user script can unpack all of the results[0,1,2
 and combine the results in an application-specific way on this PC side. The user script
 can obviously also interrogate results[0,1,2,...].out.
 
+# Future Work
+
+* morph these scripts to support other cloud service providers (CSPs) - hide any AWS-isms in the process
+* possibly support containers (e.g., Docker)
+
 Bob Alfieri<br>
 Chapel Hill, NC
