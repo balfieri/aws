@@ -1,0 +1,9 @@
+create_insts 3 -script /Users/bobbo/Code/aws/run_run_sh -clone_master
+        True    780936156948            snap-0bf58816e0f1f8523  2024-05-19T00:35:19.867000+00:00        pending vol-03f172ca32f9ac9f1   8
+Waiting for snap-0bf58816e0f1f8523 to be in the 'completed' state...
+ami-0fe9fbc0d357cf80b
+Waiting for ami-0fe9fbc0d357cf80b to be in the 'available' state...
+
+An error occurred (InvalidParameterValue) when calling the RunInstances operation: The architecture 'arm64' of the specified instance type does not match the architecture 'i386' of the specified AMI. Specify an instance type and an AMI that have matching architectures, and try again. You can use 'describe-instance-types' or 'describe-images' to discover the architecture of the instance type or AMI.
+
+fixed some bugs, but still getting this - need to trace through

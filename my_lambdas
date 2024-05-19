@@ -3,4 +3,4 @@
 use strict;
 use warnings;
 
-system( "aws lambda list-functions --query 'Functions[*].{ID:FunctionName,Time:LastModified}' | sort -n -k 2,2" );
+system( "aws lambda list-functions --query 'Functions[*].{ID:FunctionName,Time:LastModified}' | sort -k 2,2" );
