@@ -5,7 +5,9 @@ use warnings;
 
 my $name = shift @ARGV || die "ERROR: image_snapshot_inst <new_snapshot_name>\n";
 my $inst = shift @ARGV || `master_inst`;
+my $image = shift @ARGV || `inst_image ${inst}`;
+my $arch = shift @ARGV || `image_arch ${image}`;
 system( "snapshot_inst ${inst}" );
 my $vol = `inst_vol ${inst}`;
 my $snapshot = `vol_snapshot ${vol}`;
-system( "image_snapshot ${snapshot} ${name}" );
+system( "image_snapshot ${snapshot} ${name} ${inst} ${arch}" );
