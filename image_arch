@@ -1,0 +1,9 @@
+#!/usr/bin/perl -w
+#
+use strict;
+use warnings;
+
+my $image = shift @ARGV || `inst_image`;
+my $arch = `aws ec2 describe-images --image-ids ${image} --query 'Images[*].Architecture'`;
+chomp $arch;
+print $arch;

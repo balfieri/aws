@@ -7,3 +7,33 @@ Waiting for ami-0fe9fbc0d357cf80b to be in the 'available' state...
 An error occurred (InvalidParameterValue) when calling the RunInstances operation: The architecture 'arm64' of the specified instance type does not match the architecture 'i386' of the specified AMI. Specify an instance type and an AMI that have matching architectures, and try again. You can use 'describe-instance-types' or 'describe-images' to discover the architecture of the instance type or AMI.
 
 fixed some bugs, but still getting this - need to trace through
+
+aws ec2 describe-images --image-ids ami-0fe9fbc0d357cf80b
+
+IMAGES  i386    2024-05-19T00:35:51.000Z        True    xen     ami-0fe9fbc0d357cf80b   780936156948/i-0128179c44436f90a_2024_05_18_20_35_16    machine i-0128179c44436f90a_2024_05_18_20_35_16     780936156948    Linux/UNIX      False   /dev/xvda       ebs     simple  available       RunInstances    hvm
+BLOCKDEVICEMAPPINGS     /dev/xvda
+EBS     True    True    snap-0bf58816e0f1f8523  8       gp2
+
+yet:
+
+inst_image
+ami-0fa9ea024c969a246
+
+aws ec2 describe-images --image-ids ami-0fa9ea024c969a246
+
+IMAGES  arm64   2023-04-11T07:29:44.000Z        Amazon Linux 2 LTS Arm64 AMI 2.0.20230404.1 arm64 HVM gp2       True    xen     ami-0fa9ea024c969a246   amazon/amzn2-ami-hvm-2.0.20230404.1-arm64-gp2       amazon  machine amzn2-ami-hvm-2.0.20230404.1-arm64-gp2  137112412989    Linux/UNIX      True    /dev/xvda           ebs     simple  available       RunInstances    hvm
+BLOCKDEVICEMAPPINGS     /dev/xvda
+EBS     True    False   snap-0866be3f7a22fe5c4  8       gp2
+
+So maybe I need to provide the arch somewhere in the process?
+
+Yes, need to add this switch:
+
+aws ec2 register-image --architecture arm64
+
+aws ec2 describe-images --image-ids ami-0fa9ea024c969a246 --query 'Images[*].Architecture'
+
+I created an image_arch script that does that.
+Need to pass that into image_snapshot_inst <name> -arch <arch>
+then pass <arch> to register-image.
+And it should work.
