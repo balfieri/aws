@@ -29,6 +29,7 @@ def cmd( c, echo=True, echo_stdout=False, can_die=True, timeout=None ):
 cmd( 'tar cvfz bundle.tar.gz main.cpp build.sh run.sh' )
 
 # launch onto 3 instances
-cmd( 'launch -c 3 -do_harvest 0' )
+#cmd( 'launch -c 3 -do_harvest 0' )
+cmd( 'launch -c 1 -do_harvest 0' )
 
 # combine results

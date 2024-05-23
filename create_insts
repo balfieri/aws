@@ -70,8 +70,10 @@ if ( $spot eq "" ) {
         chomp $script;
         $script = "--user-data ${script}";
     }
-    system( "aws ec2 run-instances --count ${count} --image-id ${image} --instance-type ${type}" . 
-            " --key-name ${key} --security-group-ids ${group}${zone} --client-token ${token} ${script}" );
+    my $cmd = "aws ec2 run-instances --count ${count} --image-id ${image} --instance-type ${type}" . 
+              " --key-name ${key} --security-group-ids ${group}${zone} --client-token ${token} ${script}";
+    print "${cmd}\n";
+    system( $cmd );
 } else {
     defined $zone or $zone = `inst_zone`;
     if ( $script ne "" ) {
@@ -79,8 +81,11 @@ if ( $spot eq "" ) {
         chomp $script;
         $script = ",UserData=${script}";
     }
-    system( "aws ec2 request-spot-instances --instance-count ${count} --spot-price ${spot} --type ${spot_type} " .
-            " --launch-specification ImageId=${image},KeyName=${key},SecurityGroupIds=${group}${script}," .
-            "InstanceType=${type},Placement={AvailabilityZone=${zone}}" .
-            " --client-token ${token}" );
+    my $cmd = "aws ec2 request-spot-instances --instance-count ${count} --spot-price ${spot} --type ${spot_type} " .
+              " --launch-specification ImageId=${image},KeyName=${key},SecurityGroupIds=${group}${script}," .
+              "InstanceType=${type},Placement={AvailabilityZone=${zone}}" .
+              " --client-token ${token}";
+    print "${cmd}\n";
+    system( $cmd );
 }
+
