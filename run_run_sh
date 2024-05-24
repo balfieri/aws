@@ -1,4 +1,7 @@
-cd ./run
+#!/bin/bash
+echo "in run_run_sh"
+cd /home/ec2-user/run
+pwd
 rm -f index.out results.out
-ec2-metadata -l > index.out
+ec2-metadata -l | sed 's/.*: //' > index.out
 ./run.sh `cat index.out` >& results.out
