@@ -784,8 +784,11 @@ can obviously also interrogate results[0,1,2,...].out.
 
 # Future Work
 
+* show how to run a Linux desktop in the cloud and VNC to it through a ssh tunnel
+* show how to run a Windows desktop in the cloud and RDP to it
+* show how to run a Mac desktop in the cloud and Apple Remote Desktop to it
 * morph these scripts to support other cloud service providers (CSPs) - hide any AWS-isms in the process
-* possibly support containers (e.g., Docker)
+* possibly support containers (e.g., Docker), but not clear these are better than the existing scheme with the master instance
 
 Bob Alfieri<br>
 Chapel Hill, NC
