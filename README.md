@@ -762,7 +762,7 @@ on each instance.
 
 <p>
 Then one or more instances are started
-as clones of the master_inst and the remote run.sh script is executed 
+as clones of the master_inst and the remote run.sh script is executed - as ec2-user -
 within the ./run directory and its stdout/stderr are redirected to ./results.out.
 As a convenience to your run.sh script, a file called index.out in the ./run directory is
 created with just the launch index id from the 'ec2-metadata -l' command output.
@@ -779,8 +779,8 @@ to finish (i.e., be in the stopped state) and will copy
 each run/results.out to ./results[0,1,2,...].out and 
 run/results.tar.gz to ./results[0,1,2,...].tar.gz
 on the current PC, and delete instances once it's copied stuff from them.  
-The harvesting does not currently look for "PASS" in the results.out file, but it will
-likely do so in the future and give an early report of failing instances.
+The harvesting does not currently look for "PASS" in the results.out file, but it may
+do so in the future and give an early report of failing instances.
 
 <p>
 Once the launch script ends, the user script can unpack all of the results[0,1,2,...].tar.gz
@@ -789,6 +789,8 @@ can obviously also interrogate results[0,1,2,...].out.
 
 # Future Work
 
+* delete_all_insts - except master by default
+* stop_all_insts
 * show how to run a Linux desktop in the cloud and VNC to it through a ssh tunnel
 * show how to run a Windows desktop in the cloud and RDP to it
 * show how to run a Mac desktop in the cloud and Apple Remote Desktop to it
