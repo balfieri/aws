@@ -1,6 +1,5 @@
 #!/bin/bash
-echo "in run_run_sh, which does:"
-ec2-metadata -d
+echo "in run_run_sh"
 sudo -u ec2-user -i <<'EOF'
 cd ./run
 pwd
