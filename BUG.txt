@@ -1,5 +1,4 @@
 eg/launch now runs, but need to write and test the harvesting now
 
 should run_run_sh execute as ec2-user? I think it's currently root. is there a way?
-how do we get instance to stop when it's done - shutdown command?
 how do we know it's really done?

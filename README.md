@@ -770,8 +770,13 @@ The run.sh script, if successful, must 1) create a results.tar.gz, and finally
 2) write "PASS" to stdout. 
 
 <p>
+After executing your run.sh script, the outer script (run_run_sh in this directory)
+will execute the "shutdown" command to get the instance into the "stopped" state.
+
+<p>
 After starting the instances, the launch script will wait for all of them
-to finish and will copy each run/results.out to ./results[0,1,2,...].out and 
+to finish (i.e., be in the stopped state) and will copy 
+each run/results.out to ./results[0,1,2,...].out and 
 run/results.tar.gz to ./results[0,1,2,...].tar.gz
 on the current PC, and delete instances once it's copied stuff from them.  
 The harvesting does not currently look for "PASS" in the results.out file, but it will

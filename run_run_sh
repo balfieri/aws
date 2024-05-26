@@ -1,7 +1,9 @@
 #!/bin/bash
-echo "in run_run_sh"
+echo "in run_run_sh, which does:"
+ec2-metadata -d
 cd /home/ec2-user/run
 pwd
 rm -f index.out results.out
 ec2-metadata -l | sed 's/.*: //' > index.out
 ./run.sh `cat index.out` >& results.out
+shutdown
