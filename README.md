@@ -475,7 +475,7 @@ vol_snapshot            # get snapshot-nnn id of most recent snapshot for instan
 vol_snapshots           # get snapshot-nnn ids of all snapshots for instance's root volume
 image_snapshot_inst name # take a snapshot and use it to create a new launchable image with name 
 image_snapshot snapshot name # from an existing snapshot, create a new launchable image with name 
-my_image                # get ami-nnn id of most recently created image
+my_last_image           # get ami-nnn id of most recently created image
 my_images               # get ami-nnn ids of all created images
 my_vols                 # get vol-nnn ids of all created volumes (third column is true if encrypted)
 </pre>
@@ -560,7 +560,7 @@ create_insts 3 -script "local_script" -clone_master
 
 <p>
 If you've already cloned the master, you can use the ami-nnn image id directly, which is available 
-by first executing <b>my_image</b> to get the latest ami-nnn image created:</p>
+by first executing <b>my_last_image</b> to get the latest ami-nnn image created:</p>
 <pre>
 create_insts 3 -script "local_script" -image ami-nnn
 </pre>
@@ -663,9 +663,9 @@ my_insts -time 2019-02-11T03:24:03.000Z -show_state
 </pre>
 
 <p>
-Even easier, you could find all instances that were created using the last <b>my_image</b> (remembering that -clone_master will cause an implicit image snapshot of the master):</p>
+Even easier, you could find all instances that were created using the last <b>my_last_image</b> (remembering that -clone_master will cause an implicit image snapshot of the master):</p>
 <pre>
-my_insts -image `my_image` -show_state
+my_insts -image `my_last_image` -show_state
 </pre>
 
 <pre>

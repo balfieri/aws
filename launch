@@ -72,7 +72,7 @@ else:
 
 if do_harvest:
     print( f'Harvesting results...' )
-    image = cmd( 'my_image', echo=False, echo_stdout=True )
+    image = cmd( 'my_last_image', echo=False, echo_stdout=True )
     while True:
         # get list of all instances that use image
         s = cmd( f'my_insts -image {image} -show_state', echo=False, echo_stdout=True )

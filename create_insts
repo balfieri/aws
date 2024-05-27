@@ -46,14 +46,14 @@ while( @ARGV != 0 )
         my $cmd = "image_snapshot_inst ${name} ${master_inst} ${master_image} ${arch}";
         print "${cmd}\n";
         system( $cmd ) == 0 or die "ERROR: could not clone master_inst\n"; 
-        $image = `my_image`;
+        $image = `my_last_image`;
     } else {
         die "ERROR: unknown create_insts option '$arg'\n";
     }
 }
-defined $image  or $image = `my_image`;
+defined $image  or $image = `my_last_image`;
 $image ne ""    or $image = `inst_image`;
-$image ne ""    or die "ERROR: there is no my_image or inst_image; please provide one using the -image ami-nnn option\n";
+$image ne ""    or die "ERROR: there is no my_last_image or inst_image; please provide one using the -image ami-nnn option\n";
 defined $type   or $type = `inst_type`;
 $type ne ""     or die "ERROR: there is no inst_type; please provide one using the -type ... option\n";
 defined $key    or $key = `inst_key`;
