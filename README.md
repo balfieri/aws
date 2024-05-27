@@ -551,6 +551,14 @@ an S3 bucket, then access the data from the instances.  More on S3 later.</p>
 ## Create Multiple Instances as Clones of the Master and Execute a Script On Each
 
 <p>
+Before cloning the master, it's wise to update any software packages installed on it.
+This will also make the created instances start up faster because package update is
+done by default during the start-up of each inst:</p>
+<pre>
+on_inst sudo yum update -y
+</pre>
+
+<p>
 Create 3 on-demand instances cloned from the current master_inst.
 This will first execute <b>image_snapshot_inst</b> above to clone the master:</p>
 </p>
