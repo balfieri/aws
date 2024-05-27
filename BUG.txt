@@ -1,8 +1,8 @@
-eg/launch now runs, but need to write and test the harvesting now
-
-but minor tweak:
+first minor tweak:
 - pass along other create_insts args like -type and -spot
 
+
+eg/launch now runs, but need to write and test the harvesting now
 
 
 Windows desktop:
