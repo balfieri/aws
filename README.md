@@ -693,8 +693,11 @@ delete_inst i-nnn
 
 <p>Or gather up multiple names and use this one:</p>
 <pre>
-delete_insts i-nnn i-ooo i-ppp ...
+delete_inst i-nnn i-ooo i-ppp ...
 </pre>
+
+</p>
+Note that delete_inst will not by default delete the master_inst if you pass now argument.</p>
 
 <p>For the example.sh script earlier, we could have done something as simple as the following to 
 see the final result printed to stdout, which goes in /var/log/cloud-init-output.log on the
@@ -726,6 +729,18 @@ delete the instance.
 <p>
 Once all instances have been harvested and deleted, they should all be in the shutting-down or terminated state.  After about
 15 minutes, terminated instances will drop off the <b>my_insts</b> list.</p>
+
+<p>
+If you think the instances are not behaving correctly and want to stop them all, you can use:</p>
+<pre>
+stop_inst `my_insts`
+</pre>
+
+<p>
+If you want to go further and delete all instances except the master instance, you can use:</p>
+<pre>
+delete_inst `my_insts -except_master`
+</pre>
 
 # A Canonical Way to Launch and Harvest Results
 
@@ -789,8 +804,6 @@ can obviously also interrogate results[0,1,2,...].out.
 
 # Future Work
 
-* delete_all_insts - except master by default
-* stop_all_insts
 * show how to run a Linux desktop in the cloud and VNC to it through a ssh tunnel
 * show how to run a Windows desktop in the cloud and RDP to it
 * show how to run a Mac desktop in the cloud and Apple Remote Desktop to it

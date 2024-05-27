@@ -5,8 +5,9 @@ use warnings;
 
 my $filters = "";
 my $queries = "InstanceId";
-my $show_useful = 0;
+my $output  = "text";
 my $show_reservation = 0;
+my $except_insts = {};
 
 while( @ARGV != 0 ) 
 {
@@ -25,6 +26,12 @@ while( @ARGV != 0 )
         $filters .= "\"Name=client-token,Values=" . (shift @ARGV) . "\"";
     } elsif ( $arg eq "-reservation" ) {
         $filters .= "\"Name=reservation-id,Values=" . (shift @ARGV) . "\"";
+    } elsif ( $arg eq "-except_master" ) {
+        my $inst = `master_inst`;
+        $except_insts->{$inst} = 1;
+    } elsif ( $arg eq "-except" ) {
+        my $inst = shift @ARGV;
+        $except_insts->{$inst} = 1;
     } elsif ( $arg eq "-show_time" ) {
         $queries .= ",LaunchTime";
     } elsif ( $arg eq "-show_state" ) {
@@ -39,18 +46,29 @@ while( @ARGV != 0 )
         $queries .= ",UserData";
     } elsif ( $arg eq "-show_token" ) {
         $queries .= ",ClientToken";
+    } elsif ( $arg eq "-show_useful" ) {
+        $queries .= ",LaunchTime,State.Name,InstanceType,ImageId,Placement.AvailabilityZone,UserData,ClientToken";
     } elsif ( $arg eq "-show_reservation" ) {
         $show_reservation = 1;
-    } elsif ( $arg eq "-show_useful" ) {
-        $show_useful = 1;
+    } elsif ( $arg eq "-json" ) {
+        $output = "json";
     } else {
         die "ERROR: unknown create_insts option '$arg'\n";
     }
 }
 
-$show_useful and $queries .= ",LaunchTime,State.Name,InstanceType,ImageId,Placement.AvailabilityZone,UserData,ClientToken";
 $queries = "--query Reservations[*].[Instances[*].[${queries}]]";
 $show_reservation and $queries =~ s/Instances/ReservationId,Instances/;
 $filters ne "" and $filters = "--filters ${filters}";
 
-system( "aws ec2 describe-instances ${filters} ${queries} --output text" );
+my @lines = `aws ec2 describe-instances ${filters} ${queries} --output ${output}`;
+for my $line ( @lines )
+{
+    if ( scalar( keys %$except_insts ) ) {
+        my ( $inst, @rest ) = split( /\s+/, $line );
+        if ( exists $except_insts->{$inst} ) {
+            next;
+        }
+    }
+    print $line;
+}
