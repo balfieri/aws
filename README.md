@@ -476,7 +476,8 @@ vol_snapshots           # get snapshot-nnn ids of all snapshots for instance's r
 image_snapshot_inst name # take a snapshot and use it to create a new launchable image with name 
 image_snapshot snapshot name # from an existing snapshot, create a new launchable image with name 
 my_last_image           # get ami-nnn id of most recently created image
-my_images               # get ami-nnn ids of all created images
+my_images               # get ami-nnn ids and time created of all created images
+my_images_json          # show all information for all images in json format
 my_vols                 # get vol-nnn ids of all created volumes (third column is true if encrypted)
 </pre>
 
