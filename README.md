@@ -771,8 +771,11 @@ launch -c 3
 </pre>
 
 <p>
-And there are arguments that can be used to change the name of the bundle and other
-things, but I recommend just using the defaults.
+And there are arguments that can be used to change the name of the bundle (-b bundle_name) and other things.
+
+<p>
+The following arguments can also be passed into launch and will be passed
+on to create_insts without modification: -type, -key, -zone, -spot, -spot_type.
 
 <p>
 The launch script will do the following work:

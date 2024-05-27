@@ -15,6 +15,7 @@ bundle     = 'bundle'
 inst_cnt   = 1
 do_launch  = True
 do_harvest = True
+other_create_args = ''
 
 i = 1
 while i < len(sys.argv):
@@ -28,6 +29,8 @@ while i < len(sys.argv):
         do_launch = int(sys.argv[i]) == 1
     elif arg == '-do_harvest':
         do_harvest = int(sys.argv[i]) == 1
+    elif arg == '-type' or arg == '-key' or arg == '-zone' or arg == '-spot' or arg == '-spot_type':
+        other_create_args += ' ' + arg + ' ' + sys.argv[i]
     else:
         die( f'unknown option: {arg}' )
     i += 1
@@ -66,7 +69,7 @@ if do_launch:
 
     print( f'Launching {inst_cnt} instances that are clones of the master instance...' )
     script = get_script_dir() + '/run_run_sh'
-    cmd( f'create_insts {inst_cnt} -script {script} -clone_master' )
+    cmd( f'create_insts {inst_cnt} -script {script} -clone_master{other_create_args}' )
 else:
     print( f'NOT relaunching work' )
 
