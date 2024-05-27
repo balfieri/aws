@@ -3,9 +3,12 @@
 use strict;
 use warnings;
 
-my $inst = shift @ARGV || `master_inst`;
-my $host = `inst_host ${inst}`;
-if ( $host ne "" ) {
-    print "Stopping $inst...\n";
-    system( "aws ec2 stop-instances --instance-ids ${inst}" );
+@ARGV == 0 and unshift @ARGV, `master_inst`;
+for my $inst ( @ARGV )
+{
+    my $host = `inst_host ${inst}`;
+    if ( $host ne "" ) {
+        print "Stopping $inst...\n";
+        system( "aws ec2 stop-instances --instance-ids ${inst}" );
+    }
 }
