@@ -3,4 +3,5 @@
 use strict;
 use warnings;
 
-system( "aws ec2 describe-instances --query 'Reservations[*].Instances[*].{ID:InstanceId,Name:State.Name}' --output text" );
+my $args = join( " ", @ARGV );
+system( "my_insts -show_state ${args}" );

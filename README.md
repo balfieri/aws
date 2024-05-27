@@ -423,10 +423,10 @@ These commands show information for all instances:</p>
 
 <pre>
 master_inst             # show i-nnn id of master (i.e., default) instance
-my_insts                # list i-nnn ids of all of your instances 
+my_insts                # list i-nnn ids of all of your instances (has many options)
 my_insts -show_useful   # list useful information for all instances
-my_insts_json           # list all information for all instances in JSON format
-my_insts_zone           # list i-nnn ids and the zone of all of your instances
+my_insts_state          # list i-nnn ids and states (equivalent to my_insts -show_state)
+my_insts_json           # list all information for all instances in json format
 </pre>
 
 <p>

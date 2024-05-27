@@ -1,6 +1,0 @@
-#!/usr/bin/perl -w
-#
-use strict;
-use warnings;
-
-system( "aws ec2 describe-instances --query 'Reservations[*].Instances[*].{ID:InstanceId,Name:ClientToken}' --output text" );
