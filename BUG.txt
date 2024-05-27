@@ -1,1 +1,4 @@
 eg/launch now runs, but need to write and test the harvesting now
+
+but minor tweak:
+- pass along other create_insts args like -type and -spot

@@ -745,7 +745,7 @@ stop_inst `my_insts`
 </pre>
 
 <p>
-If you want to go further and delete all instances except the master instance, you can use:</p>
+If you want to give up completely and delete all instances except the master instance, you can use:</p>
 <pre>
 delete_inst `my_insts -except_master`
 </pre>
