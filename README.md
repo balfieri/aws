@@ -823,8 +823,8 @@ no results{i}.tar.gz, which is optional with launch. After all the results are h
 doit.launch checks to make sure it finds 'PASS' in each results{i}.out file and that the computed
 factorial is correct.
 
-<p>
-doit.launch</p>
+<pre>
+doit.launch</pre>
 
 <p>
 In a real example, your doit.launch script would instead combine results in some application-specific
