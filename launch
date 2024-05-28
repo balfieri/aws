@@ -9,7 +9,7 @@ def die( msg ):
     sys.exit( 1 )
 
 cmd_en = True
-cmd_force_echo_stdout = True
+cmd_force_echo_stdout = False
 
 bundle     = 'bundle'
 inst_cnt   = 1
@@ -52,11 +52,20 @@ def get_script_dir():
     abs_script_path = os.path.abspath( script_path )
     return os.path.dirname( abs_script_path )
 
+def file_exists( file_name ):
+    try:
+        with open( file_name ) as f:
+            return True
+    except FileNotFoundError:
+        return False
+
 bundle_tar_path = f'{bundle}.tar.gz'
 if not os.path.exists( bundle_tar_path ): 
     die( f'bundle {bundle_tar_path} not found, use -b <bundle> switch to change bundle prefix' )
 
+print()
 if do_launch:
+    print( f'Launching work...' )
     print( f'Removing local results files...' )
     cmd( f'rm -f results*.out results*.tar.gz' )
 
@@ -73,12 +82,16 @@ if do_launch:
 else:
     print( f'NOT relaunching work' )
 
+print()
 if do_harvest:
     print( f'Harvesting results...' )
-    image = cmd( 'my_last_image', echo=False, echo_stdout=True )
+    image = cmd( 'my_last_image', False )
+    if not image: die( f'no last image' )
+    print( f'launch image: {image}' )
     while True:
         # get list of all instances that use image
-        s = cmd( f'my_insts -image {image} -show_state', echo=False, echo_stdout=True )
+        s = cmd( f'my_insts -image {image} -show_state' )
+        print( s )
         lines = s.rstrip( '\n' ).splitlines()
 
         # for each one in the stopped state, figure out its index, copy
@@ -92,14 +105,15 @@ if do_harvest:
                 print( f'Harvesting instance {name}...' )
                 cmd( f'rm -f index.out' )
                 cmd( f'fm_inst {name} run/index.out index.out' )
-                i = cmd( f'cat index.out', echo=False, echo_stdout=True )
+                i = cmd( f'cat index.out', False )
                 i = int(i)
                 print( f'launch index: {i}' )
+                cmd( f'rm -f index.out' )
                 print( f'Copying results{i}.out and results{i}.tar.gz...' )
                 cmd( f'rm -f results{i}.out results{i}.tar.gz' )
                 cmd( f'fm_inst {name} run/results.out results{i}.out' )
                 print( f'Note: not currently looking for "PASS" in results{i}.out' )
-                cmd( f'fm_inst {name} run/results.tar.gz results{i}.tar.gz', can_die=True )
+                cmd( f'fm_inst {name} run/results.tar.gz results{i}.tar.gz', True )
                 print( f'Deleting instance {name}...' )
                 cmd( f'delete_inst {name}' )
             elif state == 'pending' or state == 'running' or state == 'stopping':
