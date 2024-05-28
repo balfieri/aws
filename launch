@@ -3,6 +3,7 @@
 import os
 import sys
 import subprocess
+import time
 
 def die( msg ):
     print( f'ERROR: {msg}' )
@@ -124,7 +125,7 @@ if do_harvest:
             break
 
         print( f'Sleeping for 60 seconds because {num_left} instances are not done yet' )
-        sleep( 60 )
+        time.sleep( 60 )
             
 else:
     print( f'NOT harvesting results' )

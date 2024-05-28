@@ -1,4 +1,6 @@
-eg/launch now runs, but need to write and test the harvesting now
+Linux desktop:
 
 Windows desktop:
 aws ec2 describe-images --owners amazon --filters "Name=platform,Values=windows" "Name=name,Values=*Windows_Server-2019*"
+
+Mac desktop:

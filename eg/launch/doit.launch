@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 #
-# doit.launch - outer script that calls launch and combines results
+# doit.launch - outer script that calls launch and checks results
 #
 import os
 import sys
 import subprocess
+import re
+
+c = 3   # number of instances to launch
 
 def die( msg ):
     print( f'ERROR: {msg}' )
@@ -25,11 +28,49 @@ def cmd( c, echo=True, echo_stdout=False, can_die=True, timeout=None ):
     else:
         return ''
 
-# create bundle.tar.gz with files needed on launched servers
+def file_read( file_name ):
+    if not os.path.exists( file_name ): die( f'file not found: {file_name}' )
+    with open( file_name ) as my_file:
+        data = my_file.read()
+    return data
+
+def match( s, pattern ): 
+    return re.compile( pattern ).match( s )
+
+def factorial( n ):
+    r = 1
+    while n > 1:
+        r *= n
+        n -= 1
+    return r
+
+# create bundle.tar.gz with files needed on launched instances
 cmd( 'tar cvfz bundle.tar.gz main.cpp build.sh run.sh' )
 
-# launch onto 3 instances
-#cmd( 'launch -c 3 -do_harvest 0' )
-cmd( 'launch -c 1 -do_launch 0 -do_harvest 1' )
+# launch onto c instances and harvest results
+cmd( f'launch -c {c} -do_launch 1 -do_harvest 1' )
 
-# combine results
+# check results (specific to this example)
+print( f'\nChecking results...' )
+for i in range(c):
+    print( f'Reading results{i}.out...' )
+    s = file_read( f'results{i}.out' )
+    lines = s.split( '\n' )
+    have_pass = False
+    have_factorial = False
+    for line in lines:
+        if match( line, r'^PASS' ): 
+            have_pass = True
+
+        m = match( line, r'^(\d+)\! = (\d+)' )
+        if m:
+            have_factorial = True
+            n = int( m.group(1) )
+            f = int( m.group(2) )
+            if f != factorial( n ):
+                die( f'bad factorial result: {line}' )
+            
+    if not have_pass: die( f'did not find PASS line' )
+    if not have_factorial: die( f'did not find factorial result line' )
+
+print( '\nPASSED' )

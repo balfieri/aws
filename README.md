@@ -814,6 +814,22 @@ Once the launch script ends, the user script can unpack all of the results[0,1,2
 and combine the results in an application-specific way on this PC side. The user script
 can obviously also interrogate results[0,1,2,...].out.
 
+## Trivial Example
+
+Under eg/launch there's a trivial example that launches 3 instances and harvests the results
+using launch. The outer script is doit.launch. It bundles a simple main.cpp program that
+computes the factorial of the instance index and writes it to results{i}.out. There is
+no results{i}.tar.gz, which is optional with launch. After all the results are harvested by launch,
+doit.launch checks to make sure it finds 'PASS' in each results{i}.out file and that the computed
+factorial is correct.
+
+<p>
+doit.launch</p>
+
+<p>
+In a real example, your doit.launch script would instead combine results in some application-specific
+way, but it would still make sure that 'PASS' is found because launch does not currently check for that.
+
 # Future Work
 
 * show how to run a Linux desktop in the cloud and VNC to it through a ssh tunnel
